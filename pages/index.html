@@ -1,52 +1,116 @@
 <section class="hero hero-home">
-  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-bg" aria-hidden="true"></div>
   <div class="container hero-layout">
     <div class="hero-copy reveal">
-      <p class="eyebrow"><span></span> Engineering technology into reality</p>
+      <p class="eyebrow">Engineering technology into reality</p>
       <h1>Ideas deserve to <em>work</em> in the real world.</h1>
-      <p class="hero-lede">Eneon Technologies designs and develops practical hardware, embedded systems, connected devices, software, and prototypes that turn ambitious ideas into dependable technology.</p>
+      <p class="hero-lede">Eneon Technologies designs and builds practical hardware, embedded systems, connected devices and software — turning ambitious ideas into dependable technology.</p>
       <div class="button-row">
-        <a class="button" href="projects.html">Explore our work <span aria-hidden="true">↗</span></a>
-        <a class="text-link" href="contact.html">Start a project <span aria-hidden="true">→</span></a>
+        <a class="button" href="contact.html">Start a project <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+        <a class="button button-ghost" href="services.html">Explore capabilities</a>
       </div>
+      <ul class="hero-tags" aria-label="Core disciplines">
+        <li>Hardware</li><li>Embedded</li><li>IoT</li><li>Software</li><li>Prototyping</li>
+      </ul>
     </div>
-    <figure class="hero-visual reveal" data-delay="150">
-      <img class="illustration-frame" src="images/general/hero-engineering-concept.svg" width="960" height="840" alt="Illustrative engineering-system concept showing a device, signal paths and connected interface">
-      <figcaption class="visual-caption">Illustrative concept · from first question to functional system.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="section section-intro">
-  <div class="container split-heading">
-    <p class="eyebrow reveal"><span></span> What we do</p>
-    <div class="reveal"><h2>Engineering that connects the <em>whole system.</em></h2><p>Good technology is more than a schematic, an enclosure, or an interface. We bring the parts together with a practical, testable approach—so ideas can move from possibility to proof.</p></div>
-  </div>
-  <div class="container capability-strip">
-    <a href="services.html#hardware" class="capability-card reveal"><span class="icon icon-circuit" aria-hidden="true"></span><h3>Hardware</h3><p>Electronics, sensing, power and device architecture.</p><span>01</span></a>
-    <a href="services.html#embedded" class="capability-card reveal" data-delay="80"><span class="icon icon-chip" aria-hidden="true"></span><h3>Embedded</h3><p>Firmware and control for purposeful devices.</p><span>02</span></a>
-    <a href="services.html#iot" class="capability-card reveal" data-delay="160"><span class="icon icon-network" aria-hidden="true"></span><h3>Connected</h3><p>IoT systems, telemetry and remote visibility.</p><span>03</span></a>
-    <a href="services.html#software" class="capability-card reveal" data-delay="240"><span class="icon icon-code" aria-hidden="true"></span><h3>Software</h3><p>Useful applications, platforms and dashboards.</p><span>04</span></a>
-  </div>
-</section>
-
-<section class="section dark-section">
-  <div class="container work-feature">
-    <div class="section-heading reveal"><p class="eyebrow eyebrow-light"><span></span> Built to show the work</p><h2>Technology is best understood when you can see it <em>working.</em></h2></div>
-    <div class="work-placeholder reveal">
-      <div class="technical-image technical-image-large"><span>PROJECT PORTFOLIO</span><div class="trace trace-one"></div><div class="trace trace-two"></div><div class="trace trace-three"></div><div class="measurement">0—1—2—3—4</div></div>
-      <div class="work-feature-copy"><p class="label">Portfolio-ready</p><h3>Approved case studies belong here.</h3><p>Eneon’s project space is structured for real evidence: project context, technologies, outcomes, images and video. No fabricated work—just a strong foundation for confirmed stories.</p><a class="text-link text-link-light" href="projects.html">View project framework <span aria-hidden="true">→</span></a></div>
+    <div class="hero-visual reveal" data-delay="150" aria-hidden="true">
+      <div class="orbit orbit-outer"></div>
+      <div class="orbit orbit-mid"></div>
+      <div class="orbit orbit-inner"></div>
+      <div class="hero-glow"></div>
+      <img class="hero-mark" src="images/brand/eneon-mark-lg.webp" width="480" height="480" alt="">
+      <span class="chip chip-1"><svg class="i"><use href="#i-circuit"/></svg>Electronics</span>
+      <span class="chip chip-2"><svg class="i"><use href="#i-cpu"/></svg>Firmware</span>
+      <span class="chip chip-3"><svg class="i"><use href="#i-signal"/></svg>Telemetry</span>
+      <span class="chip chip-4"><svg class="i"><use href="#i-code"/></svg>Platforms</span>
     </div>
   </div>
 </section>
 
 <section class="section">
-  <div class="container future-layout">
-    <div class="future-art reveal" aria-hidden="true"><div class="future-line"></div><div class="future-block block-one"></div><div class="future-block block-two"></div><span>NOW</span><span>NEXT</span></div>
-    <div class="reveal"><p class="eyebrow"><span></span> Built for what comes next</p><h2>Services today.<br><em>Products tomorrow.</em></h2><p>Eneon is growing the engineering depth required to create proprietary technology products—without losing the focus and care that client work demands today.</p><a class="button button-outline" href="products.html">Explore the product direction <span aria-hidden="true">↗</span></a></div>
+  <div class="container">
+    <div class="section-heading split reveal">
+      <div><p class="eyebrow">What we do</p><h2>Engineering that connects the <em>whole system.</em></h2></div>
+      <p>Good technology is more than a schematic, an enclosure or an interface. We bring the parts together with a practical, testable approach — so ideas move from possibility to proof.</p>
+    </div>
+    <div class="card-grid card-grid-4">
+      <a href="services.html#hardware" class="feature-card reveal"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-circuit"/></svg></span><h3>Hardware</h3><p>Electronics, sensing, power and device architecture.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
+      <a href="services.html#embedded" class="feature-card reveal" data-delay="80"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-cpu"/></svg></span><h3>Embedded</h3><p>Firmware and control logic for purposeful devices.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
+      <a href="services.html#iot" class="feature-card reveal" data-delay="160"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-signal"/></svg></span><h3>Connected</h3><p>IoT systems, telemetry and remote visibility.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
+      <a href="services.html#software" class="feature-card reveal" data-delay="240"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg></span><h3>Software</h3><p>Applications, platforms, APIs and dashboards.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-heading reveal"><p class="eyebrow">How we work</p><h2>Clear questions. Useful prototypes. <em>Deliberate iteration.</em></h2></div>
+    <ol class="steps">
+      <li class="reveal"><span class="step-num">01</span><h3>Understand</h3><p>Clarify the problem, the people involved and the real-world constraints.</p></li>
+      <li class="reveal" data-delay="80"><span class="step-num">02</span><h3>Define</h3><p>Shape a realistic scope, system architecture and delivery plan.</p></li>
+      <li class="reveal" data-delay="160"><span class="step-num">03</span><h3>Build</h3><p>Develop, integrate and validate hardware, firmware and software together.</p></li>
+      <li class="reveal" data-delay="240"><span class="step-num">04</span><h3>Refine</h3><p>Use test evidence to improve the solution and plan what comes next.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!--
+  OPTIONAL SHOWREEL — paste a Cloudinary video URL and remove these comment markers to show it.
+  The build adds f_auto,q_auto automatically. Keep showreel videos short (10–30s) and silent.
+
+<section class="section section-dark">
+  <div class="container">
+    <div class="section-heading split reveal">
+      <div><p class="eyebrow">In motion</p><h2>See the engineering <em>at work.</em></h2></div>
+      <p>A short look at the devices, systems and software we build.</p>
+    </div>
+    <figure class="media-frame reveal">
+      <video src="https://res.cloudinary.com/YOUR_CLOUD/video/upload/v1/eneon/showreel.mp4"
+             poster="https://res.cloudinary.com/YOUR_CLOUD/video/upload/so_1/v1/eneon/showreel.jpg"
+             autoplay muted loop playsinline preload="metadata"></video>
+    </figure>
+  </div>
+</section>
+-->
+
+<section class="section section-dark">
+  <div class="container work-feature">
+    <div class="reveal">
+      <p class="eyebrow">Selected work</p>
+      <h2>Technology is best understood when you can see it <em>working.</em></h2>
+      <p>Our case studies show the context, process, technology and outcomes behind each engagement — with images and video of the systems in action.</p>
+      <a class="button button-light" href="projects.html">View projects <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+    <div class="stat-panel reveal" data-delay="120">
+      <div class="stat"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg><b>End-to-end</b><span>From circuit to cloud to interface</span></div>
+      <div class="stat"><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg><b>Prototype-first</b><span>Test assumptions early, with real hardware</span></div>
+      <div class="stat"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><b>Built to last</b><span>Documented, maintainable engineering</span></div>
+      <div class="stat"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg><b>Outcome-focused</b><span>Technology with a clear job to do</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split-feature">
+    <div class="roadmap reveal" aria-hidden="true">
+      <div class="roadmap-track"></div>
+      <div class="roadmap-node is-now"><span>Now</span><b>Engineering services</b></div>
+      <div class="roadmap-node"><span>Next</span><b>Proprietary products</b></div>
+    </div>
+    <div class="reveal">
+      <p class="eyebrow">Built for what comes next</p>
+      <h2>Services today.<br><em>Products tomorrow.</em></h2>
+      <p>Every engagement deepens the engineering capability Eneon needs to create its own technology products — without losing the focus and care client work demands today.</p>
+      <a class="text-link" href="products.html">Our product direction <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
   </div>
 </section>
 
 <section class="section cta-section">
-  <div class="container cta-card reveal"><div><p class="eyebrow"><span></span> Start with a conversation</p><h2>Have an idea that needs engineering?</h2></div><a class="button button-light" href="contact.html">Talk to Eneon <span aria-hidden="true">↗</span></a></div>
+  <div class="container">
+    <div class="cta-card reveal">
+      <div><p class="eyebrow">Start with a conversation</p><h2>Have an idea that needs engineering?</h2><p>Tell us what you are building. We will help you find a practical first step.</p></div>
+      <a class="button button-light" href="contact.html">Talk to Eneon <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+    </div>
+  </div>
 </section>

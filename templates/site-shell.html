@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0a4fa3">
-  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#050a14" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
   <title>__TITLE__</title>
   <meta name="description" content="__DESCRIPTION__">
   <meta name="keywords" content="__KEYWORDS__">
@@ -14,13 +15,21 @@
   <meta property="og:title" content="__TITLE__">
   <meta property="og:description" content="__DESCRIPTION__">
   <meta property="og:url" content="__CANONICAL__">
-  <meta property="og:image" content="__BASE_URL__/images/general/eneon-social-card.svg">
+  <meta property="og:image" content="__BASE_URL__/images/brand/eneon-social-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Eneon Technologies — engineering technology into reality">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="__TITLE__">
   <meta name="twitter:description" content="__DESCRIPTION__">
-  <meta name="twitter:image" content="__BASE_URL__/images/general/eneon-social-card.svg">
-  <link rel="icon" href="images/logo/favicon.svg" type="image/svg+xml">
+  <meta name="twitter:image" content="__BASE_URL__/images/brand/eneon-social-card.jpg">
+  <link rel="icon" href="images/brand/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="images/brand/favicon-64.png" sizes="64x64" type="image/png">
+  <link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
   <script>try{var eneonTheme=localStorage.getItem("eneon-theme");document.documentElement.dataset.theme=eneonTheme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){}</script>
   <link rel="stylesheet" href="css/style.css?v=__CACHE_VERSION__">
 </head>

@@ -16,8 +16,10 @@ and metadata remain available without JavaScript.
 - The shared header includes an accessible light/dark theme control. It follows the
   visitor's system preference until they choose a theme, then retains that choice
   in browser local storage.
-- `images/` — logo and clearly labelled SVG placeholders.
-- `videos/projects/` — destination for approved compressed project video.
+- `images/brand/` — optimized logo mark, favicons and social sharing card (generated from `logo/`).
+- `logo/` — original Eneon logo source files (not loaded by the site; too large for web use).
+- Project, product and page photos/videos are **not stored in the repo** — they are
+  loaded from Cloudinary URLs. See "Images and video (Cloudinary)" below.
 - `scripts/` — generation and cache-version utilities.
 
 ## Local preview
@@ -67,38 +69,54 @@ query parameters. To use a staging or production canonical domain while building
 ENEON_SITE_URL=https://your-domain.example ./scripts/build-pages.sh
 ```
 
-## Adding an approved project
+## Images and video (Cloudinary)
 
-1. Add optimized images under `images/projects/` and optional MP4/WebM under
-   `videos/projects/`.
-2. Add an accessible project card to `pages/projects.html`.
-3. Set its real category in `data-category`, plus lightbox media attributes.
-4. Add a project detail source page and manifest row if the project needs a
-   dedicated public page, then rebuild.
+All content media lives in Cloudinary. Upload a file in the Cloudinary console, copy its
+delivery URL (e.g. `https://res.cloudinary.com/<cloud>/image/upload/v1712/eneon/projects/meter.jpg`)
+and paste it straight into the page source in `pages/`.
 
-Use meaningful alt text, a poster image and `preload="metadata"` for video. Do
-not add client/project claims before approval. See `projects/README.md`.
+- **Automatic optimization:** the build inserts `f_auto,q_auto` into every Cloudinary URL that
+  doesn't already set a format/quality, so visitors get WebP/AVIF and right-sized quality
+  automatically. Set `ENEON_CLOUDINARY_AUTO=0` to turn this off. (Avoid folder names that look
+  like transformations, such as `w_photos/`.)
+- **Cropping/resizing:** add transformations after `/upload/`, e.g. `c_fill,ar_4:3,w_800/` for
+  uniform project thumbnails.
+- **Video thumbnails:** take a frame from the video itself by using the same video URL with
+  `so_1` (1 second in) and a `.jpg` extension:
+  `.../video/upload/so_1,c_fill,ar_4:3,w_800/v1/eneon/projects/demo.jpg`. The lightbox does
+  this automatically when a video has no `data-lightbox-poster`.
 
-## Adding a product
+Ready-to-copy templates are in HTML comments in the page sources (comments are stripped
+from the published pages):
 
-When a real product is ready, replace a placeholder in `pages/products.html`.
-For a detail page, create `products/product-name.html` from the documented
-structure in `products/README.md`, including verified feature, support and
-documentation information. Do not present a product as available until it is.
+- `pages/projects.html` — image and video project cards (the "case studies in preparation"
+  panel and filter buttons switch automatically once a card exists).
+- `pages/products.html` — product card.
+- `pages/index.html` — optional autoplaying showreel video.
+- `pages/about.html` — optional team/workspace photo.
+
+Use meaningful alt text and keep autoplay video short and muted. Only publish client names,
+project details and media after appropriate approval.
+
+## Contact form
+
+The enquiry form works without a backend: it opens the visitor's email app with the enquiry
+pre-filled and addressed to `data-mailto`. To receive submissions directly, create a form on a
+service such as Formspree and paste its endpoint into `data-endpoint` in `pages/contact.html`,
+then update `pages/privacy.html`.
 
 ## Branding and deployment
 
-Brand colors are CSS variables at the start of `css/style.css`. The logo is in
-`images/logo/`; replace it only with the approved Eneon mark while preserving
-accessible image behavior. The placeholder SVGs explicitly identify themselves
-and should be replaced by approved project/product media.
+Brand colors are CSS variables at the start of `css/style.css`, taken from the logo
+(navy `#003D92`, blue `#068CE3`, cyan `#0DBDF1`). The web logo files in `images/brand/` are
+generated from `logo/eneon_logo_no_text.svg`; regenerate them if the logo changes.
 
 Upload the generated root HTML files plus `css/`, `js/`, `images/`,
-`videos/`, `robots.txt` and `sitemap.xml` to GitHub Pages, Netlify, Vercel,
+`robots.txt` and `sitemap.xml` to GitHub Pages, Netlify, Vercel,
 Cloudflare Pages or a normal web server. The source folders can be deployed too,
 but are not required by the browser. Configure a host 404 rule to serve
 `404.html` where supported.
 
-Before launch, replace contact details, review the privacy page against actual
+Before launch, confirm the contact email, review the privacy page against actual
 data handling, set the production canonical domain, and validate the generated
 site with your preferred HTML/accessibility checker.

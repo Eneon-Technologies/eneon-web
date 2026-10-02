@@ -1,10 +1,80 @@
-<section class="page-hero"><div class="container narrow reveal"><p class="eyebrow"><span></span> Projects / our work</p><h1>Evidence belongs at the <em>center.</em></h1><p class="lede">This portfolio is ready to show the details behind approved engineering work: context, process, technology, media and outcomes.</p></div></section>
-<section class="section section-tight"><div class="container"><div class="portfolio-notice reveal"><span class="status-dot"></span><div><strong>Portfolio in preparation</strong><p>Eneon does not publish unverified or confidential work. The entries below are clearly marked content placeholders, included to demonstrate the future gallery structure.</p></div></div>
-<div class="filter-bar reveal" role="group" aria-label="Filter portfolio examples"><button class="filter-button is-selected" data-filter="all" type="button">All</button><button class="filter-button" data-filter="hardware" type="button">Hardware</button><button class="filter-button" data-filter="embedded" type="button">Embedded</button><button class="filter-button" data-filter="iot" type="button">IoT</button><button class="filter-button" data-filter="software" type="button">Software</button></div>
-<div class="project-grid">
-<article class="project-card reveal" data-category="hardware embedded"><button class="project-media" data-lightbox-media="images/projects/hardware-placeholder.svg" data-lightbox-type="image" data-lightbox-title="Hardware case study placeholder" aria-label="Open hardware project placeholder"><img src="images/projects/hardware-placeholder.svg" width="800" height="560" loading="lazy" alt="Placeholder for an approved hardware engineering project image"></button><div class="project-body"><p class="label">Portfolio placeholder · Hardware / Embedded</p><h2>Approved hardware case study</h2><p>Add confirmed project description, client permission status, technologies and outcomes here.</p><ul class="tag-list"><li>Images</li><li>Video-ready</li><li>Case study</li></ul></div></article>
-<article class="project-card reveal" data-delay="100" data-category="iot"><button class="project-media" data-lightbox-media="images/projects/iot-placeholder.svg" data-lightbox-type="image" data-lightbox-title="IoT case study placeholder" aria-label="Open IoT project placeholder"><img src="images/projects/iot-placeholder.svg" width="800" height="560" loading="lazy" alt="Placeholder for an approved IoT system project image"></button><div class="project-body"><p class="label">Portfolio placeholder · IoT</p><h2>Approved connected-systems case study</h2><p>Add a verified system story, media gallery and technology stack when it is available to share.</p><ul class="tag-list"><li>Telemetry</li><li>Media gallery</li><li>Case study</li></ul></div></article>
-<article class="project-card reveal" data-delay="200" data-category="software"><button class="project-media" data-lightbox-media="images/projects/software-placeholder.svg" data-lightbox-type="image" data-lightbox-title="Software case study placeholder" aria-label="Open software project placeholder"><img src="images/projects/software-placeholder.svg" width="800" height="560" loading="lazy" alt="Placeholder for an approved software project image"></button><div class="project-body"><p class="label">Portfolio placeholder · Software</p><h2>Approved software case study</h2><p>Add approved screenshots, a video walkthrough and useful context without exposing confidential information.</p><ul class="tag-list"><li>Images</li><li>MP4 / WebM</li><li>Case study</li></ul></div></article>
+<section class="page-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container narrow reveal"><p class="eyebrow">Projects</p><h1>Engineering you can <em>see working.</em></h1><p class="lede">Selected hardware, embedded, IoT and software work — the context, the process, the technology and the outcome.</p></div>
+</section>
+
+<section class="section section-tight projects">
+  <div class="container">
+    <div class="filter-bar reveal" role="group" aria-label="Filter projects">
+      <button class="filter-button is-selected" data-filter="all" type="button" aria-pressed="true">All</button>
+      <button class="filter-button" data-filter="hardware" type="button" aria-pressed="false">Hardware</button>
+      <button class="filter-button" data-filter="embedded" type="button" aria-pressed="false">Embedded</button>
+      <button class="filter-button" data-filter="iot" type="button" aria-pressed="false">IoT</button>
+      <button class="filter-button" data-filter="software" type="button" aria-pressed="false">Software</button>
+    </div>
+
+    <div class="project-grid">
+<!--
+  ADDING A PROJECT
+  Copy one of the cards below above this comment and replace the Cloudinary URLs and text.
+  - data-category: any of hardware, embedded, iot, software (space separated).
+  - The build adds f_auto,q_auto to every Cloudinary URL automatically.
+  - c_fill,ar_4:3,w_800 crops the thumbnail on Cloudinary so every card matches.
+  The "case studies in preparation" panel and the filter buttons switch automatically
+  once at least one card exists.
+
+  IMAGE PROJECT:
+      <article class="project-card reveal" data-category="hardware embedded">
+        <button class="project-media" type="button"
+                data-lightbox-media="https://res.cloudinary.com/YOUR_CLOUD/image/upload/v1/eneon/projects/smart-meter.jpg"
+                data-lightbox-type="image"
+                data-lightbox-title="Smart energy meter — assembled prototype">
+          <img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_4:3,w_800/v1/eneon/projects/smart-meter.jpg"
+               width="800" height="600" loading="lazy" alt="Assembled smart energy meter prototype on a test bench">
+        </button>
+        <div class="project-body">
+          <p class="label">Hardware · Embedded</p>
+          <h2>Smart energy meter</h2>
+          <p>One or two sentences on the problem, what was built and the outcome.</p>
+          <ul class="tag-list"><li>ESP32</li><li>PCB design</li><li>MQTT</li></ul>
+        </div>
+      </article>
+
+  VIDEO PROJECT (the thumbnail is a frame taken from the video itself: so_1 = 1 second in, .jpg extension):
+      <article class="project-card reveal" data-category="iot software">
+        <button class="project-media" type="button"
+                data-lightbox-media="https://res.cloudinary.com/YOUR_CLOUD/video/upload/v1/eneon/projects/dashboard-demo.mp4"
+                data-lightbox-type="video"
+                data-lightbox-title="Remote monitoring dashboard — live demo">
+          <img src="https://res.cloudinary.com/YOUR_CLOUD/video/upload/so_1,c_fill,ar_4:3,w_800/v1/eneon/projects/dashboard-demo.jpg"
+               width="800" height="600" loading="lazy" alt="Remote monitoring dashboard showing live sensor data">
+          <span class="play-badge"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg></span>
+        </button>
+        <div class="project-body">
+          <p class="label">IoT · Software</p>
+          <h2>Remote monitoring platform</h2>
+          <p>One or two sentences on the problem, what was built and the outcome.</p>
+          <ul class="tag-list"><li>LoRaWAN</li><li>Dashboard</li><li>Cloud</li></ul>
+        </div>
+      </article>
+-->
+    </div>
+
+    <div class="empty-state reveal">
+      <span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg></span>
+      <div>
+        <h2>Case studies in preparation</h2>
+        <p>We only publish work that clients have approved for sharing. Detailed case studies — with images and video of the systems in action — are being prepared now.</p>
+        <p>In the meantime, we are happy to talk through relevant experience directly.</p>
+        <div class="button-row"><a class="button" href="contact.html">Ask about our work <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a><a class="text-link" href="services.html">See capabilities <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Project media viewer">
+  <button class="lightbox-btn lightbox-close" type="button" data-lightbox-close aria-label="Close media viewer"><svg class="i" aria-hidden="true"><use href="#i-close"/></svg></button>
+  <button class="lightbox-btn lightbox-prev" type="button" data-lightbox-prev aria-label="Previous media"><svg class="i" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+  <figure class="lightbox-figure"><div class="lightbox-content" data-lightbox-content></div><figcaption data-lightbox-caption></figcaption></figure>
+  <button class="lightbox-btn lightbox-next" type="button" data-lightbox-next aria-label="Next media"><svg class="i" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
 </div>
-<p class="media-guidance">Future case studies may use normal <code>&lt;img&gt;</code> and <code>&lt;video&gt;</code> media. The included lightbox supports both, with keyboard and touch navigation.</p></div></section>
-<div class="lightbox" data-lightbox aria-hidden="true" role="dialog" aria-modal="true" aria-label="Project media viewer"><button class="lightbox-close" type="button" data-lightbox-close aria-label="Close media viewer">×</button><button class="lightbox-prev" type="button" data-lightbox-prev aria-label="Previous media">←</button><div class="lightbox-content" data-lightbox-content></div><button class="lightbox-next" type="button" data-lightbox-next aria-label="Next media">→</button><p data-lightbox-caption></p></div>

@@ -34,6 +34,19 @@ while IFS='|' read -r output slug title description keywords; do
     s{__FOOTER__}{do { local $/; open my $f, q{<}, $ENV{FOOTER_FILE} or die $!; <$f> }}e;
     s{__CONTENT__}{do { local $/; open my $f, q{<}, $ENV{BODY_FILE} or die $!; <$f> }}e;
   ' "$temp_file"
+  # Author notes in <!-- --> comments are for editors only; keep them out of published pages.
+  perl -0pi -e 's/[ \t]*<!--.*?-->[ \t]*\n?//gs' "$temp_file"
+  # Cloudinary: add automatic format + quality (f_auto,q_auto) to every image/video URL that
+  # doesn't already set f_ or q_. Disable with ENEON_CLOUDINARY_AUTO=0.
+  if [[ "${ENEON_CLOUDINARY_AUTO:-1}" != "0" ]]; then
+    perl -pi -e '
+      my $p = qr/(?:a|ac|af|ar|b|bo|br|c|co|cs|d|dl|dn|dpr|du|e|eo|f|fl|fn|fps|g|h|if|ki|l|o|p|pg|q|r|so|sp|t|u|vc|vs|w|x|y|z)_[^,\/\s"\x27<>]+/;
+      s{(https://res\.cloudinary\.com/[^/\s"\x27<>]+/(?:image|video)/upload/)((?:$p(?:,$p)*/)*)}{
+        my ($base, $t) = ($1, $2);
+        $t =~ m{(?:^|[,/])[fq]_} ? "$base$t" : "$base${t}f_auto,q_auto/"
+      }ge;
+    ' "$temp_file"
+  fi
   mv "$temp_file" "$root_dir/$output"; rm -f "$nav"; echo "Generated $output"
 done < "$manifest"
 echo "Build complete. Static pages are ready at $root_dir."
