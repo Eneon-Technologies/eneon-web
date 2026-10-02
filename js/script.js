@@ -11,7 +11,7 @@
     themeToggle?.setAttribute("aria-pressed", String(isDark));
     themeToggle?.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
   };
-  applyTheme(root.dataset.theme || "light");
+  applyTheme(root.dataset.theme || "dark");
   themeToggle?.addEventListener("click", () => {
     const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
     applyTheme(nextTheme);

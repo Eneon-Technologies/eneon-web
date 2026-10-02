@@ -13,9 +13,11 @@ and metadata remain available without JavaScript.
 - `pages/site-map.tsv` — output filename, title, description and keywords.
 - `css/style.css` — design tokens, components and responsive rules.
 - `js/script.js` — optional navigation, filter, lightbox, form and reveal enhancements.
-- The shared header includes an accessible light/dark theme control. It follows the
-  visitor's system preference until they choose a theme, then retains that choice
-  in browser local storage.
+- The shared header includes an accessible light/dark theme control. The site opens in
+  the dark (brand) theme until a visitor chooses otherwise; the choice is kept in
+  browser local storage.
+- The visual style (navy, two-tone white/cyan headings, cyan ring icons, circuit traces,
+  "Let’s build your idea" CTA) follows the Eneon service flyers.
 - `images/brand/` — optimized logo mark, favicons and social sharing card (generated from `logo/`).
 - `logo/` — original Eneon logo source files (not loaded by the site; too large for web use).
 - Project, product and page photos/videos are **not stored in the repo** — they are
@@ -92,6 +94,8 @@ from the published pages):
 - `pages/projects.html` — image and video project cards (the "case studies in preparation"
   panel and filter buttons switch automatically once a card exists).
 - `pages/products.html` — product card.
+- `pages/services.html` — an optional wide banner photo for each of the seven services
+  (one commented `<figure>` line per service; use clean photos without text).
 - `pages/index.html` — optional autoplaying showreel video.
 - `pages/about.html` — optional team/workspace photo.
 
@@ -111,7 +115,7 @@ Brand colors are CSS variables at the start of `css/style.css`, taken from the l
 (navy `#003D92`, blue `#068CE3`, cyan `#0DBDF1`). The web logo files in `images/brand/` are
 generated from `logo/eneon_logo_no_text.svg`; regenerate them if the logo changes.
 
-Upload the generated root HTML files plus `css/`, `js/`, `images/`,
+Upload the generated root HTML files plus `favicon.ico`, `css/`, `js/`, `images/`,
 `robots.txt` and `sitemap.xml` to GitHub Pages, Netlify, Vercel,
 Cloudflare Pages or a normal web server. The source folders can be deployed too,
 but are not required by the browser. Configure a host 404 rule to serve
