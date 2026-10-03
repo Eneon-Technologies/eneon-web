@@ -283,10 +283,11 @@ html[data-theme="dark"] .theme-toggle .i-moon, html:not([data-theme="dark"]) .th
   animation: float 8s ease-in-out infinite;
 }
 .chip .i { width: 16px; height: 16px; color: var(--accent); }
-.chip-1 { top: 9%; left: 2%; animation-delay: -1s; }
-.chip-2 { top: 26%; right: -4%; animation-delay: -3s; }
-.chip-3 { bottom: 22%; left: -6%; animation-delay: -5s; }
-.chip-4 { bottom: 6%; right: 8%; animation-delay: -2s; }
+.chip-1 { top: 8%; left: 2%; animation-delay: -1s; }
+.chip-2 { top: 20%; right: -4%; animation-delay: -3s; }
+.chip-3 { top: 52%; left: -8%; animation-delay: -5s; }
+.chip-4 { bottom: 4%; right: 10%; animation-delay: -2s; }
+.chip-5 { top: 60%; right: -8%; animation-delay: -4s; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
@@ -678,6 +679,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); box-sh
   .steps { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
   .chip-2 { right: 0; }
   .chip-3 { left: 0; }
+  .chip-5 { right: -2%; }
 }
 
 @media (max-width: 920px) {
@@ -735,7 +737,8 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); box-sh
   .chip { padding: 7px 11px; font-size: 11px; }
   .chip .i { width: 14px; height: 14px; }
   .chip-2 { right: -2%; }
-  .chip-3 { left: -2%; }
+  .chip-3 { left: -4%; }
+  .chip-5 { top: 73%; right: -4%; }
   .button-row .button { flex: 1 1 auto; }
   .card-grid-3, .card-grid-4, .project-grid, .product-grid, .steps, .form-grid { grid-template-columns: 1fr; }
   .service-index { grid-template-columns: repeat(2, 1fr); }
@@ -764,10 +767,16 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); box-sh
   .pb-0 { padding-bottom: 0; }
   .section-alt + .cta-section, .section-dark + .cta-section { padding-top: 72px; }
   .page-hero { padding: 72px 0 56px; }
-  .lightbox { padding: 64px 12px; }
-  .lightbox-prev, .lightbox-next { top: auto; bottom: 16px; }
-  .lightbox-prev { left: calc(50% - 60px); }
-  .lightbox-next { right: calc(50% - 60px); }
+  /* Mobile viewer: media + caption on top, prev/next in their own row below, so nothing overlaps.
+     Media height uses the visible viewport (dvh) so browser toolbars can't push it into the controls. */
+  .lightbox { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr) auto; grid-template-areas: "figure figure" "prev next"; column-gap: 16px; row-gap: 16px; height: 100vh; height: 100dvh; padding: 76px 12px max(16px, env(safe-area-inset-bottom)); }
+  .lightbox-figure { grid-area: figure; align-self: center; display: flex; flex-direction: column; align-items: center; min-height: 0; max-height: 100%; }
+  .lightbox-content img, .lightbox-content video { max-height: calc(100vh - 212px); max-height: calc(100dvh - 212px); }
+  .lightbox-figure figcaption { margin-top: 12px; padding: 0 8px; line-height: 1.4; }
+  .lightbox-prev, .lightbox-next { position: static; }
+  .lightbox-prev { grid-area: prev; justify-self: end; }
+  .lightbox-next { grid-area: next; justify-self: start; }
+  .lightbox-close { top: 16px; right: 16px; }
 }
 
 @media (max-width: 380px) {
