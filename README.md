@@ -26,15 +26,36 @@ and metadata remain available without JavaScript.
 
 ## Local preview
 
-First generate pages, then serve the project root:
+First generate pages, then serve the project root with the included preview server,
+which handles clean URLs the same way production hosting does:
 
 ```bash
 ./scripts/build.sh
-python3 -m http.server 8000
+./scripts/serve.py
 ```
 
-Open http://localhost:8000. Direct URLs such as
-http://localhost:8000/services.html work without visiting the home page first.
+Open http://localhost:8000. Pages live at clean URLs such as
+http://localhost:8000/services (old `/services.html` links redirect there).
+
+## Clean URLs
+
+Links, canonical tags and `sitemap.xml` use extensionless URLs (`/contact`, `/projects`).
+The generated files are still `contact.html` etc.; the host maps `/contact` to `contact.html`.
+All asset paths are root-absolute (`/css/...`, `/images/...`), so the site must be served
+from the root of its domain (not a sub-folder such as `user.github.io/repo/`).
+
+- **Netlify, Cloudflare Pages, GitHub Pages:** works out of the box.
+- **Vercel:** handled by the included `vercel.json` (`cleanUrls`).
+- **Apache / cPanel hosting:** handled by the included `.htaccess` (also redirects old `.html` URLs).
+- **Nginx:** add to the server block:
+
+  ```nginx
+  location / { try_files $uri $uri.html $uri/ =404; }
+  error_page 404 /404.html;
+  if ($request_uri ~ ^/(.*)\.html(\?|$)) { return 301 /$1; }
+  ```
+
+When adding a page, link to it as `/page-name` (no `.html`) and add its clean URL to `sitemap.xml`.
 
 ## Authoring and build workflow
 
@@ -115,7 +136,7 @@ Brand colors are CSS variables at the start of `css/style.css`, taken from the l
 (navy `#003D92`, blue `#068CE3`, cyan `#0DBDF1`). The web logo files in `images/brand/` are
 generated from `logo/eneon_logo_no_text.svg`; regenerate them if the logo changes.
 
-Upload the generated root HTML files plus `favicon.ico`, `css/`, `js/`, `images/`,
+Upload the generated root HTML files plus `.htaccess` / `vercel.json` (if relevant), `favicon.ico`, `css/`, `js/`, `images/`,
 `robots.txt` and `sitemap.xml` to GitHub Pages, Netlify, Vercel,
 Cloudflare Pages or a normal web server. The source folders can be deployed too,
 but are not required by the browser. Configure a host 404 rule to serve
