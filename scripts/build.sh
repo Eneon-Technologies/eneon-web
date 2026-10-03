@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+# Full build: generate the route documents from index.html, then refresh the cache version.
 set -euo pipefail
-script_dir="$(cd "$(dirname "$0")" && pwd)"
-"$script_dir/build-pages.sh"
-"$script_dir/cache-buster.sh"
+root_dir="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$root_dir"
+node build-static-pages.mjs
+"$root_dir/scripts/cache-buster.sh"
 echo "Eneon site build completed successfully."
