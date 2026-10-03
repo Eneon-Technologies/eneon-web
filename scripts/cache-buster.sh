@@ -9,10 +9,10 @@ export LC_ALL=C  # avoid perl locale warnings on systems with uncommon locales
 root_dir="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$root_dir"
 
-SOURCE_HTML="index.html"
+SOURCE_HTML="src/index.html"
 [[ -f "$SOURCE_HTML" ]] || { echo "Error: '$SOURCE_HTML' not found." >&2; exit 1; }
 
-# Every HTML document: the source index.html, 404.html and each route folder's index.html.
+# Every HTML document: the source, index.html, 404.html and each route folder's index.html.
 mapfile -t html_files < <(find . -path ./.git -prune -o -path ./node_modules -prune -o -name "*.html" -type f -print)
 
 file_hash() {

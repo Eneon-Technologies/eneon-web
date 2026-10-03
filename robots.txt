@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# Editing source (src/index.html) — not a public page.
+Disallow: /src/
 
 Sitemap: https://eneontechnologies.com/sitemap.xml

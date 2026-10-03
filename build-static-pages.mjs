@@ -1,14 +1,14 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
-// index.html is the single source for the whole site: shared head/navigation, every page as
+// src/index.html is the single source for the whole site: shared head/navigation, every page as
 // <div class="page" id="page-…"> … <!-- /page-… -->, then the shared footer. This script writes
-// one static document per route (about/index.html, …) containing only that page, so direct
-// links work on any host without rewrites.
+// one static document per route containing only that page (index.html for the home page,
+// about/index.html, …), so direct links work on any host without rewrites.
 
 const SITE_URL = 'https://eneontechnologies.com';
 const routes = {
   home: {
-    directory: 'home',
+    file: 'index.html',
     path: '/',
     title: 'Eneon Technologies — Engineering Ideas Into Reality',
     description: 'Eneon Technologies, Enugu, Nigeria, designs and builds electronics, PCBs, embedded systems, IoT solutions and software that turn ideas into working technology.'
@@ -58,21 +58,22 @@ const routes = {
 };
 
 // Cloudinary: add automatic format + quality (f_auto,q_auto) to image/video URLs that don't
-// already set f_ or q_. Applied to the source too, so index.html is optimised when served at /.
+// already set f_ or q_. Applied to the source too, so editors see the optimised URLs.
 const TRANSFORM = '(?:a|ac|af|ar|b|bo|br|c|co|cs|d|dl|dn|dpr|du|e|eo|f|fl|fn|fps|g|h|if|ki|l|o|p|pg|q|r|so|sp|t|u|vc|vs|w|x|y|z)_[^,/\\s"\'<>]+';
 const CLOUDINARY = new RegExp(`(https://res\\.cloudinary\\.com/[^/\\s"'<>]+/(?:image|video)/upload/)((?:${TRANSFORM}(?:,${TRANSFORM})*/)*)`, 'g');
 const optimiseCloudinary = html => html.replace(CLOUDINARY, (_, base, transforms) =>
   /(?:^|[,/])[fq]_/.test(transforms) ? base + transforms : `${base}${transforms}f_auto,q_auto/`);
 
-const original = await readFile('index.html', 'utf8');
+const SOURCE = 'src/index.html';
+const original = await readFile(SOURCE, 'utf8');
 const source = optimiseCloudinary(original);
-if (source !== original) await writeFile('index.html', source);
+if (source !== original) await writeFile(SOURCE, source);
 
 const firstPage = source.indexOf('<div class="page active" id="page-home">');
 const footer = source.indexOf('  </main>');
 
 if (firstPage === -1 || footer === -1) {
-  throw new Error('Could not locate the shared layout or page sections in index.html.');
+  throw new Error(`Could not locate the shared layout or page sections in ${SOURCE}.`);
 }
 
 const sharedHeader = source.slice(0, source.lastIndexOf('\n', firstPage) + 1);
@@ -119,11 +120,13 @@ function setPageMetadata(document, route) {
   return html;
 }
 
-// Editor notes in <!-- --> comments stay in index.html but are left out of route documents.
+// Editor notes in <!-- --> comments stay in the source but are left out of published pages.
 const stripComments = html => html.replace(/[ \t]*<!--[\s\S]*?-->[ \t]*\n?/g, '');
+// The source carries a noindex tag (in case src/ is uploaded); published pages must not.
+const stripSourceOnly = html => html.replace(/[ \t]*<meta [^>]*data-source-only[^>]*>\n?/g, '');
 
 await Promise.all(Object.entries(routes).map(async ([page, route]) => {
-  const document = stripComments(setPageMetadata(setActiveNav(`${sharedHeader}${pageMarkup(page)}\n${sharedFooter}`, route), route));
+  const document = stripSourceOnly(stripComments(setPageMetadata(setActiveNav(`${sharedHeader}${pageMarkup(page)}\n${sharedFooter}`, route), route)));
   const file = route.file || `${route.directory}/index.html`;
   if (route.directory) await mkdir(route.directory, { recursive: true });
   await writeFile(file, document);
