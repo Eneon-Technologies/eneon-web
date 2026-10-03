@@ -6,6 +6,8 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 // about/index.html, …), so direct links work on any host without rewrites.
 
 const SITE_URL = 'https://eneontechnologies.com';
+// Each route: directory (or file), path (URL), title, description; optional `nav` (menu item to
+// highlight, defaults to path) and `image` (absolute 1200x630 link-preview image URL).
 const routes = {
   home: {
     file: 'index.html',
@@ -30,6 +32,14 @@ const routes = {
     path: '/projects/',
     title: 'Projects — Eneon Technologies',
     description: 'Selected hardware, embedded, IoT and software engineering work by Eneon Technologies — context, process, technology and outcomes.'
+  },
+  'safeguard-lpg': {
+    directory: 'projects/safeguard-lpg',
+    path: '/projects/safeguard-lpg/',
+    nav: '/projects/',
+    title: 'SafeGuard LPG — Gas, Smoke & Temperature Alarm System | Eneon Technologies',
+    description: 'Case study: SafeGuard LPG for Syntec Limited — monitors LPG, smoke and temperature, triggers event-specific alarms and uses adaptive learning to reduce false alarms over time.',
+    image: 'https://res.cloudinary.com/sdsdnsle/image/upload/c_crop,w_2296,h_1208,x_0,y_1700/c_fill,w_1200,h_630,f_jpg,q_auto/v1791019840/20260910_083953.jpg'
   },
   products: {
     directory: 'products',
@@ -91,11 +101,14 @@ function pageMarkup(page) {
   return '    ' + source.slice(pageStart, pageEnd).replace(`class="page${page === 'home' ? ' active' : ''}"`, 'class="page active"');
 }
 
-// Highlight the current page in the main menu (Home is highlighted in the source).
+// Highlight the current page in the main menu (Home is highlighted in the source). Sub-pages
+// such as a project case study highlight their parent via `nav`.
 function setActiveNav(document, route) {
   const cleared = document.replace(' class="is-active" aria-current="page" href="/"', ' href="/"');
-  if (!route.path) return cleared;
-  return cleared.replace(`<li><a href="${route.path}">`, `<li><a class="is-active" aria-current="page" href="${route.path}">`);
+  const navPath = route.nav || route.path;
+  if (!navPath) return cleared;
+  const current = navPath === route.path ? ' aria-current="page"' : '';
+  return cleared.replace(`<li><a href="${navPath}">`, `<li><a class="is-active"${current} href="${navPath}">`);
 }
 
 function setPageMetadata(document, route) {
@@ -107,6 +120,14 @@ function setPageMetadata(document, route) {
     .replace(/(<meta property="og:description" content=")[^"]*(">)/, `$1${route.description}$2`)
     .replace(/(<meta name="twitter:title" content=")[^"]*(">)/, `$1${route.title}$2`)
     .replace(/(<meta name="twitter:description" content=")[^"]*(">)/, `$1${route.description}$2`);
+  if (route.image) {
+    html = html
+      .replace(/(<meta property="og:image" content=")[^"]*(">)/, `$1${route.image}$2`)
+      .replace(/(<meta property="og:image:secure_url" content=")[^"]*(">)/, `$1${route.image}$2`)
+      .replace(/(<meta name="twitter:image" content=")[^"]*(">)/, `$1${route.image}$2`)
+      .replace(/(<meta property="og:image:alt" content=")[^"]*(">)/, `$1${route.title}$2`)
+      .replace(/(<meta name="twitter:image:alt" content=")[^"]*(">)/, `$1${route.title}$2`);
+  }
   if (url) {
     html = html
       .replace(/(<link rel="canonical" href=")[^"]*(">)/, `$1${url}$2`)
@@ -126,7 +147,7 @@ const stripComments = html => html.replace(/[ \t]*<!--[\s\S]*?-->[ \t]*\n?/g, ''
 const stripSourceOnly = html => html.replace(/[ \t]*<meta [^>]*data-source-only[^>]*>\n?/g, '');
 
 await Promise.all(Object.entries(routes).map(async ([page, route]) => {
-  const document = stripSourceOnly(stripComments(setPageMetadata(setActiveNav(`${sharedHeader}${pageMarkup(page)}\n${sharedFooter}`, route), route)));
+  const document = optimiseCloudinary(stripSourceOnly(stripComments(setPageMetadata(setActiveNav(`${sharedHeader}${pageMarkup(page)}\n${sharedFooter}`, route), route))));
   const file = route.file || `${route.directory}/index.html`;
   if (route.directory) await mkdir(route.directory, { recursive: true });
   await writeFile(file, document);

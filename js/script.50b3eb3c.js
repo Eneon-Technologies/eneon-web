@@ -80,7 +80,9 @@
   const nextButton = lightbox?.querySelector("[data-lightbox-next]");
   let mediaButtons = [];
   let activeMedia = 0, lastFocusedElement = null, touchStartX = 0;
-  const visibleMedia = () => [...document.querySelectorAll("[data-lightbox-media]")].filter((button) => !button.closest(".is-hidden"));
+  // Items browse together with others in the same data-lightbox-group (e.g. one project's gallery).
+  const visibleMedia = (button) => [...document.querySelectorAll("[data-lightbox-media]")].filter((item) =>
+    !item.closest(".is-hidden") && (item.dataset.lightboxGroup || "") === (button.dataset.lightboxGroup || ""));
   const renderMedia = () => {
     const source = mediaButtons[activeMedia];
     if (!source || !content) return;
@@ -109,7 +111,7 @@
   };
   const openLightbox = (button) => {
     if (!lightbox) return;
-    mediaButtons = visibleMedia();
+    mediaButtons = visibleMedia(button);
     activeMedia = Math.max(0, mediaButtons.indexOf(button));
     lastFocusedElement = document.activeElement;
     renderMedia();
