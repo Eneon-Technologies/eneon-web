@@ -91,8 +91,11 @@ link to it as `/<name>/`, add it to `sitemap.xml`, and rebuild.
 
 ```bash
 ./scripts/build.sh
-python3 -m http.server 8000
+python3 -m http.server 8000   # or: serve .
 ```
+
+Don't use `serve -s` (single-page-app mode): it answers every URL with the root `index.html`,
+so every route shows the home page.
 
 Open http://localhost:8000. Every route works when opened directly or refreshed.
 

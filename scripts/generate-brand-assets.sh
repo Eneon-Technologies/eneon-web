@@ -53,7 +53,7 @@ cat > "$work/card.svg" <<EOF
 <text x="80" y="290" font-family="Open Sans" font-weight="800" font-size="88" letter-spacing="-2" fill="#ffffff">Eneon</text>
 <text x="80" y="385" font-family="Open Sans" font-weight="800" font-size="88" letter-spacing="-2" fill="#22d3ff">Technologies</text>
 <rect x="84" y="420" width="72" height="5" rx="2.5" fill="#22d3ff"/>
-<text x="84" y="490" font-family="Open Sans" font-size="25" fill="#a9b8d0">Hardware · PCB · Embedded · IoT · Software</text>
+<text x="84" y="490" font-family="Open Sans" font-size="25" fill="#a9b8d0">Hardware · PCB · Embedded · IoT · Software · AI</text>
 <text x="84" y="540" font-family="Open Sans" font-weight="600" font-size="22" fill="#eaf1fb">Enugu, Nigeria</text>
 </svg>
 EOF

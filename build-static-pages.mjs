@@ -13,19 +13,19 @@ const routes = {
     file: 'index.html',
     path: '/',
     title: 'Eneon Technologies — Engineering Ideas Into Reality',
-    description: 'Eneon Technologies, Enugu, Nigeria, designs and builds electronics, PCBs, embedded systems, IoT solutions and software that turn ideas into working technology.'
+    description: 'Eneon Technologies, Enugu, Nigeria, designs and builds electronics, PCBs, embedded systems, IoT solutions, software and AI that turn ideas into working technology.'
   },
   about: {
     directory: 'about',
     path: '/about/',
     title: 'About Eneon Technologies — Built to Make Technology Real',
-    description: 'Learn how Eneon Technologies approaches hardware, software, embedded systems and connected technology with practical engineering discipline.'
+    description: 'Learn how Eneon Technologies approaches hardware, software, embedded systems, connected technology and AI with practical engineering discipline.'
   },
   services: {
     directory: 'services',
     path: '/services/',
     title: 'Engineering Services — Eneon Technologies',
-    description: 'Hardware & electronics, PCB design, embedded systems & firmware, IoT solutions, software development, prototype development and technical consultancy from Eneon Technologies.'
+    description: 'Hardware & electronics, PCB design, embedded systems & firmware, IoT solutions, software development, AI & machine learning, prototype development and technical consultancy from Eneon Technologies.'
   },
   projects: {
     directory: 'projects',
@@ -51,7 +51,7 @@ const routes = {
     directory: 'contact',
     path: '/contact/',
     title: 'Contact Eneon Technologies — Start a Project Conversation',
-    description: 'Talk with Eneon Technologies about your hardware, embedded, IoT, software or product-development opportunity.'
+    description: 'Talk with Eneon Technologies about your hardware, embedded, IoT, software, AI or product-development opportunity.'
   },
   privacy: {
     directory: 'privacy',

@@ -402,7 +402,7 @@ html[data-theme="dark"] .theme-toggle .i-moon, html:not([data-theme="dark"]) .th
 .media-frame figcaption { padding: 14px 18px; font: 12px var(--font-mono); color: var(--ink-3); border-top: 1px solid var(--line); }
 
 /* ---------- Services (flyer-style bands) ---------- */
-.service-index { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; }
+.service-index { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .service-index a { display: flex; flex-direction: column; gap: 6px; padding: 18px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); text-decoration: none; transition: transform 0.2s, border-color 0.2s; }
 .service-index a:hover { transform: translateY(-3px); border-color: var(--ring); }
 .service-index .icon-tile { width: 44px; height: 44px; margin-bottom: 8px; }
