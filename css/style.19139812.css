@@ -729,7 +729,10 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); box-sh
   .case-meta { gap: 16px 28px; }
   :root { --header-h: 64px; }
   .container { width: min(calc(100% - 32px), var(--container)); }
-  .brand-name span { display: none; }
+  .brand { gap: 8px; }
+  .brand img { width: 36px; height: 36px; }
+  .brand-name { font-size: 17px; }
+  .brand-name span { margin-left: 4px; }
   .site-nav { padding: 8px 16px 20px; }
   .hero-home h1 { font-size: clamp(38px, 11vw, 48px); }
   .lede, .hero-lede { font-size: 17px; }
@@ -780,8 +783,8 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); box-sh
 }
 
 @media (max-width: 380px) {
-  .brand-name { font-size: 17px; }
-  .brand img { width: 34px; height: 34px; }
+  .brand-name { font-size: 15px; }
+  .brand img { width: 30px; height: 30px; }
   .chip { display: none; }
 }
 
