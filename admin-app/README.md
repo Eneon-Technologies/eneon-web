@@ -81,13 +81,16 @@ yet, with that email and `OWNER_INITIAL_PASSWORD`. Then add your staff under **T
 ```bash
 cd admin-app
 npm install
-CONTENT_BACKEND=local OWNER_EMAILS=you@example.com OWNER_INITIAL_PASSWORD=change-me-now node server.js
+cp .env.example .env      # then fill in .env; set CONTENT_BACKEND=local to edit local files
+node --env-file=.env server.js
 ```
 
 Open http://localhost:3000. In local mode changes are written to the files in this checkout
-(not GitHub) and emailed links are printed in the terminal.
+(not GitHub) and emailed links are printed in the terminal. `.env.example` lists and explains every
+setting; `.env` is git-ignored, so secrets never get committed. (On Render, enter the same settings
+in the Environment tab instead of using a file.)
 
 ## Running elsewhere
 
 It's a plain Node.js (20+) app with one dependency, so it runs on any Node host or as a container
-(`docker build -t eneon-admin admin-app && docker run -p 3000:3000 --env-file .env eneon-admin`).
+(`docker build -t eneon-admin admin-app && docker run -p 3000:3000 --env-file admin-app/.env eneon-admin`).
