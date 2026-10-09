@@ -22,8 +22,8 @@ the live site updates within a few minutes either way.
    | --------------- | ------------------- |
    | Root Directory  | `admin-app`         |
    | Runtime         | Node                |
-   | Build Command   | `npm ci`            |
-   | Start Command   | `node server.mjs`   |
+   | Build Command   | `npm install`       |
+   | Start Command   | `node server.js`    |
    | Health Check    | `/health`           |
    Under *Build Filters*, add the ignored path `admin-app/data/**` so team changes don't redeploy the app.
 3. Add the environment variables below, deploy, then (optionally) add a custom domain such as
@@ -81,7 +81,7 @@ yet, with that email and `OWNER_INITIAL_PASSWORD`. Then add your staff under **T
 ```bash
 cd admin-app
 npm install
-CONTENT_BACKEND=local OWNER_EMAILS=you@example.com OWNER_INITIAL_PASSWORD=change-me-now node server.mjs
+CONTENT_BACKEND=local OWNER_EMAILS=you@example.com OWNER_INITIAL_PASSWORD=change-me-now node server.js
 ```
 
 Open http://localhost:3000. In local mode changes are written to the files in this checkout

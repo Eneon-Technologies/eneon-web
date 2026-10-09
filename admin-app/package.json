@@ -4,11 +4,11 @@
   "private": true,
   "description": "Eneon Technologies content admin: edits content/*.json in GitHub (alongside Decap CMS at /admin/).",
   "type": "module",
-  "main": "server.mjs",
+  "main": "server.js",
   "engines": { "node": ">=20" },
   "scripts": {
-    "start": "node server.mjs",
-    "dev": "CONTENT_BACKEND=local node --watch server.mjs"
+    "start": "node server.js",
+    "dev": "CONTENT_BACKEND=local node --watch server.js"
   },
   "dependencies": {
     "yaml": "^2.9.1"
