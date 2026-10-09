@@ -1,0 +1,51 @@
+{
+  "title": "IoT *Solutions*",
+  "anchor": "iot",
+  "order": 4,
+  "icon": "signal",
+  "index_title": "IoT Solutions",
+  "description": "We develop connected technology solutions that enable devices and systems to collect, transmit and monitor data. We work with sensors, embedded devices, connectivity and software to create practical IoT solutions for businesses and real-world applications.",
+  "tags": [
+    "MQTT",
+    "LoRaWAN",
+    "Wi-Fi",
+    "Cloud dashboards"
+  ],
+  "features": [
+    {
+      "icon": "signal",
+      "title": "Sensor Integration",
+      "text": "Collect real-time data from the physical world."
+    },
+    {
+      "icon": "cloud",
+      "title": "Connectivity",
+      "text": "Reliable data transmission and cloud integration."
+    },
+    {
+      "icon": "gauge",
+      "title": "Data Monitoring",
+      "text": "Track, analyse and visualise your data."
+    },
+    {
+      "icon": "trend",
+      "title": "Custom IoT Solutions",
+      "text": "Built for your specific business needs."
+    }
+  ],
+  "signoff": "Smarter devices. Better decisions.",
+  "banner": {
+    "image": "",
+    "alt": ""
+  },
+  "home_card": {
+    "show": true,
+    "title": "IoT Solutions",
+    "text": "Sensors, connectivity, cloud and real-time monitoring."
+  },
+  "footer": {
+    "column": "capabilities",
+    "label": "IoT solutions"
+  },
+  "form_option": "IoT solution"
+}

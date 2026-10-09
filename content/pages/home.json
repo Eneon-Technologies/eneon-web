@@ -1,0 +1,130 @@
+{
+  "seo": {
+    "title": "Eneon Technologies — Engineering Ideas Into Reality",
+    "description": "Eneon Technologies, Enugu, Nigeria, designs and builds electronics, PCBs, embedded systems, IoT solutions, software and AI that turn ideas into working technology."
+  },
+  "hero": {
+    "eyebrow": "Engineering ideas into reality",
+    "title": "Ideas deserve to *work* in the real world.",
+    "lede": "Eneon Technologies designs and builds electronics, PCBs, embedded systems, IoT solutions, software and AI — turning ambitious ideas into dependable, working technology.",
+    "button": "Let’s build your idea",
+    "secondary_button": "Explore our services",
+    "disciplines": "Hardware · PCB · Embedded · IoT · Software · AI",
+    "chips": [
+      {
+        "icon": "circuit",
+        "label": "Electronics"
+      },
+      {
+        "icon": "cpu",
+        "label": "Firmware"
+      },
+      {
+        "icon": "signal",
+        "label": "Telemetry"
+      },
+      {
+        "icon": "code",
+        "label": "Platforms"
+      },
+      {
+        "icon": "sparkle",
+        "label": "Machine learning"
+      }
+    ]
+  },
+  "what_we_do": {
+    "eyebrow": "What we do",
+    "title": "Engineering that connects the *whole system.*",
+    "text": "Good technology is more than a schematic, an enclosure or an interface. We bring the parts together with a practical, testable approach — so ideas move from possibility to proof."
+  },
+  "technologies": {
+    "label": "Technologies we work with",
+    "items": [
+      "ESP32",
+      "STM32",
+      "Arduino",
+      "Embedded Linux",
+      "MQTT",
+      "LoRaWAN",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Python",
+      "MongoDB"
+    ]
+  },
+  "process": {
+    "eyebrow": "How we work",
+    "title": "From concept to *deployment.*",
+    "text": "A clear, practical path from first idea to working technology — with evidence at every step, so decisions are made with confidence.",
+    "steps": [
+      {
+        "title": "Concept",
+        "text": "Understand the problem, users and constraints."
+      },
+      {
+        "title": "Design",
+        "text": "Shape the architecture, circuits and interfaces."
+      },
+      {
+        "title": "Prototype",
+        "text": "Build a working model to test the idea early."
+      },
+      {
+        "title": "Development",
+        "text": "Engineer hardware, firmware and software together."
+      },
+      {
+        "title": "Testing",
+        "text": "Validate reliability and performance."
+      },
+      {
+        "title": "Deployment",
+        "text": "Launch, support and plan what comes next."
+      }
+    ]
+  },
+  "selected_work": {
+    "eyebrow": "Selected work",
+    "title": "Technology is best understood when you can see it *working.*",
+    "text": "Our case studies show the context, process, technology and outcomes behind each engagement — with images and video of the systems in action.",
+    "button": "View projects",
+    "stats": [
+      {
+        "icon": "layers",
+        "title": "End-to-end",
+        "text": "From circuit to cloud to interface"
+      },
+      {
+        "icon": "flask",
+        "title": "Prototype-first",
+        "text": "Test assumptions early, with real hardware"
+      },
+      {
+        "icon": "shield",
+        "title": "Built to last",
+        "text": "Documented, maintainable engineering"
+      },
+      {
+        "icon": "gauge",
+        "title": "Outcome-focused",
+        "text": "Technology with a clear job to do"
+      }
+    ]
+  },
+  "roadmap": {
+    "now": "Engineering services",
+    "next": "Proprietary products",
+    "eyebrow": "Built for what comes next",
+    "title": "Services today.\n*Products tomorrow.*",
+    "text": "Every engagement deepens the engineering capability Eneon needs to create its own technology products — without losing the focus and care client work demands today.",
+    "link": "Our product direction"
+  },
+  "cta": {
+    "eyebrow": "Start with a conversation",
+    "title": "Have an idea that needs engineering?",
+    "text": "Tell us what you are building. We will help you find a practical first step.",
+    "button": "Let’s build your idea"
+  }
+}

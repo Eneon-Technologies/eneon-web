@@ -1,0 +1,79 @@
+{
+  "seo": {
+    "title": "About Eneon Technologies — Built to Make Technology Real",
+    "description": "Learn how Eneon Technologies approaches hardware, software, embedded systems, connected technology and AI with practical engineering discipline."
+  },
+  "hero": {
+    "eyebrow": "About Eneon",
+    "title": "Built to make technology *real.*",
+    "lede": "Eneon Technologies is an engineering and technology company focused on the work between an idea and a working solution."
+  },
+  "who": {
+    "eyebrow": "Who we are",
+    "title": "Engineering-minded, *outcome-focused.*",
+    "paragraphs": [
+      "Based in Enugu, Nigeria, we work across physical and digital systems: electronics, firmware, connectivity, applications and AI — and the decisions that make them work as one. Our focus is practical progress, not technology for its own sake.",
+      "As the company grows, that same foundation will support Eneon’s transition from engineering solutions for clients to technology products of its own."
+    ]
+  },
+  "what_we_build": {
+    "eyebrow": "What we build",
+    "title": "Systems with a reason to exist.",
+    "cards": [
+      {
+        "icon": "circuit",
+        "title": "Physical intelligence",
+        "text": "Devices and electronics that sense, control, measure, communicate or enable a real-world task."
+      },
+      {
+        "icon": "code",
+        "title": "Digital clarity",
+        "text": "Software and interfaces that make complex systems understandable and easy to use."
+      },
+      {
+        "icon": "signal",
+        "title": "Connected value",
+        "text": "Data and device connectivity that help people make better, faster decisions."
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "How we work",
+    "title": "Clear questions. Useful prototypes. *Deliberate iteration.*",
+    "text": "We start by understanding the job the technology has to do. From there we define constraints, make the right technical choices, test assumptions early and document the work so it can grow responsibly.",
+    "steps": [
+      {
+        "title": "Understand",
+        "text": "Clarify the problem, context, users and constraints."
+      },
+      {
+        "title": "Define",
+        "text": "Shape a realistic scope, architecture and plan."
+      },
+      {
+        "title": "Build",
+        "text": "Develop, integrate and validate the solution."
+      },
+      {
+        "title": "Learn",
+        "text": "Use evidence to refine the next decision."
+      }
+    ]
+  },
+  "photo": {
+    "image": "",
+    "alt": "",
+    "caption": ""
+  },
+  "vision": {
+    "eyebrow": "Our vision",
+    "title": "To help shape technology that is *useful, capable and made to last.*",
+    "text": "Today, that means turning client opportunities into working engineering solutions. Over time, it means applying that capability to Eneon’s own products across hardware, software and connected systems."
+  },
+  "cta": {
+    "eyebrow": "Work with us",
+    "title": "Let’s talk about what you are building.",
+    "text": "",
+    "button": "Let’s build your idea"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "seo": {
+    "title": "Projects — Eneon Technologies",
+    "description": "Selected hardware, embedded, IoT and software engineering work by Eneon Technologies — context, process, technology and outcomes."
+  },
+  "hero": {
+    "eyebrow": "Projects",
+    "title": "Engineering you can *see working.*",
+    "lede": "Selected hardware, embedded, IoT and software work — the context, the process, the technology and the outcome."
+  },
+  "empty": {
+    "title": "Case studies in preparation",
+    "paragraphs": [
+      "We only publish work that clients have approved for sharing. Detailed case studies — with images and video of the systems in action — are being prepared now.",
+      "In the meantime, we are happy to talk through relevant experience directly."
+    ],
+    "button": "Ask about our work",
+    "link": "See capabilities"
+  },
+  "card_link": "View case study",
+  "project_button": "Let’s build your idea"
+}

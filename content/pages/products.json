@@ -1,0 +1,30 @@
+{
+  "seo": {
+    "title": "Products — Eneon Technologies",
+    "description": "Eneon Technologies is building the engineering foundation for future proprietary hardware, software and connected products."
+  },
+  "hero": {
+    "eyebrow": "Products",
+    "title": "From engineering solutions to *products.*",
+    "lede": "Eneon is building the technical capability and product discipline to create technology that stands on its own."
+  },
+  "direction": {
+    "eyebrow": "Product direction",
+    "title": "A deliberate path, *not an empty promise.*",
+    "paragraphs": [
+      "Our current focus is engineering solutions and prototypes for clients. Each engagement builds the practical knowledge needed for future proprietary hardware, software and connected products.",
+      "When a product is ready, it will be presented here with clear features, specifications, documentation, support information and an honest availability status."
+    ]
+  },
+  "catalogue": {
+    "eyebrow": "Focus areas",
+    "title": "Where our products are *heading.*",
+    "text": "No commercial Eneon products have been announced yet. These are the areas our engineering work is building toward."
+  },
+  "cta": {
+    "eyebrow": "Stay close",
+    "title": "Interested in what we are building?",
+    "text": "Get in touch to talk about early collaboration or product partnerships.",
+    "button": "Get in touch"
+  }
+}

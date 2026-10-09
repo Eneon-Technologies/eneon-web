@@ -5,27 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#060d1f">
   <meta name="color-scheme" content="dark light">
-  <title>Eneon Technologies — Engineering Ideas Into Reality</title>
-  <meta name="description" content="Eneon Technologies, Enugu, Nigeria, designs and builds electronics, PCBs, embedded systems, IoT solutions and software that turn ideas into working technology.">
+  <title>{{ seo.title }}</title>
+  <meta name="description" content="{{ seo.description }}">
   <meta name="robots" content="noindex, nofollow" data-source-only>
   <meta name="keywords" content="engineering company Nigeria, Enugu, hardware engineering, PCB design, embedded systems, firmware, IoT solutions, software development, AI, machine learning, prototype development">
-  <link rel="canonical" href="https://eneontechnologies.com/">
+  {{#if canonical}}
+  <link rel="canonical" href="{{ canonical }}">
+  {{else}}
+  <meta name="robots" content="noindex">
+  {{/if}}
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Eneon Technologies">
-  <meta property="og:title" content="Eneon Technologies — Engineering Ideas Into Reality">
-  <meta property="og:description" content="Eneon Technologies, Enugu, Nigeria, designs and builds electronics, PCBs, embedded systems, IoT solutions and software that turn ideas into working technology.">
-  <meta property="og:url" content="https://eneontechnologies.com/">
-  <meta property="og:image" content="https://eneontechnologies.com/images/brand/eneon-social-card.jpg">
-  <meta property="og:image:secure_url" content="https://eneontechnologies.com/images/brand/eneon-social-card.jpg">
+  <meta property="og:title" content="{{ seo.title }}">
+  <meta property="og:description" content="{{ seo.description }}">
+  {{#if canonical}}
+  <meta property="og:url" content="{{ canonical }}">
+  {{/if}}
+  <meta property="og:image" content="{{ socialImage }}">
+  <meta property="og:image:secure_url" content="{{ socialImage }}">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Eneon Technologies logo with the tagline Engineering ideas into reality">
+  <meta property="og:image:alt" content="{{ socialImageAlt }}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Eneon Technologies — Engineering Ideas Into Reality">
-  <meta name="twitter:description" content="Eneon Technologies, Enugu, Nigeria, designs and builds electronics, PCBs, embedded systems, IoT solutions and software that turn ideas into working technology.">
-  <meta name="twitter:image" content="https://eneontechnologies.com/images/brand/eneon-social-card.jpg">
-  <meta name="twitter:image:alt" content="Eneon Technologies logo with the tagline Engineering ideas into reality">
+  <meta name="twitter:title" content="{{ seo.title }}">
+  <meta name="twitter:description" content="{{ seo.description }}">
+  <meta name="twitter:image" content="{{ socialImage }}">
+  <meta name="twitter:image:alt" content="{{ socialImageAlt }}">
   <link rel="icon" href="/images/brand/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/images/brand/favicon-64.png" sizes="64x64" type="image/png">
   <link rel="apple-touch-icon" href="/images/brand/apple-touch-icon.png">
@@ -91,12 +97,12 @@
       </a>
       <nav id="site-navigation" class="site-nav" aria-label="Primary navigation">
         <ul>
-          <li><a class="is-active" aria-current="page" href="/">Home</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/services/">Services</a></li>
-          <li><a href="/projects/">Projects</a></li>
-          <li><a href="/products/">Products</a></li>
-          <li><a href="/contact/">Contact</a></li>
+          <li><a{{ nav "/" }} href="/">Home</a></li>
+          <li><a{{ nav "/about/" }} href="/about/">About</a></li>
+          <li><a{{ nav "/services/" }} href="/services/">Services</a></li>
+          <li><a{{ nav "/projects/" }} href="/projects/">Projects</a></li>
+          <li><a{{ nav "/products/" }} href="/products/">Products</a></li>
+          <li><a{{ nav "/contact/" }} href="/contact/">Contact</a></li>
         </ul>
         <a class="button button-small nav-cta" href="/contact/">Start a project <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
       </nav>
@@ -119,14 +125,14 @@
         <div class="circuit-deco" aria-hidden="true"></div>
         <div class="container hero-layout">
           <div class="hero-copy reveal">
-            <p class="eyebrow">Engineering ideas into reality</p>
-            <h1>Ideas deserve to <em>work</em> in the real world.</h1>
-            <p class="hero-lede">Eneon Technologies designs and builds electronics, PCBs, embedded systems, IoT solutions, software and AI — turning ambitious ideas into dependable, working technology.</p>
+            <p class="eyebrow">{{ home.hero.eyebrow }}</p>
+            <h1>{{ md home.hero.title }}</h1>
+            <p class="hero-lede">{{ home.hero.lede }}</p>
             <div class="button-row">
-              <a class="button" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-              <a class="button button-ghost" href="/services/">Explore our services</a>
+              <a class="button" href="/contact/">{{ icon "chat" }}{{ home.hero.button }} {{ icon "arrow-right" }}</a>
+              <a class="button button-ghost" href="/services/">{{ home.hero.secondary_button }}</a>
             </div>
-            <p class="band-signoff hero-signoff"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Enugu, Nigeria</span><b>Hardware · PCB · Embedded · IoT · Software · AI</b></p>
+            <p class="band-signoff hero-signoff"><span>{{ icon "pin" }}{{ site.location }}</span><b>{{ home.hero.disciplines }}</b></p>
           </div>
           <div class="hero-visual reveal" data-delay="150" aria-hidden="true">
             <div class="orbit orbit-outer"></div>
@@ -134,11 +140,9 @@
             <div class="orbit orbit-inner"></div>
             <div class="hero-glow"></div>
             <img class="hero-mark" src="/images/brand/eneon-mark-lg.webp" width="480" height="480" alt="">
-            <span class="chip chip-1"><svg class="i"><use href="#i-circuit"/></svg>Electronics</span>
-            <span class="chip chip-2"><svg class="i"><use href="#i-cpu"/></svg>Firmware</span>
-            <span class="chip chip-3"><svg class="i"><use href="#i-signal"/></svg>Telemetry</span>
-            <span class="chip chip-4"><svg class="i"><use href="#i-code"/></svg>Platforms</span>
-            <span class="chip chip-5"><svg class="i"><use href="#i-sparkle"/></svg>Machine learning</span>
+            {{#each heroChips}}
+            <span class="chip chip-{{ @n }}"><svg class="i"><use href="#i-{{ icon }}"/></svg>{{ label }}</span>
+            {{/each}}
           </div>
         </div>
       </section>
@@ -146,40 +150,34 @@
       <section class="section">
         <div class="container">
           <div class="section-heading split reveal">
-            <div><p class="eyebrow">What we do</p><h2>Engineering that connects the <em>whole system.</em></h2></div>
-            <p>Good technology is more than a schematic, an enclosure or an interface. We bring the parts together with a practical, testable approach — so ideas move from possibility to proof.</p>
+            <div><p class="eyebrow">{{ home.what_we_do.eyebrow }}</p><h2>{{ md home.what_we_do.title }}</h2></div>
+            <p>{{ home.what_we_do.text }}</p>
           </div>
           <div class="card-grid card-grid-4">
-            <a href="/services/#hardware" class="feature-card reveal"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-circuit"/></svg></span><h3>Hardware &amp; Electronics</h3><p>Circuit design, component selection, assembly and testing.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
-            <a href="/services/#pcb" class="feature-card reveal" data-delay="80"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-board"/></svg></span><h3>PCB Design</h3><p>Schematics, layouts, Gerber files and BOMs ready for production.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
-            <a href="/services/#embedded" class="feature-card reveal" data-delay="160"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-cpu"/></svg></span><h3>Embedded &amp; Firmware</h3><p>Microcontroller programming and reliable device firmware.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
-            <a href="/services/#iot" class="feature-card reveal" data-delay="240"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-signal"/></svg></span><h3>IoT Solutions</h3><p>Sensors, connectivity, cloud and real-time monitoring.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
-            <a href="/services/#software" class="feature-card reveal"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg></span><h3>Software Development</h3><p>Web and mobile apps, backend systems and integrations.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
-            <a href="/services/#ai" class="feature-card reveal" data-delay="80"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg></span><h3>AI &amp; Machine Learning</h3><p>Models, predictions and intelligent features — in apps or on devices.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
-            <a href="/services/#prototypes" class="feature-card reveal" data-delay="160"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg></span><h3>Prototype Development</h3><p>From concept to a working, tested prototype.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
-            <a href="/services/#consultancy" class="feature-card reveal" data-delay="240"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg></span><h3>Technical Consultancy</h3><p>Engineering guidance from problem to implementation.</p><span class="card-link">Learn more <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
+            {{#each homeServices}}
+            <a href="/services/#{{ anchor }}" class="feature-card reveal"{{ delay 80 4 }}><span class="icon-tile">{{ icon icon }}</span><h3>{{ home_card.title }}</h3><p>{{ home_card.text }}</p><span class="card-link">Learn more {{ icon "arrow-right" }}</span></a>
+            {{/each}}
           </div>
         </div>
       </section>
 
-      <section class="tech-strip" aria-label="Technologies we work with">
-        <div class="container"><p class="tech-label">Technologies we work with</p></div>
-        <div class="marquee"><ul class="marquee-track"><li>ESP32</li><li>STM32</li><li>Arduino</li><li>Embedded Linux</li><li>MQTT</li><li>LoRaWAN</li><li>React</li><li>TypeScript</li><li>Node.js</li><li>Python</li><li>MongoDB</li></ul><ul class="marquee-track" aria-hidden="true"><li>ESP32</li><li>STM32</li><li>Arduino</li><li>Embedded Linux</li><li>MQTT</li><li>LoRaWAN</li><li>React</li><li>TypeScript</li><li>Node.js</li><li>Python</li><li>MongoDB</li></ul></div>
+      {{#if home.technologies.items}}
+      <section class="tech-strip" aria-label="{{ home.technologies.label }}">
+        <div class="container"><p class="tech-label">{{ home.technologies.label }}</p></div>
+        <div class="marquee"><ul class="marquee-track">{{#each home.technologies.items}}<li>{{ . }}</li>{{/each}}</ul><ul class="marquee-track" aria-hidden="true">{{#each home.technologies.items}}<li>{{ . }}</li>{{/each}}</ul></div>
       </section>
+      {{/if}}
 
       <section class="section section-alt">
         <div class="container">
           <div class="section-heading split reveal">
-            <div><p class="eyebrow">How we work</p><h2>From concept to <em>deployment.</em></h2></div>
-            <p>A clear, practical path from first idea to working technology — with evidence at every step, so decisions are made with confidence.</p>
+            <div><p class="eyebrow">{{ home.process.eyebrow }}</p><h2>{{ md home.process.title }}</h2></div>
+            <p>{{ home.process.text }}</p>
           </div>
           <ol class="pipeline">
-            <li class="reveal"><span class="pipeline-node">01</span><h3>Concept</h3><p>Understand the problem, users and constraints.</p></li>
-            <li class="reveal" data-delay="70"><span class="pipeline-node">02</span><h3>Design</h3><p>Shape the architecture, circuits and interfaces.</p></li>
-            <li class="reveal" data-delay="140"><span class="pipeline-node">03</span><h3>Prototype</h3><p>Build a working model to test the idea early.</p></li>
-            <li class="reveal" data-delay="210"><span class="pipeline-node">04</span><h3>Development</h3><p>Engineer hardware, firmware and software together.</p></li>
-            <li class="reveal" data-delay="280"><span class="pipeline-node">05</span><h3>Testing</h3><p>Validate reliability and performance.</p></li>
-            <li class="reveal" data-delay="350"><span class="pipeline-node">06</span><h3>Deployment</h3><p>Launch, support and plan what comes next.</p></li>
+            {{#each home.process.steps}}
+            <li class="reveal"{{ delay 70 }}><span class="pipeline-node">{{ @num }}</span><h3>{{ title }}</h3><p>{{ text }}</p></li>
+            {{/each}}
           </ol>
         </div>
       </section>
@@ -206,16 +204,15 @@
       <section class="section section-dark">
         <div class="container work-feature">
           <div class="reveal">
-            <p class="eyebrow">Selected work</p>
-            <h2>Technology is best understood when you can see it <em>working.</em></h2>
-            <p>Our case studies show the context, process, technology and outcomes behind each engagement — with images and video of the systems in action.</p>
-            <a class="button button-light" href="/projects/">View projects <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <p class="eyebrow">{{ home.selected_work.eyebrow }}</p>
+            <h2>{{ md home.selected_work.title }}</h2>
+            <p>{{ home.selected_work.text }}</p>
+            <a class="button button-light" href="/projects/">{{ home.selected_work.button }} {{ icon "arrow-right" }}</a>
           </div>
           <div class="stat-panel reveal" data-delay="120">
-            <div class="stat"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg><b>End-to-end</b><span>From circuit to cloud to interface</span></div>
-            <div class="stat"><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg><b>Prototype-first</b><span>Test assumptions early, with real hardware</span></div>
-            <div class="stat"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><b>Built to last</b><span>Documented, maintainable engineering</span></div>
-            <div class="stat"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg><b>Outcome-focused</b><span>Technology with a clear job to do</span></div>
+            {{#each home.selected_work.stats}}
+            <div class="stat">{{ icon icon }}<b>{{ title }}</b><span>{{ text }}</span></div>
+            {{/each}}
           </div>
         </div>
       </section>
@@ -224,14 +221,14 @@
         <div class="container split-feature">
           <div class="roadmap reveal" aria-hidden="true">
             <div class="roadmap-track"></div>
-            <div class="roadmap-node is-now"><span>Now</span><b>Engineering services</b></div>
-            <div class="roadmap-node"><span>Next</span><b>Proprietary products</b></div>
+            <div class="roadmap-node is-now"><span>Now</span><b>{{ home.roadmap.now }}</b></div>
+            <div class="roadmap-node"><span>Next</span><b>{{ home.roadmap.next }}</b></div>
           </div>
           <div class="reveal">
-            <p class="eyebrow">Built for what comes next</p>
-            <h2>Services today.<br><em>Products tomorrow.</em></h2>
-            <p>Every engagement deepens the engineering capability Eneon needs to create its own technology products — without losing the focus and care client work demands today.</p>
-            <a class="text-link" href="/products/">Our product direction <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <p class="eyebrow">{{ home.roadmap.eyebrow }}</p>
+            <h2>{{ md home.roadmap.title }}</h2>
+            <p>{{ home.roadmap.text }}</p>
+            <a class="text-link" href="/products/">{{ home.roadmap.link }} {{ icon "arrow-right" }}</a>
           </div>
         </div>
       </section>
@@ -239,8 +236,8 @@
       <section class="section cta-section">
         <div class="container">
           <div class="cta-card reveal">
-            <div><p class="eyebrow">Start with a conversation</p><h2>Have an idea that needs engineering?</h2><p>Tell us what you are building. We will help you find a practical first step.</p></div>
-            <a class="button button-light" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <div><p class="eyebrow">{{ home.cta.eyebrow }}</p><h2>{{ md home.cta.title }}</h2><p>{{ home.cta.text }}</p></div>
+            <a class="button button-light" href="/contact/">{{ icon "chat" }}{{ home.cta.button }} {{ icon "arrow-right" }}</a>
           </div>
         </div>
       </section>
@@ -252,71 +249,73 @@
       <section class="page-hero">
         <div class="hero-bg" aria-hidden="true"></div>
         <div class="circuit-deco" aria-hidden="true"></div>
-        <div class="container narrow reveal"><p class="eyebrow">About Eneon</p><h1>Built to make technology <em>real.</em></h1><p class="lede">Eneon Technologies is an engineering and technology company focused on the work between an idea and a working solution.</p></div>
+        <div class="container narrow reveal"><p class="eyebrow">{{ pages.about.hero.eyebrow }}</p><h1>{{ md pages.about.hero.title }}</h1><p class="lede">{{ pages.about.hero.lede }}</p></div>
       </section>
 
       <section class="section">
         <div class="container split-feature split-feature-top">
-          <div class="reveal"><p class="eyebrow">Who we are</p><h2>Engineering-minded, <em>outcome-focused.</em></h2></div>
+          <div class="reveal"><p class="eyebrow">{{ pages.about.who.eyebrow }}</p><h2>{{ md pages.about.who.title }}</h2></div>
           <div class="prose-block reveal">
-            <p>Based in Enugu, Nigeria, we work across physical and digital systems: electronics, firmware, connectivity, applications and AI — and the decisions that make them work as one. Our focus is practical progress, not technology for its own sake.</p>
-            <p>As the company grows, that same foundation will support Eneon’s transition from engineering solutions for clients to technology products of its own.</p>
+            {{#each pages.about.who.paragraphs}}
+            <p>{{ . }}</p>
+            {{/each}}
           </div>
         </div>
       </section>
 
+      {{#if pages.about.what_we_build.cards}}
       <section class="section section-alt">
         <div class="container">
-          <div class="section-heading reveal"><p class="eyebrow">What we build</p><h2>Systems with a reason to exist.</h2></div>
+          <div class="section-heading reveal"><p class="eyebrow">{{ pages.about.what_we_build.eyebrow }}</p><h2>{{ md pages.about.what_we_build.title }}</h2></div>
           <div class="card-grid card-grid-3">
-            <article class="feature-card reveal"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-circuit"/></svg></span><h3>Physical intelligence</h3><p>Devices and electronics that sense, control, measure, communicate or enable a real-world task.</p></article>
-            <article class="feature-card reveal" data-delay="100"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg></span><h3>Digital clarity</h3><p>Software and interfaces that make complex systems understandable and easy to use.</p></article>
-            <article class="feature-card reveal" data-delay="200"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-signal"/></svg></span><h3>Connected value</h3><p>Data and device connectivity that help people make better, faster decisions.</p></article>
+            {{#each pages.about.what_we_build.cards}}
+            <article class="feature-card reveal"{{ delay 100 3 }}><span class="icon-tile">{{ icon icon }}</span><h3>{{ title }}</h3><p>{{ text }}</p></article>
+            {{/each}}
           </div>
         </div>
       </section>
 
+      {{/if}}
       <section class="section">
         <div class="container">
           <div class="section-heading split reveal">
-            <div><p class="eyebrow">How we work</p><h2>Clear questions. Useful prototypes. <em>Deliberate iteration.</em></h2></div>
-            <p>We start by understanding the job the technology has to do. From there we define constraints, make the right technical choices, test assumptions early and document the work so it can grow responsibly.</p>
+            <div><p class="eyebrow">{{ pages.about.process.eyebrow }}</p><h2>{{ md pages.about.process.title }}</h2></div>
+            <p>{{ pages.about.process.text }}</p>
           </div>
           <ol class="steps">
-            <li class="reveal"><span class="step-num">01</span><h3>Understand</h3><p>Clarify the problem, context, users and constraints.</p></li>
-            <li class="reveal" data-delay="80"><span class="step-num">02</span><h3>Define</h3><p>Shape a realistic scope, architecture and plan.</p></li>
-            <li class="reveal" data-delay="160"><span class="step-num">03</span><h3>Build</h3><p>Develop, integrate and validate the solution.</p></li>
-            <li class="reveal" data-delay="240"><span class="step-num">04</span><h3>Learn</h3><p>Use evidence to refine the next decision.</p></li>
+            {{#each pages.about.process.steps}}
+            <li class="reveal"{{ delay 80 }}><span class="step-num">{{ @num }}</span><h3>{{ title }}</h3><p>{{ text }}</p></li>
+            {{/each}}
           </ol>
         </div>
       </section>
 
-      <!--
-        OPTIONAL TEAM / WORKSPACE PHOTO — paste a Cloudinary image URL and remove the comment markers.
-
+      {{#if pages.about.photo.image}}
       <section class="section section-tight">
         <div class="container">
           <figure class="media-frame reveal">
-            <img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_21:9,w_1600/f_auto,q_auto/v1/eneon/workspace.jpg"
-                 width="1600" height="686" loading="lazy" alt="Describe the photo here">
-            <figcaption>Caption for the photo.</figcaption>
+            <img src="{{ cld pages.about.photo.image "c_fill,g_auto,ar_21:9,w_1600" }}"
+                 width="1600" height="686" loading="lazy" alt="{{ pages.about.photo.alt }}">
+            {{#if pages.about.photo.caption}}
+            <figcaption>{{ pages.about.photo.caption }}</figcaption>
+            {{/if}}
           </figure>
         </div>
       </section>
-      -->
 
+      {{/if}}
       <section class="section section-dark">
         <div class="container split-feature">
-          <div class="reveal"><p class="eyebrow">Our vision</p><h2>To help shape technology that is <em>useful, capable and made to last.</em></h2></div>
-          <p class="reveal lead-dark">Today, that means turning client opportunities into working engineering solutions. Over time, it means applying that capability to Eneon’s own products across hardware, software and connected systems.</p>
+          <div class="reveal"><p class="eyebrow">{{ pages.about.vision.eyebrow }}</p><h2>{{ md pages.about.vision.title }}</h2></div>
+          <p class="reveal lead-dark">{{ pages.about.vision.text }}</p>
         </div>
       </section>
 
       <section class="section cta-section">
         <div class="container">
           <div class="cta-card reveal">
-            <div><p class="eyebrow">Work with us</p><h2>Let’s talk about what you are building.</h2></div>
-            <a class="button button-light" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <div><p class="eyebrow">{{ pages.about.cta.eyebrow }}</p><h2>{{ md pages.about.cta.title }}</h2>{{#if pages.about.cta.text}}<p>{{ pages.about.cta.text }}</p>{{/if}}</div>
+            <a class="button button-light" href="/contact/">{{ icon "chat" }}{{ pages.about.cta.button }} {{ icon "arrow-right" }}</a>
           </div>
         </div>
       </section>
@@ -328,222 +327,53 @@
       <section class="page-hero">
         <div class="hero-bg" aria-hidden="true"></div>
         <div class="circuit-deco" aria-hidden="true"></div>
-        <div class="container narrow reveal"><p class="eyebrow">Our services</p><h1>From first question to <em>working system.</em></h1><p class="lede">Eight connected disciplines — from circuit board to cloud, app and AI — so your idea can move from concept to deployment with one engineering partner.</p></div>
+        <div class="container narrow reveal"><p class="eyebrow">{{ pages.services.hero.eyebrow }}</p><h1>{{ md pages.services.hero.title }}</h1><p class="lede">{{ pages.services.hero.lede }}</p></div>
       </section>
 
       <section class="section section-tight pb-0">
         <div class="container">
           <nav class="service-index reveal" aria-label="Services on this page">
-            <a href="#hardware"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-circuit"/></svg></span><small>01</small><b>Hardware &amp; Electronics Development</b></a>
-            <a href="#pcb"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-board"/></svg></span><small>02</small><b>PCB Design &amp; Development</b></a>
-            <a href="#embedded"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-cpu"/></svg></span><small>03</small><b>Embedded Systems &amp; Firmware</b></a>
-            <a href="#iot"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-signal"/></svg></span><small>04</small><b>IoT Solutions</b></a>
-            <a href="#software"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg></span><small>05</small><b>Software Development</b></a>
-            <a href="#ai"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg></span><small>06</small><b>AI &amp; Machine Learning</b></a>
-            <a href="#prototypes"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg></span><small>07</small><b>Prototype Development</b></a>
-            <a href="#consultancy"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg></span><small>08</small><b>Engineering &amp; Technical Consultancy</b></a>
+            {{#each services}}
+            <a href="#{{ anchor }}"><span class="icon-tile">{{ icon icon }}</span><small>{{ @num }}</small><b>{{ index_title }}</b></a>
+            {{/each}}
           </nav>
         </div>
       </section>
-      <!--
-        SERVICE PHOTOS (optional): each service below has a commented <figure> line. Upload a
-        clean photo (no text) to Cloudinary, paste its URL, and remove the comment markers around
-        that line. The photo shows as a wide banner that fades into the section, like the flyers.
-      -->
 
-      <section id="hardware" class="section service-band">
+      {{#each services}}
+      <section id="{{ anchor }}" class="section service-band{{#if @even}} section-alt{{/if}}">
         <div class="container">
-      <!--    <figure class="band-media reveal"><img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_21:8,w_1600/f_auto,q_auto/v1/eneon/services/hardware-electronics.jpg" width="1600" height="610" loading="lazy" alt="Describe the photo"></figure> -->
+          {{#if banner.image}}
+          <figure class="band-media reveal"><img src="{{ cld banner.image "c_fill,g_auto,ar_21:8,w_1600" }}" width="1600" height="610" loading="lazy" alt="{{ banner.alt }}"></figure>
+          {{/if}}
           <div class="band-grid">
             <div class="band-copy reveal">
-              <p class="eyebrow">Service 01</p>
-              <h2>Hardware &amp; Electronics <em>Development</em></h2>
-              <p>We design and develop practical electronic systems for real-world applications. From circuit design and component selection to prototyping and testing, we help turn technical ideas into working electronic solutions.</p>
-              <a class="button" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+              <p class="eyebrow">Service {{ @num }}</p>
+              <h2>{{ md title }}</h2>
+              <p>{{ description }}</p>
+              {{#if tags}}
+            <ul class="tag-list">{{#each tags}}<li>{{ . }}</li>{{/each}}</ul>
+              {{/if}}
+              <a class="button" href="/contact/">{{ icon "chat" }}{{ pages.services.button }} {{ icon "arrow-right" }}</a>
             </div>
             <div class="band-side reveal" data-delay="120">
               <ul class="ring-list">
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-cpu"/></svg></span><div><h3>Circuit Design &amp; Analysis</h3><p>Circuits engineered and analysed for real-world reliability.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-gear"/></svg></span><div><h3>Component Selection &amp; Sourcing</h3><p>The right parts for performance, cost and availability.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-wrench"/></svg></span><div><h3>Prototyping &amp; Assembly</h3><p>Boards built, assembled and brought up on the bench.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg></span><div><h3>Testing &amp; Validation</h3><p>Measured against requirements before it ships.</p></div></li>
+              {{#each features}}
+              <li><span class="icon-tile">{{ icon icon }}</span><div><h3>{{ title }}</h3><p>{{ text }}</p></div></li>
+              {{/each}}
               </ul>
-              <p class="band-signoff"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Nigeria</span><b>Engineering ideas into reality.</b></p>
+              <p class="band-signoff"><span>{{ icon "pin" }}{{ site.country }}</span><b>{{ signoff }}</b></p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="pcb" class="section service-band section-alt">
-        <div class="container">
-      <!--    <figure class="band-media reveal"><img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_21:8,w_1600/f_auto,q_auto/v1/eneon/services/pcb-design.jpg" width="1600" height="610" loading="lazy" alt="Describe the photo"></figure> -->
-          <div class="band-grid">
-            <div class="band-copy reveal">
-              <p class="eyebrow">Service 02</p>
-              <h2>PCB Design &amp; <em>Development</em></h2>
-              <p>We design printed circuit boards for electronic projects, helping move designs from circuit concepts and schematics toward functional, manufacturable hardware. Suitable for prototypes and custom electronic systems.</p>
-              <a class="button" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            </div>
-            <div class="band-side reveal" data-delay="120">
-              <ul class="ring-list">
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-circuit"/></svg></span><div><h3>Schematic Design</h3><p>Create accurate and reliable circuit schematics.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-board"/></svg></span><div><h3>PCB Layout Design</h3><p>Optimised for performance, size and manufacturability.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-gear"/></svg></span><div><h3>Gerber Files &amp; BOM</h3><p>Ready for production and assembly.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg></span><div><h3>Prototyping Support</h3><p>From design to testing and validation.</p></div></li>
-              </ul>
-              <p class="band-signoff"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Nigeria</span><b>Precision designs. Reliable solutions.</b></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="embedded" class="section service-band">
-        <div class="container">
-      <!--    <figure class="band-media reveal"><img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_21:8,w_1600/f_auto,q_auto/v1/eneon/services/embedded-firmware.jpg" width="1600" height="610" loading="lazy" alt="Describe the photo"></figure> -->
-          <div class="band-grid">
-            <div class="band-copy reveal">
-              <p class="eyebrow">Service 03</p>
-              <h2>Embedded Systems &amp; <em>Firmware</em></h2>
-              <p>We develop embedded systems that connect hardware, sensors and software to perform specific tasks reliably — from microcontroller programming and firmware development to hardware integration and system testing.</p>
-            <ul class="tag-list"><li>ESP32</li><li>STM32</li><li>Arduino</li><li>Embedded Linux</li></ul>
-              <a class="button" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            </div>
-            <div class="band-side reveal" data-delay="120">
-              <ul class="ring-list">
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-cpu"/></svg></span><div><h3>Microcontroller Programming</h3><p>Efficient, dependable code close to the metal.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg></span><div><h3>Firmware Development</h3><p>Robust firmware that makes devices behave as intended.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-link"/></svg></span><div><h3>Hardware Integration</h3><p>Sensors, actuators and peripherals working as one.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-gear"/></svg></span><div><h3>System Testing</h3><p>Verified end to end, under real conditions.</p></div></li>
-              </ul>
-              <p class="band-signoff"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Nigeria</span><b>Engineering ideas into reality.</b></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="iot" class="section service-band section-alt">
-        <div class="container">
-      <!--    <figure class="band-media reveal"><img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_21:8,w_1600/f_auto,q_auto/v1/eneon/services/iot-solutions.jpg" width="1600" height="610" loading="lazy" alt="Describe the photo"></figure> -->
-          <div class="band-grid">
-            <div class="band-copy reveal">
-              <p class="eyebrow">Service 04</p>
-              <h2>IoT <em>Solutions</em></h2>
-              <p>We develop connected technology solutions that enable devices and systems to collect, transmit and monitor data. We work with sensors, embedded devices, connectivity and software to create practical IoT solutions for businesses and real-world applications.</p>
-            <ul class="tag-list"><li>MQTT</li><li>LoRaWAN</li><li>Wi-Fi</li><li>Cloud dashboards</li></ul>
-              <a class="button" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            </div>
-            <div class="band-side reveal" data-delay="120">
-              <ul class="ring-list">
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-signal"/></svg></span><div><h3>Sensor Integration</h3><p>Collect real-time data from the physical world.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg></span><div><h3>Connectivity</h3><p>Reliable data transmission and cloud integration.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg></span><div><h3>Data Monitoring</h3><p>Track, analyse and visualise your data.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-trend"/></svg></span><div><h3>Custom IoT Solutions</h3><p>Built for your specific business needs.</p></div></li>
-              </ul>
-              <p class="band-signoff"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Nigeria</span><b>Smarter devices. Better decisions.</b></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="software" class="section service-band">
-        <div class="container">
-      <!--    <figure class="band-media reveal"><img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_21:8,w_1600/f_auto,q_auto/v1/eneon/services/software-development.jpg" width="1600" height="610" loading="lazy" alt="Describe the photo"></figure> -->
-          <div class="band-grid">
-            <div class="band-copy reveal">
-              <p class="eyebrow">Service 05</p>
-              <h2>Software <em>Development</em></h2>
-              <p>We develop custom software solutions for businesses and technology projects, including web applications, mobile applications, backend systems and software integrations designed around specific requirements.</p>
-            <ul class="tag-list"><li>React</li><li>TypeScript</li><li>Node.js</li><li>Python</li><li>MongoDB</li></ul>
-              <a class="button" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            </div>
-            <div class="band-side reveal" data-delay="120">
-              <ul class="ring-list">
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-monitor"/></svg></span><div><h3>Web Applications</h3><p>Responsive, scalable and user-friendly web solutions.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-smartphone"/></svg></span><div><h3>Mobile Applications</h3><p>iOS &amp; Android apps tailored to your needs.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-server"/></svg></span><div><h3>Backend Systems</h3><p>Secure, reliable and high-performance systems.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg></span><div><h3>Software Integrations</h3><p>Connect your tools and streamline your workflow.</p></div></li>
-              </ul>
-              <p class="band-signoff"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Nigeria</span><b>Custom software. Real business impact.</b></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="ai" class="section service-band section-alt">
-        <div class="container">
-      <!--    <figure class="band-media reveal"><img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_21:8,w_1600/f_auto,q_auto/v1/eneon/services/ai-machine-learning.jpg" width="1600" height="610" loading="lazy" alt="Describe the photo"></figure> -->
-          <div class="band-grid">
-            <div class="band-copy reveal">
-              <p class="eyebrow">Service 06</p>
-              <h2>AI &amp; Machine <em>Learning</em></h2>
-              <p>We apply artificial intelligence and machine learning where they add real value — turning sensor, device and business data into predictions, detection and automation, in software platforms or directly on embedded devices.</p>
-            <ul class="tag-list"><li>Machine learning</li><li>Edge AI</li><li>Predictive analytics</li><li>Python</li></ul>
-              <a class="button" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            </div>
-            <div class="band-side reveal" data-delay="120">
-              <ul class="ring-list">
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-database"/></svg></span><div><h3>Data &amp; Model Development</h3><p>Prepare your data and train models for your problem.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-cpu"/></svg></span><div><h3>Edge AI</h3><p>Intelligent features running directly on embedded devices.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-trend"/></svg></span><div><h3>Predictive Analytics</h3><p>Forecast trends, detect anomalies and spot patterns.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg></span><div><h3>AI Integration</h3><p>Add intelligent features to apps, platforms and workflows.</p></div></li>
-              </ul>
-              <p class="band-signoff"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Nigeria</span><b>Smarter systems. Better decisions.</b></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="prototypes" class="section service-band">
-        <div class="container">
-      <!--    <figure class="band-media reveal"><img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_21:8,w_1600/f_auto,q_auto/v1/eneon/services/prototype-development.jpg" width="1600" height="610" loading="lazy" alt="Describe the photo"></figure> -->
-          <div class="band-grid">
-            <div class="band-copy reveal">
-              <p class="eyebrow">Service 07</p>
-              <h2>Prototype <em>Development</em></h2>
-              <p>Have an idea but don’t know how to turn it into a working prototype? We help develop and test early-stage hardware and technology concepts, combining electronics, embedded systems and software where required.</p>
-              <a class="button" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            </div>
-            <div class="band-side reveal" data-delay="120">
-              <ul class="ring-list">
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-bulb"/></svg></span><div><h3>Concept to Prototype</h3><p>Turn your idea into a working model.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-cpu"/></svg></span><div><h3>Hardware Development</h3><p>Design, build and test electronic systems.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg></span><div><h3>Embedded Systems</h3><p>Integrate hardware and software.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-gear"/></svg></span><div><h3>Testing &amp; Validation</h3><p>Ensure reliability and performance.</p></div></li>
-              </ul>
-              <p class="band-signoff"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Nigeria</span><b>Ideas into real solutions.</b></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="consultancy" class="section service-band section-alt">
-        <div class="container">
-      <!--    <figure class="band-media reveal"><img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_21:8,w_1600/f_auto,q_auto/v1/eneon/services/consultancy.jpg" width="1600" height="610" loading="lazy" alt="Describe the photo"></figure> -->
-          <div class="band-grid">
-            <div class="band-copy reveal">
-              <p class="eyebrow">Service 08</p>
-              <h2>Engineering &amp; Technical <em>Consultancy</em></h2>
-              <p>We provide technical support and engineering guidance for technology projects — from understanding a problem and evaluating possible solutions to planning, development, prototyping and implementation.</p>
-              <a class="button" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            </div>
-            <div class="band-side reveal" data-delay="120">
-              <ul class="ring-list">
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-bulb"/></svg></span><div><h3>Problem Analysis</h3><p>Understand your needs and explore the best options.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-gear"/></svg></span><div><h3>Solution Planning</h3><p>Create practical and efficient approaches.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-compass"/></svg></span><div><h3>Project Development</h3><p>Guide and support your project from design to execution.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg></span><div><h3>Technical Support</h3><p>Reliable advice and expertise throughout the process.</p></div></li>
-              </ul>
-              <p class="band-signoff"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Nigeria</span><b>Your vision. Our engineering expertise.</b></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {{/each}}
       <section class="section cta-section">
         <div class="container">
           <div class="cta-card reveal">
-            <div><p class="eyebrow">The right starting point</p><h2>Not sure where your idea fits?</h2><p>Start with the outcome you need. We will help identify a practical first step — an architecture discussion, a prototype, a connected system or an application.</p></div>
-            <a class="button button-light" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <div><p class="eyebrow">{{ pages.services.cta.eyebrow }}</p><h2>{{ md pages.services.cta.title }}</h2><p>{{ pages.services.cta.text }}</p></div>
+            <a class="button button-light" href="/contact/">{{ icon "chat" }}{{ pages.services.cta.button }} {{ icon "arrow-right" }}</a>
           </div>
         </div>
       </section>
@@ -555,241 +385,166 @@
       <section class="page-hero">
         <div class="hero-bg" aria-hidden="true"></div>
         <div class="circuit-deco" aria-hidden="true"></div>
-        <div class="container narrow reveal"><p class="eyebrow">Projects</p><h1>Engineering you can <em>see working.</em></h1><p class="lede">Selected hardware, embedded, IoT and software work — the context, the process, the technology and the outcome.</p></div>
+        <div class="container narrow reveal"><p class="eyebrow">{{ pages.projects.hero.eyebrow }}</p><h1>{{ md pages.projects.hero.title }}</h1><p class="lede">{{ pages.projects.hero.lede }}</p></div>
       </section>
 
       <section class="section section-tight projects">
         <div class="container">
+          {{#if projects}}
           <div class="filter-bar reveal" role="group" aria-label="Filter projects">
             <button class="filter-button is-selected" data-filter="all" type="button" aria-pressed="true">All</button>
-            <button class="filter-button" data-filter="hardware" type="button" aria-pressed="false">Hardware</button>
-            <button class="filter-button" data-filter="embedded" type="button" aria-pressed="false">Embedded</button>
-            <button class="filter-button" data-filter="iot" type="button" aria-pressed="false">IoT</button>
-            <button class="filter-button" data-filter="software" type="button" aria-pressed="false">Software</button>
+            {{#each projectCategories}}
+            <button class="filter-button" data-filter="{{ key }}" type="button" aria-pressed="false">{{ label }}</button>
+            {{/each}}
           </div>
 
           <div class="project-grid">
-            <article class="project-card reveal" data-category="hardware embedded">
-              <a class="project-media" href="/projects/safeguard-lpg/" aria-label="SafeGuard LPG case study">
-                <!-- THUMBNAIL: replace the span below with
-                     <img src="https://res.cloudinary.com/…/image/upload/c_fill,ar_4:3,w_800/f_auto,q_auto/…" width="800" height="600" loading="lazy" alt="…"> -->
-                <img src="https://res.cloudinary.com/sdsdnsle/image/upload/c_crop,w_2296,h_1722,x_0,y_1250/c_scale,w_800/f_auto,q_auto/v1791019840/20260910_083953.jpg"
-                     width="800" height="600" loading="lazy" alt="SafeGuard LPG touchscreen showing its start-up splash screen">
+            {{#each projects}}
+            <article class="project-card reveal" data-category="{{ join categories " " }}"{{ delay 100 3 }}>
+              <a class="project-media" href="{{ url }}" aria-label="{{ name }} case study">
+                {{#if thumbUrl}}
+                <img src="{{ thumbUrl }}"
+                     width="800" height="600" loading="lazy" alt="{{ thumbAlt }}">
+                {{else}}
+                <span class="media-fallback">{{ icon "layers" }}</span>
+                {{/if}}
               </a>
               <div class="project-body">
-                <p class="label">Hardware · Embedded</p>
-                <h2><a href="/projects/safeguard-lpg/">SafeGuard LPG</a></h2>
-                <p class="project-client">For Syntec Limited</p>
-                <p>A gas monitoring and alarm system that detects LPG leaks, smoke and abnormal temperature, raises a distinct alarm for each — and learns its environment to reduce false alarms over time.</p>
-                <ul class="tag-list"><li>Gas sensing</li><li>Smoke detection</li><li>Temperature</li><li>Adaptive learning</li></ul>
-                <a class="text-link card-cta" href="/projects/safeguard-lpg/">View case study <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+                <p class="label">{{ categoryLabel }}</p>
+                <h2><a href="{{ url }}">{{ name }}</a></h2>
+                {{#if client}}
+                <p class="project-client">For {{ client }}</p>
+                {{/if}}
+                <p>{{ summary }}</p>
+                {{#if tags}}
+                <ul class="tag-list">{{#each tags}}<li>{{ . }}</li>{{/each}}</ul>
+                {{/if}}
+                <a class="text-link card-cta" href="{{ url }}">{{ pages.projects.card_link }} {{ icon "arrow-right" }}</a>
               </div>
             </article>
-      <!--
-        ADDING A PROJECT
-        Copy one of the cards below above this comment and replace the Cloudinary URLs and text.
-        - data-category: any of hardware, embedded, iot, software (space separated).
-        - The build adds f_auto,q_auto to every Cloudinary URL automatically.
-        - c_fill,ar_4:3,w_800 crops the thumbnail on Cloudinary so every card matches.
-        The "case studies in preparation" panel and the filter buttons switch automatically
-        once at least one card exists.
-
-        IMAGE PROJECT:
-            <article class="project-card reveal" data-category="hardware embedded">
-              <button class="project-media" type="button"
-                      data-lightbox-media="https://res.cloudinary.com/YOUR_CLOUD/image/upload/f_auto,q_auto/v1/eneon/projects/smart-meter.jpg"
-                      data-lightbox-type="image"
-                      data-lightbox-title="Smart energy meter — assembled prototype">
-                <img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_fill,ar_4:3,w_800/f_auto,q_auto/v1/eneon/projects/smart-meter.jpg"
-                     width="800" height="600" loading="lazy" alt="Assembled smart energy meter prototype on a test bench">
-              </button>
-              <div class="project-body">
-                <p class="label">Hardware · Embedded</p>
-                <h2>Smart energy meter</h2>
-                <p>One or two sentences on the problem, what was built and the outcome.</p>
-                <ul class="tag-list"><li>ESP32</li><li>PCB design</li><li>MQTT</li></ul>
-              </div>
-            </article>
-
-        VIDEO PROJECT (the thumbnail is a frame taken from the video itself: so_1 = 1 second in, .jpg extension):
-            <article class="project-card reveal" data-category="iot software">
-              <button class="project-media" type="button"
-                      data-lightbox-media="https://res.cloudinary.com/YOUR_CLOUD/video/upload/f_auto,q_auto/v1/eneon/projects/dashboard-demo.mp4"
-                      data-lightbox-type="video"
-                      data-lightbox-title="Remote monitoring dashboard — live demo">
-                <img src="https://res.cloudinary.com/YOUR_CLOUD/video/upload/so_1,c_fill,ar_4:3,w_800/f_auto,q_auto/v1/eneon/projects/dashboard-demo.jpg"
-                     width="800" height="600" loading="lazy" alt="Remote monitoring dashboard showing live sensor data">
-                <span class="play-badge"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg></span>
-              </button>
-              <div class="project-body">
-                <p class="label">IoT · Software</p>
-                <h2>Remote monitoring platform</h2>
-                <p>One or two sentences on the problem, what was built and the outcome.</p>
-                <ul class="tag-list"><li>LoRaWAN</li><li>Dashboard</li><li>Cloud</li></ul>
-              </div>
-            </article>
-      -->
+            {{/each}}
           </div>
-
+          {{else}}
           <div class="empty-state reveal">
-            <span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg></span>
+            <span class="icon-tile">{{ icon "layers" }}</span>
             <div>
-              <h2>Case studies in preparation</h2>
-              <p>We only publish work that clients have approved for sharing. Detailed case studies — with images and video of the systems in action — are being prepared now.</p>
-              <p>In the meantime, we are happy to talk through relevant experience directly.</p>
-              <div class="button-row"><a class="button" href="/contact/">Ask about our work <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a><a class="text-link" href="/services/">See capabilities <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+              <h2>{{ pages.projects.empty.title }}</h2>
+              {{#each pages.projects.empty.paragraphs}}
+              <p>{{ . }}</p>
+              {{/each}}
+              <div class="button-row"><a class="button" href="/contact/">{{ pages.projects.empty.button }} {{ icon "arrow-up-right" }}</a><a class="text-link" href="/services/">{{ pages.projects.empty.link }} {{ icon "arrow-right" }}</a></div>
             </div>
           </div>
+          {{/if}}
         </div>
       </section>
 
     </div>
     <!-- /page-projects -->
 
-    <!-- ═══════════════════ PROJECT: SAFEGUARD LPG ═══════════════════ -->
-    <div class="page" id="page-safeguard-lpg">
+    <!-- ═══════════════════ PROJECT CASE STUDY (one page per file in content/projects/) ═══════════════════ -->
+    <div class="page" id="page-project">
       <section class="page-hero case-hero">
         <div class="hero-bg" aria-hidden="true"></div>
         <div class="circuit-deco" aria-hidden="true"></div>
         <div class="container reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/projects/"><svg class="i" aria-hidden="true"><use href="#i-chevron-left"/></svg>Projects</a></nav>
-          <p class="eyebrow">Case study · Hardware · Embedded</p>
-          <h1>SafeGuard <em>LPG</em></h1>
-          <p class="lede">A gas monitoring and alarm system that watches for LPG leaks, smoke and abnormal temperature, raises the right alarm for each event — and learns its environment to reduce false alarms over time.</p>
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/projects/">{{ icon "chevron-left" }}Projects</a></nav>
+          <p class="eyebrow">Case study{{#if project.categoryLabel}} · {{ project.categoryLabel }}{{/if}}</p>
+          <h1>{{ md project.title }}</h1>
+          <p class="lede">{{ project.lede }}</p>
+          {{#if project.hasMeta}}
           <dl class="case-meta">
-            <div><dt>Client</dt><dd>Syntec Limited</dd></div>
-            <div><dt>Disciplines</dt><dd>Hardware · Embedded systems</dd></div>
-            <div><dt>Monitors</dt><dd>LPG · Smoke · Temperature</dd></div>
-            <div><dt>Interface</dt><dd>Touchscreen · Status LEDs · Buzzer</dd></div>
+            {{#if project.client}}
+            <div><dt>Client</dt><dd>{{ project.client }}</dd></div>
+            {{/if}}
+            {{#each project.details}}
+            <div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>
+            {{/each}}
           </dl>
+          {{/if}}
         </div>
       </section>
 
+      {{#if project.galleryItems}}
       <section class="section section-tight pb-0" aria-label="Project photos and videos">
         <div class="container">
-          <div class="gallery gallery-portrait reveal">
-            <button class="gallery-item" type="button" data-lightbox-group="safeguard-lpg" data-lightbox-type="image"
-                    data-lightbox-media="https://res.cloudinary.com/sdsdnsle/image/upload/c_limit,h_1600/f_auto,q_auto/v1791019840/20260910_083953.jpg"
-                    data-lightbox-title="Splash Screen">
-              <img src="https://res.cloudinary.com/sdsdnsle/image/upload/c_fill,g_auto,ar_4:5,w_700/f_auto,q_auto/v1791019840/20260910_083953.jpg"
-                   width="700" height="875" loading="lazy" alt="SafeGuard LPG touchscreen showing its start-up splash screen, with the green status light on">
+          <div class="gallery{{#if project.portrait}} gallery-portrait{{/if}} reveal">
+            {{#each project.galleryItems}}
+            <button class="gallery-item" type="button" data-lightbox-group="{{ project.slug }}" data-lightbox-type="{{ type }}"
+                    data-lightbox-media="{{ full }}"
+                    data-lightbox-title="{{ caption }}">
+              <img src="{{ thumb }}"
+                   width="{{ width }}" height="{{ height }}" loading="lazy" alt="{{ alt }}">
+              {{#if isVideo}}
+            <span class="play-badge">{{ icon "play" }}</span>
+              {{/if}}
             </button>
-            <button class="gallery-item" type="button" data-lightbox-group="safeguard-lpg" data-lightbox-type="image"
-                    data-lightbox-media="https://res.cloudinary.com/sdsdnsle/image/upload/c_limit,h_1600/f_auto,q_auto/v1791019848/20260910_084003.jpg"
-                    data-lightbox-title="Eneon Logo Splash">
-              <img src="https://res.cloudinary.com/sdsdnsle/image/upload/c_fill,g_auto,ar_4:5,w_700/f_auto,q_auto/v1791019848/20260910_084003.jpg"
-                   width="700" height="875" loading="lazy" alt="SafeGuard LPG display showing the “Powered by Eneon Technologies” splash screen">
-            </button>
-            <button class="gallery-item" type="button" data-lightbox-group="safeguard-lpg" data-lightbox-type="image"
-                    data-lightbox-media="https://res.cloudinary.com/sdsdnsle/image/upload/c_limit,h_1600/f_auto,q_auto/v1791019866/20260908_112227.jpg"
-                    data-lightbox-title="Assembly">
-              <img src="https://res.cloudinary.com/sdsdnsle/image/upload/c_fill,g_auto,ar_4:5,w_700/f_auto,q_auto/v1791019866/20260908_112227.jpg"
-                   width="700" height="875" loading="lazy" alt="Open SafeGuard LPG enclosure during assembly, showing the internal wiring and the display and status LEDs in the lid">
-            </button>
-            <button class="gallery-item" type="button" data-lightbox-group="safeguard-lpg" data-lightbox-type="image"
-                    data-lightbox-media="https://res.cloudinary.com/sdsdnsle/image/upload/c_limit,h_1600/f_auto,q_auto/v1791019867/20260908_112013.jpg"
-                    data-lightbox-title="Casing">
-              <img src="https://res.cloudinary.com/sdsdnsle/image/upload/c_fill,g_auto,ar_4:5,w_700/f_auto,q_auto/v1791019867/20260908_112013.jpg"
-                   width="700" height="875" loading="lazy" alt="Assembled SafeGuard LPG unit in its white enclosure, with display window and status LEDs">
-            </button>
-            <button class="gallery-item" type="button" data-lightbox-group="safeguard-lpg" data-lightbox-type="video"
-                    data-lightbox-media="https://res.cloudinary.com/sdsdnsle/video/upload/c_limit,h_1280/f_auto,q_auto/v1791022850/lv_0_20261003111310.mp4"
-                    data-lightbox-title="Device Test">
-              <img src="https://res.cloudinary.com/sdsdnsle/video/upload/so_1,c_fill,ar_4:5,w_700/f_auto,q_auto/v1791022850/lv_0_20261003111310.jpg"
-                   width="700" height="875" loading="lazy" alt="Video: testing the assembled SafeGuard LPG device">
-            <span class="play-badge"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg></span>
-            </button>
-            <button class="gallery-item" type="button" data-lightbox-group="safeguard-lpg" data-lightbox-type="video"
-                    data-lightbox-media="https://res.cloudinary.com/sdsdnsle/video/upload/c_limit,h_1280/f_auto,q_auto/v1791020944/lv_0_20260910094037.mp4"
-                    data-lightbox-title="Self-Test Feature">
-              <img src="https://res.cloudinary.com/sdsdnsle/video/upload/so_1,c_fill,ar_4:5,w_700/f_auto,q_auto/v1791020944/lv_0_20260910094037.jpg"
-                   width="700" height="875" loading="lazy" alt="Video: the built-in self-test menu checking the status LEDs, buzzer and sensors">
-            <span class="play-badge"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg></span>
-            </button>
-          <!--
-            GALLERY — add one button per image or video. The first item is shown large.
-            Items with the same data-lightbox-group open together in the viewer (arrows / swipe).
-            The build adds f_auto,q_auto to Cloudinary URLs automatically.
-
-            IMAGE:
-              <button class="gallery-item" type="button" data-lightbox-group="safeguard-lpg" data-lightbox-type="image"
-                      data-lightbox-media="https://res.cloudinary.com/<cloud>/image/upload/v123/<file>.jpg"
-                      data-lightbox-title="Caption shown in the viewer">
-                <img src="https://res.cloudinary.com/<cloud>/image/upload/c_fill,ar_4:3,w_900/v123/<file>.jpg"
-                     width="900" height="675" loading="lazy" alt="Describe the photo">
-              </button>
-
-            VIDEO (thumbnail = frame 1 second in: so_1 and a .jpg extension on the same video URL):
-              <button class="gallery-item" type="button" data-lightbox-group="safeguard-lpg" data-lightbox-type="video"
-                      data-lightbox-media="https://res.cloudinary.com/<cloud>/video/upload/v123/<file>.mp4"
-                      data-lightbox-title="Caption shown in the viewer">
-                <img src="https://res.cloudinary.com/<cloud>/video/upload/so_1,c_fill,ar_4:3,w_900/v123/<file>.jpg"
-                     width="900" height="675" loading="lazy" alt="Describe the video">
-                <span class="play-badge"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg></span>
-              </button>
-          -->
+            {{/each}}
           </div>
         </div>
       </section>
 
+      {{/if}}
       <section class="section">
         <div class="container band-grid">
           <div class="band-copy reveal">
-            <p class="eyebrow">The project</p>
-            <h2>Safety alarms people can <em>trust.</em></h2>
-            <p>SafeGuard LPG continuously monitors gas level, smoke and temperature, and triggers an alarm that corresponds to the event it detects — so a gas leak, a fire risk and overheating are each clearly identified.</p>
-            <p>An alarm that sounds too often is easy to ignore. SafeGuard LPG uses an adaptive learning mechanism that learns the normal conditions of its environment, reducing false triggers over time while staying responsive to real hazards.</p>
+            <p class="eyebrow">{{ project.overview.eyebrow }}</p>
+            <h2>{{ md project.overview.title }}</h2>
+            {{#each project.overview.paragraphs}}
+            <p>{{ . }}</p>
+            {{/each}}
           </div>
+          {{#if project.features}}
           <div class="band-side reveal" data-delay="120">
             <ul class="ring-list">
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-flame"/></svg></span><div><h3>LPG leak detection</h3><p>Continuous gas-level monitoring for liquefied petroleum gas.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg></span><div><h3>Smoke detection</h3><p>Early warning of smoke in the monitored space.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-thermometer"/></svg></span><div><h3>Temperature monitoring</h3><p>Detects abnormal heat before it becomes dangerous.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg></span><div><h3>Event-specific alarms</h3><p>A distinct alarm for each type of hazard.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-adapt"/></svg></span><div><h3>Adaptive learning</h3><p>Fewer false triggers the longer it runs.</p></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg></span><div><h3>Built-in self-test</h3><p>Checks its status LEDs, buzzer and sensors from the touchscreen.</p></div></li>
+              {{#each project.features}}
+              <li><span class="icon-tile">{{ icon icon }}</span><div><h3>{{ title }}</h3><p>{{ text }}</p></div></li>
+              {{/each}}
             </ul>
           </div>
+          {{/if}}
         </div>
       </section>
 
+      {{#if project.process.steps}}
       <section class="section section-alt">
         <div class="container">
-          <div class="section-heading reveal"><p class="eyebrow">How it works</p><h2>Sense. Assess. Alert. <em>Learn.</em></h2></div>
-          <ol class="pipeline pipeline-4">
-            <li class="reveal"><span class="pipeline-node">01</span><h3>Sense</h3><p>Gas, smoke and temperature sensors are read continuously.</p></li>
-            <li class="reveal" data-delay="70"><span class="pipeline-node">02</span><h3>Assess</h3><p>Readings are evaluated against what is normal for that environment.</p></li>
-            <li class="reveal" data-delay="140"><span class="pipeline-node">03</span><h3>Alert</h3><p>A real hazard triggers the alarm that matches the event.</p></li>
-            <li class="reveal" data-delay="210"><span class="pipeline-node">04</span><h3>Learn</h3><p>The system adapts over time, cutting false triggers.</p></li>
+          <div class="section-heading reveal"><p class="eyebrow">{{ project.process.eyebrow }}</p><h2>{{ md project.process.title }}</h2></div>
+          <ol class="{{ project.pipelineClass }}">
+            {{#each project.process.steps}}
+            <li class="reveal"{{ delay 70 }}><span class="pipeline-node">{{ @num }}</span><h3>{{ title }}</h3><p>{{ text }}</p></li>
+            {{/each}}
           </ol>
         </div>
       </section>
 
+      {{/if}}
       <section class="section cta-section">
         <div class="container">
           <div class="cta-card reveal">
-            <div><p class="eyebrow">Have a similar challenge?</p><h2>Let’s build a monitoring system for you.</h2><p>From sensors and firmware to alarms and dashboards — we engineer safety and monitoring systems end to end.</p></div>
-            <a class="button button-light" href="/contact/"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Let’s build your idea <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <div><p class="eyebrow">{{ project.cta.eyebrow }}</p><h2>{{ md project.cta.title }}</h2><p>{{ project.cta.text }}</p></div>
+            <a class="button button-light" href="/contact/">{{ icon "chat" }}{{ pages.projects.project_button }} {{ icon "arrow-right" }}</a>
           </div>
         </div>
       </section>
     </div>
-    <!-- /page-safeguard-lpg -->
+    <!-- /page-project -->
 
     <!-- ═══════════════════ PRODUCTS ═══════════════════ -->
     <div class="page" id="page-products">
       <section class="page-hero">
         <div class="hero-bg" aria-hidden="true"></div>
         <div class="circuit-deco" aria-hidden="true"></div>
-        <div class="container narrow reveal"><p class="eyebrow">Products</p><h1>From engineering solutions to <em>products.</em></h1><p class="lede">Eneon is building the technical capability and product discipline to create technology that stands on its own.</p></div>
+        <div class="container narrow reveal"><p class="eyebrow">{{ pages.products.hero.eyebrow }}</p><h1>{{ md pages.products.hero.title }}</h1><p class="lede">{{ pages.products.hero.lede }}</p></div>
       </section>
 
       <section class="section">
         <div class="container split-feature split-feature-top">
-          <div class="reveal"><p class="eyebrow">Product direction</p><h2>A deliberate path, <em>not an empty promise.</em></h2></div>
+          <div class="reveal"><p class="eyebrow">{{ pages.products.direction.eyebrow }}</p><h2>{{ md pages.products.direction.title }}</h2></div>
           <div class="prose-block reveal">
-            <p>Our current focus is engineering solutions and prototypes for clients. Each engagement builds the practical knowledge needed for future proprietary hardware, software and connected products.</p>
-            <p>When a product is ready, it will be presented here with clear features, specifications, documentation, support information and an honest availability status.</p>
+            {{#each pages.products.direction.paragraphs}}
+            <p>{{ . }}</p>
+            {{/each}}
           </div>
         </div>
       </section>
@@ -797,45 +552,49 @@
       <section class="section section-alt">
         <div class="container">
           <div class="section-heading split reveal">
-            <div><p class="eyebrow">Focus areas</p><h2>Where our products are <em>heading.</em></h2></div>
-            <p>No commercial Eneon products have been announced yet. These are the areas our engineering work is building toward.</p>
+            <div><p class="eyebrow">{{ pages.products.catalogue.eyebrow }}</p><h2>{{ md pages.products.catalogue.title }}</h2></div>
+            <p>{{ pages.products.catalogue.text }}</p>
           </div>
 
+          {{#if productsWithImage}}
           <div class="product-grid">
-      <!--
-        ADDING A PRODUCT
-        Copy this card above this comment, replace the Cloudinary URL and text, and remove the
-        "focus areas" cards below if you no longer need them. The build adds f_auto,q_auto automatically.
-
+            {{#each productsWithImage}}
             <article class="product-card reveal">
               <div class="product-visual">
-                <img src="https://res.cloudinary.com/YOUR_CLOUD/image/upload/c_pad,b_auto,ar_4:3,w_900/f_auto,q_auto/v1/eneon/products/product-name.png"
-                     width="900" height="675" loading="lazy" alt="Describe the product image">
-                <span class="badge">In development</span>
+                <img src="{{ cld image "c_pad,b_auto,ar_4:3,w_900" }}"
+                     width="900" height="675" loading="lazy" alt="{{ image_alt }}">
+                {{#if status}}
+                <span class="badge">{{ status }}</span>
+                {{/if}}
               </div>
               <div class="product-body">
-                <p class="label">Connected devices</p>
-                <h3>Product name</h3>
-                <p>A concise, verified description of what the product does and who it is for.</p>
-                <a class="text-link" href="/contact/">Register interest <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+                {{#if category}}
+                <p class="label">{{ category }}</p>
+                {{/if}}
+                <h3>{{ name }}</h3>
+                <p>{{ summary }}</p>
+                <a class="text-link" href="{{ linkUrl }}">{{ linkText }} {{ icon "arrow-right" }}</a>
               </div>
             </article>
-      -->
+            {{/each}}
           </div>
 
+          {{/if}}
+          {{#if productsWithoutImage}}
           <div class="card-grid card-grid-3">
-            <article class="feature-card reveal"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></span><h3>Hardware products</h3><p>Purpose-built electronic devices designed for reliability in real-world conditions.</p><span class="badge badge-inline">Exploring</span></article>
-            <article class="feature-card reveal" data-delay="100"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-signal"/></svg></span><h3>Connected devices</h3><p>Sensing and monitoring devices that bring remote visibility to physical systems.</p><span class="badge badge-inline">Exploring</span></article>
-            <article class="feature-card reveal" data-delay="200"><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg></span><h3>Software platforms</h3><p>Dashboards and tools that turn device data into useful decisions.</p><span class="badge badge-inline">Exploring</span></article>
+            {{#each productsWithoutImage}}
+            <article class="feature-card reveal"{{ delay 100 3 }}><span class="icon-tile">{{ icon icon }}</span><h3>{{ name }}</h3><p>{{ summary }}</p>{{#if status}}<span class="badge badge-inline">{{ status }}</span>{{/if}}</article>
+            {{/each}}
           </div>
+          {{/if}}
         </div>
       </section>
 
       <section class="section cta-section">
         <div class="container">
           <div class="cta-card reveal">
-            <div><p class="eyebrow">Stay close</p><h2>Interested in what we are building?</h2><p>Get in touch to talk about early collaboration or product partnerships.</p></div>
-            <a class="button button-light" href="/contact/">Get in touch <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+            <div><p class="eyebrow">{{ pages.products.cta.eyebrow }}</p><h2>{{ md pages.products.cta.title }}</h2><p>{{ pages.products.cta.text }}</p></div>
+            <a class="button button-light" href="/contact/">{{ pages.products.cta.button }} {{ icon "arrow-up-right" }}</a>
           </div>
         </div>
       </section>
@@ -847,51 +606,59 @@
       <section class="page-hero">
         <div class="hero-bg" aria-hidden="true"></div>
         <div class="circuit-deco" aria-hidden="true"></div>
-        <div class="container narrow reveal"><p class="eyebrow">Contact</p><h1>Start with the problem you want to <em>solve.</em></h1><p class="lede">Tell us what you are exploring. A clear first conversation makes the next engineering decision much easier.</p></div>
+        <div class="container narrow reveal"><p class="eyebrow">{{ pages.contact.hero.eyebrow }}</p><h1>{{ md pages.contact.hero.title }}</h1><p class="lede">{{ pages.contact.hero.lede }}</p></div>
       </section>
 
       <section class="section section-tight">
         <div class="container contact-layout">
           <aside id="contact-details" class="contact-details reveal">
-            <h2>Let’s make the first step useful.</h2>
-            <p>Use the form to outline your opportunity, or reach us directly.</p>
+            <h2>{{ md pages.contact.intro.title }}</h2>
+            <p>{{ pages.contact.intro.text }}</p>
             <ul class="contact-list">
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><div><small>Email</small><a href="mailto:hello@eneontechnologies.com">hello@eneontechnologies.com</a></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><div><small>Phone</small><a href="tel:+2347039913826">+234 703 991 3826</a></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg></span><div><small>WhatsApp</small><a href="https://wa.me/2347039913826" target="_blank" rel="noopener">Chat on WhatsApp</a></div></li>
-              <li><span class="icon-tile"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></span><div><small>Location</small><span>Enugu, Nigeria</span></div></li>
+              <li><span class="icon-tile">{{ icon "mail" }}</span><div><small>Email</small><a href="mailto:{{ site.email }}">{{ site.email }}</a></div></li>
+              {{#if site.phone}}
+              <li><span class="icon-tile">{{ icon "phone" }}</span><div><small>Phone</small><a href="{{ tel site.phone }}">{{ site.phone }}</a></div></li>
+              {{/if}}
+              {{#if site.whatsapp_number}}
+              <li><span class="icon-tile">{{ icon "whatsapp" }}</span><div><small>WhatsApp</small><a href="{{ wa site.whatsapp_number }}" target="_blank" rel="noopener">Chat on WhatsApp</a></div></li>
+              {{/if}}
+              {{#if site.location}}
+              <li><span class="icon-tile">{{ icon "pin" }}</span><div><small>Location</small><span>{{ site.location }}</span></div></li>
+              {{/if}}
             </ul>
+            {{#if pages.contact.next_steps.steps}}
             <div class="next-steps">
-              <h3>What happens next</h3>
+              <h3>{{ pages.contact.next_steps.title }}</h3>
               <ol>
-                <li><b>1</b>We review your enquiry and any context you share.</li>
-                <li><b>2</b>We reply to arrange a short conversation.</li>
-                <li><b>3</b>We suggest a practical first step and scope.</li>
+                {{#each pages.contact.next_steps.steps}}
+                <li><b>{{ @n }}</b>{{ . }}</li>
+                {{/each}}
               </ol>
             </div>
+            {{/if}}
           </aside>
 
       <!--
         FORM DELIVERY
-        With data-endpoint empty, submitting opens the visitor's email app with the enquiry
-        pre-filled and addressed to data-mailto. To receive submissions directly instead, create a
-        form on a service such as Formspree (https://formspree.io) and paste its endpoint URL into
-        data-endpoint, e.g. data-endpoint="https://formspree.io/f/abcdwxyz". Update privacy.html too.
+        With no form endpoint set (Admin → Site settings), submitting opens the visitor's email app
+        with the enquiry pre-filled and addressed to the site email. To receive submissions directly,
+        create a form on a service such as Formspree (https://formspree.io) and paste its endpoint
+        URL into "Form endpoint" in the admin. Update the privacy notice too.
       -->
-          <form class="inquiry-form reveal" data-inquiry-form data-endpoint="" data-mailto="hello@eneontechnologies.com" novalidate>
-            <div class="form-heading"><h2>Project enquiry</h2><p>Fields marked <b aria-hidden="true">*</b> are required.</p></div>
+          <form class="inquiry-form reveal" data-inquiry-form data-endpoint="{{ site.form_endpoint }}" data-mailto="{{ site.email }}" novalidate>
+            <div class="form-heading"><h2>{{ pages.contact.form.title }}</h2><p>Fields marked <b aria-hidden="true">*</b> are required.</p></div>
             <div class="form-grid">
               <div class="field"><label for="name">Name <b aria-hidden="true">*</b></label><input id="name" name="name" autocomplete="name" required></div>
               <div class="field"><label for="email">Email <b aria-hidden="true">*</b></label><input id="email" name="email" type="email" autocomplete="email" required></div>
               <div class="field"><label for="company">Company</label><input id="company" name="company" autocomplete="organization"></div>
               <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
-              <div class="field"><label for="project-type">Project type</label><select id="project-type" name="project-type"><option value="">Select one</option><option>Hardware &amp; electronics</option><option>PCB design</option><option>Embedded systems &amp; firmware</option><option>IoT solution</option><option>Web or mobile app</option><option>AI / machine learning</option><option>Prototype development</option><option>Technical consultancy</option><option>Not sure yet</option></select></div>
-              <div class="field"><label for="timeline">Timeline</label><select id="timeline" name="timeline"><option value="">Select one</option><option>As soon as possible</option><option>Within 3 months</option><option>3–6 months</option><option>Just exploring</option></select></div>
-              <div class="field form-full"><label for="message">What are you looking to build? <b aria-hidden="true">*</b></label><textarea id="message" name="message" rows="6" required placeholder="A few sentences on the problem, any constraints and where you are today."></textarea></div>
+              <div class="field"><label for="project-type">Project type</label><select id="project-type" name="project-type"><option value="">Select one</option>{{#each services}}{{#if form_option}}<option>{{ form_option }}</option>{{/if}}{{/each}}<option>Not sure yet</option></select></div>
+              <div class="field"><label for="timeline">Timeline</label><select id="timeline" name="timeline"><option value="">Select one</option>{{#each pages.contact.form.timelines}}<option>{{ . }}</option>{{/each}}</select></div>
+              <div class="field form-full"><label for="message">{{ pages.contact.form.message_label }} <b aria-hidden="true">*</b></label><textarea id="message" name="message" rows="6" required placeholder="{{ pages.contact.form.message_placeholder }}"></textarea></div>
               <div class="hp-field" aria-hidden="true"><label for="website">Website</label><input id="website" name="_gotcha" tabindex="-1" autocomplete="off"></div>
             </div>
             <div class="form-footer">
-              <button class="button" type="submit"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Send enquiry <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+              <button class="button" type="submit">{{ icon "chat" }}{{ pages.contact.form.button }} {{ icon "arrow-right" }}</button>
               <p class="form-status" data-form-status role="status" aria-live="polite"></p>
             </div>
           </form>
@@ -904,17 +671,15 @@
     <div class="page" id="page-privacy">
       <section class="page-hero compact-hero">
         <div class="hero-bg" aria-hidden="true"></div>
-        <div class="container narrow reveal"><p class="eyebrow">Privacy</p><h1>Privacy <em>notice.</em></h1><p class="lede">How the Eneon Technologies website handles information.</p></div>
+        <div class="container narrow reveal"><p class="eyebrow">{{ pages.privacy.hero.eyebrow }}</p><h1>{{ md pages.privacy.hero.title }}</h1><p class="lede">{{ pages.privacy.hero.lede }}</p></div>
       </section>
-      <!-- Review this notice against your real hosting, form-processing and analytics arrangements before launch. -->
+      <!-- Review this notice (Admin → Pages → Privacy page) against your real hosting, form-processing and analytics arrangements. -->
       <section class="section section-tight">
         <article class="container prose reveal">
-          <h2>Website information</h2>
-          <p>This website does not use analytics, advertising trackers or user accounts. Images and video are delivered through Cloudinary, a media delivery network, which receives standard technical request information (such as IP address and browser type) in order to serve those files. Your light or dark theme choice is stored only in your own browser.</p>
-          <h2>Project enquiries</h2>
-          <p>When you submit the enquiry form, your email application opens with the details you entered, addressed to Eneon Technologies. Nothing is sent until you choose to send that email. We use the information you provide only to respond to your enquiry and discuss a potential project.</p>
-          <h2>Contact</h2>
-          <p>For privacy questions or to ask us to delete information you have shared, email <a href="mailto:privacy@eneontechnologies.com">privacy@eneontechnologies.com</a>.</p>
+          {{#each pages.privacy.sections}}
+          <h2>{{ heading }}</h2>
+          {{ paras text }}
+          {{/each}}
         </article>
       </section>
     </div>
@@ -952,24 +717,30 @@
           <img src="/images/brand/eneon-mark.webp" width="40" height="40" alt="">
           <span class="brand-name">Eneon<span>Technologies</span></span>
         </a>
-        <p class="footer-tagline">Engineering ideas into reality.</p>
-        <p>Hardware, PCB, embedded, IoT and software engineering — turning ambitious ideas into dependable technology.</p>
+        <p class="footer-tagline">{{ site.tagline }}</p>
+        <p>{{ site.footer_description }}</p>
         <ul class="footer-contact">
-          <li><a href="mailto:hello@eneontechnologies.com"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>hello@eneontechnologies.com</a></li>
-          <li><a href="tel:+2347039913826"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>+234 703 991 3826</a></li>
-          <li><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Enugu, Nigeria</span></li>
+          <li><a href="mailto:{{ site.email }}">{{ icon "mail" }}{{ site.email }}</a></li>
+          {{#if site.phone}}
+          <li><a href="{{ tel site.phone }}">{{ icon "phone" }}{{ site.phone }}</a></li>
+          {{/if}}
+          {{#if site.location}}
+          <li><span>{{ icon "pin" }}{{ site.location }}</span></li>
+          {{/if}}
         </ul>
       </section>
       <section><h2>Company</h2><ul class="footer-links"><li><a href="/about/">About</a></li><li><a href="/projects/">Projects</a></li><li><a href="/products/">Products</a></li><li><a href="/contact/">Contact</a></li></ul></section>
-      <section><h2>Capabilities</h2><ul class="footer-links"><li><a href="/services/#hardware">Hardware &amp; electronics</a></li><li><a href="/services/#pcb">PCB design</a></li><li><a href="/services/#embedded">Embedded &amp; firmware</a></li><li><a href="/services/#iot">IoT solutions</a></li><li><a href="/services/#software">Software development</a></li><li><a href="/services/#ai">AI &amp; machine learning</a></li></ul></section>
-      <section><h2>Get started</h2><ul class="footer-links"><li><a href="/contact/">Start an enquiry</a></li><li><a href="/services/#prototypes">Prototype development</a></li><li><a href="/services/#consultancy">Technical consultancy</a></li></ul></section>
+      <section><h2>Capabilities</h2><ul class="footer-links">{{#each footerCapabilities}}<li><a href="/services/#{{ anchor }}">{{ footer.label }}</a></li>{{/each}}</ul></section>
+      <section><h2>Get started</h2><ul class="footer-links"><li><a href="/contact/">Start an enquiry</a></li>{{#each footerGetStarted}}<li><a href="/services/#{{ anchor }}">{{ footer.label }}</a></li>{{/each}}</ul></section>
     </div>
-    <div class="container footer-bottom"><p>© <span data-current-year>2026</span> Eneon Technologies. All rights reserved.</p><a href="/privacy/">Privacy</a></div>
+    <div class="container footer-bottom"><p>© <span data-current-year>{{ year }}</span> Eneon Technologies. All rights reserved.</p><a href="/privacy/">Privacy</a></div>
   </footer>
-  <a class="wa-float" href="https://wa.me/2347039913826?text=Hello%20Eneon%20Technologies%2C%20I%E2%80%99d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" aria-label="Chat with Eneon Technologies on WhatsApp">
+  {{#if site.whatsapp_number}}
+  <a class="wa-float" href="{{ wa site.whatsapp_number site.whatsapp_message }}" target="_blank" rel="noopener" aria-label="Chat with Eneon Technologies on WhatsApp">
     <svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg>
     <span class="wa-label" aria-hidden="true">Chat with us</span>
   </a>
+  {{/if}}
   <script src="/js/script.50b3eb3c.js" defer></script>
 </body>
 </html>

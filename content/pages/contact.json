@@ -1,0 +1,35 @@
+{
+  "seo": {
+    "title": "Contact Eneon Technologies — Start a Project Conversation",
+    "description": "Talk with Eneon Technologies about your hardware, embedded, IoT, software, AI or product-development opportunity."
+  },
+  "hero": {
+    "eyebrow": "Contact",
+    "title": "Start with the problem you want to *solve.*",
+    "lede": "Tell us what you are exploring. A clear first conversation makes the next engineering decision much easier."
+  },
+  "intro": {
+    "title": "Let’s make the first step useful.",
+    "text": "Use the form to outline your opportunity, or reach us directly."
+  },
+  "next_steps": {
+    "title": "What happens next",
+    "steps": [
+      "We review your enquiry and any context you share.",
+      "We reply to arrange a short conversation.",
+      "We suggest a practical first step and scope."
+    ]
+  },
+  "form": {
+    "title": "Project enquiry",
+    "message_label": "What are you looking to build?",
+    "message_placeholder": "A few sentences on the problem, any constraints and where you are today.",
+    "timelines": [
+      "As soon as possible",
+      "Within 3 months",
+      "3–6 months",
+      "Just exploring"
+    ],
+    "button": "Send enquiry"
+  }
+}

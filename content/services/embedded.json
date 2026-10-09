@@ -1,0 +1,51 @@
+{
+  "title": "Embedded Systems & *Firmware*",
+  "anchor": "embedded",
+  "order": 3,
+  "icon": "cpu",
+  "index_title": "Embedded Systems & Firmware",
+  "description": "We develop embedded systems that connect hardware, sensors and software to perform specific tasks reliably — from microcontroller programming and firmware development to hardware integration and system testing.",
+  "tags": [
+    "ESP32",
+    "STM32",
+    "Arduino",
+    "Embedded Linux"
+  ],
+  "features": [
+    {
+      "icon": "cpu",
+      "title": "Microcontroller Programming",
+      "text": "Efficient, dependable code close to the metal."
+    },
+    {
+      "icon": "code",
+      "title": "Firmware Development",
+      "text": "Robust firmware that makes devices behave as intended."
+    },
+    {
+      "icon": "link",
+      "title": "Hardware Integration",
+      "text": "Sensors, actuators and peripherals working as one."
+    },
+    {
+      "icon": "gear",
+      "title": "System Testing",
+      "text": "Verified end to end, under real conditions."
+    }
+  ],
+  "signoff": "Engineering ideas into reality.",
+  "banner": {
+    "image": "",
+    "alt": ""
+  },
+  "home_card": {
+    "show": true,
+    "title": "Embedded & Firmware",
+    "text": "Microcontroller programming and reliable device firmware."
+  },
+  "footer": {
+    "column": "capabilities",
+    "label": "Embedded & firmware"
+  },
+  "form_option": "Embedded systems & firmware"
+}

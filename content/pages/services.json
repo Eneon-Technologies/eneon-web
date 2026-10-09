@@ -1,0 +1,18 @@
+{
+  "seo": {
+    "title": "Engineering Services — Eneon Technologies",
+    "description": "Hardware & electronics, PCB design, embedded systems & firmware, IoT solutions, software development, AI & machine learning, prototype development and technical consultancy from Eneon Technologies."
+  },
+  "hero": {
+    "eyebrow": "Our services",
+    "title": "From first question to *working system.*",
+    "lede": "Eight connected disciplines — from circuit board to cloud, app and AI — so your idea can move from concept to deployment with one engineering partner."
+  },
+  "button": "Let’s build your idea",
+  "cta": {
+    "eyebrow": "The right starting point",
+    "title": "Not sure where your idea fits?",
+    "text": "Start with the outcome you need. We will help identify a practical first step — an architecture discussion, a prototype, a connected system or an application.",
+    "button": "Let’s build your idea"
+  }
+}

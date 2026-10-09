@@ -1,0 +1,25 @@
+{
+  "seo": {
+    "title": "Privacy Notice — Eneon Technologies",
+    "description": "How the Eneon Technologies website and project enquiry form handle information."
+  },
+  "hero": {
+    "eyebrow": "Privacy",
+    "title": "Privacy *notice.*",
+    "lede": "How the Eneon Technologies website handles information."
+  },
+  "sections": [
+    {
+      "heading": "Website information",
+      "text": "This website does not use analytics, advertising trackers or user accounts. Images and video are delivered through Cloudinary, a media delivery network, which receives standard technical request information (such as IP address and browser type) in order to serve those files. Your light or dark theme choice is stored only in your own browser."
+    },
+    {
+      "heading": "Project enquiries",
+      "text": "When you submit the enquiry form, your email application opens with the details you entered, addressed to Eneon Technologies. Nothing is sent until you choose to send that email. We use the information you provide only to respond to your enquiry and discuss a potential project."
+    },
+    {
+      "heading": "Contact",
+      "text": "For privacy questions or to ask us to delete information you have shared, email privacy@eneontechnologies.com."
+    }
+  ]
+}

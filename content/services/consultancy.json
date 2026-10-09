@@ -1,0 +1,46 @@
+{
+  "title": "Engineering & Technical *Consultancy*",
+  "anchor": "consultancy",
+  "order": 8,
+  "icon": "users",
+  "index_title": "Engineering & Technical Consultancy",
+  "description": "We provide technical support and engineering guidance for technology projects — from understanding a problem and evaluating possible solutions to planning, development, prototyping and implementation.",
+  "tags": [],
+  "features": [
+    {
+      "icon": "bulb",
+      "title": "Problem Analysis",
+      "text": "Understand your needs and explore the best options."
+    },
+    {
+      "icon": "gear",
+      "title": "Solution Planning",
+      "text": "Create practical and efficient approaches."
+    },
+    {
+      "icon": "compass",
+      "title": "Project Development",
+      "text": "Guide and support your project from design to execution."
+    },
+    {
+      "icon": "users",
+      "title": "Technical Support",
+      "text": "Reliable advice and expertise throughout the process."
+    }
+  ],
+  "signoff": "Your vision. Our engineering expertise.",
+  "banner": {
+    "image": "",
+    "alt": ""
+  },
+  "home_card": {
+    "show": true,
+    "title": "Technical Consultancy",
+    "text": "Engineering guidance from problem to implementation."
+  },
+  "footer": {
+    "column": "get_started",
+    "label": "Technical consultancy"
+  },
+  "form_option": "Technical consultancy"
+}

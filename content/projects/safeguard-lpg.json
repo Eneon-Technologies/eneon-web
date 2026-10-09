@@ -1,0 +1,143 @@
+{
+  "name": "SafeGuard LPG",
+  "title": "SafeGuard *LPG*",
+  "slug": "safeguard-lpg",
+  "published": true,
+  "order": 1,
+  "client": "Syntec Limited",
+  "categories": [
+    "hardware",
+    "embedded"
+  ],
+  "summary": "A gas monitoring and alarm system that detects LPG leaks, smoke and abnormal temperature, raises a distinct alarm for each — and learns its environment to reduce false alarms over time.",
+  "lede": "A gas monitoring and alarm system that watches for LPG leaks, smoke and abnormal temperature, raises the right alarm for each event — and learns its environment to reduce false alarms over time.",
+  "tags": [
+    "Gas sensing",
+    "Smoke detection",
+    "Temperature",
+    "Adaptive learning"
+  ],
+  "details": [
+    {
+      "label": "Disciplines",
+      "value": "Hardware · Embedded systems"
+    },
+    {
+      "label": "Monitors",
+      "value": "LPG · Smoke · Temperature"
+    },
+    {
+      "label": "Interface",
+      "value": "Touchscreen · Status LEDs · Buzzer"
+    }
+  ],
+  "thumbnail": {
+    "image": "https://res.cloudinary.com/sdsdnsle/image/upload/c_crop,w_2296,h_1722,x_0,y_1250/c_scale,w_800/f_auto,q_auto/v1791019840/20260910_083953.jpg",
+    "alt": "SafeGuard LPG touchscreen showing its start-up splash screen"
+  },
+  "gallery_layout": "portrait",
+  "gallery": [
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791019840/20260910_083953.jpg",
+      "caption": "Splash Screen",
+      "alt": "SafeGuard LPG touchscreen showing its start-up splash screen, with the green status light on"
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791019848/20260910_084003.jpg",
+      "caption": "Eneon Logo Splash",
+      "alt": "SafeGuard LPG display showing the “Powered by Eneon Technologies” splash screen"
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791019866/20260908_112227.jpg",
+      "caption": "Assembly",
+      "alt": "Open SafeGuard LPG enclosure during assembly, showing the internal wiring and the display and status LEDs in the lid"
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791019867/20260908_112013.jpg",
+      "caption": "Casing",
+      "alt": "Assembled SafeGuard LPG unit in its white enclosure, with display window and status LEDs"
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/video/upload/v1791022850/lv_0_20261003111310.mp4",
+      "caption": "Device Test",
+      "alt": "Video: testing the assembled SafeGuard LPG device"
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/video/upload/v1791020944/lv_0_20260910094037.mp4",
+      "caption": "Self-Test Feature",
+      "alt": "Video: the built-in self-test menu checking the status LEDs, buzzer and sensors"
+    }
+  ],
+  "overview": {
+    "eyebrow": "The project",
+    "title": "Safety alarms people can *trust.*",
+    "paragraphs": [
+      "SafeGuard LPG continuously monitors gas level, smoke and temperature, and triggers an alarm that corresponds to the event it detects — so a gas leak, a fire risk and overheating are each clearly identified.",
+      "An alarm that sounds too often is easy to ignore. SafeGuard LPG uses an adaptive learning mechanism that learns the normal conditions of its environment, reducing false triggers over time while staying responsive to real hazards."
+    ]
+  },
+  "features": [
+    {
+      "icon": "flame",
+      "title": "LPG leak detection",
+      "text": "Continuous gas-level monitoring for liquefied petroleum gas."
+    },
+    {
+      "icon": "cloud",
+      "title": "Smoke detection",
+      "text": "Early warning of smoke in the monitored space."
+    },
+    {
+      "icon": "thermometer",
+      "title": "Temperature monitoring",
+      "text": "Detects abnormal heat before it becomes dangerous."
+    },
+    {
+      "icon": "bell",
+      "title": "Event-specific alarms",
+      "text": "A distinct alarm for each type of hazard."
+    },
+    {
+      "icon": "adapt",
+      "title": "Adaptive learning",
+      "text": "Fewer false triggers the longer it runs."
+    },
+    {
+      "icon": "check-circle",
+      "title": "Built-in self-test",
+      "text": "Checks its status LEDs, buzzer and sensors from the touchscreen."
+    }
+  ],
+  "process": {
+    "eyebrow": "How it works",
+    "title": "Sense. Assess. Alert. *Learn.*",
+    "steps": [
+      {
+        "title": "Sense",
+        "text": "Gas, smoke and temperature sensors are read continuously."
+      },
+      {
+        "title": "Assess",
+        "text": "Readings are evaluated against what is normal for that environment."
+      },
+      {
+        "title": "Alert",
+        "text": "A real hazard triggers the alarm that matches the event."
+      },
+      {
+        "title": "Learn",
+        "text": "The system adapts over time, cutting false triggers."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Have a similar challenge?",
+    "title": "Let’s build a monitoring system for you.",
+    "text": "From sensors and firmware to alarms and dashboards — we engineer safety and monitoring systems end to end."
+  },
+  "seo": {
+    "title": "SafeGuard LPG — Gas, Smoke & Temperature Alarm System | Eneon Technologies",
+    "description": "Case study: SafeGuard LPG for Syntec Limited — monitors LPG, smoke and temperature, triggers event-specific alarms and uses adaptive learning to reduce false alarms over time.",
+    "image": "https://res.cloudinary.com/sdsdnsle/image/upload/c_crop,w_2296,h_1208,x_0,y_1700/c_fill,w_1200,h_630,f_jpg,q_auto/v1791019840/20260910_083953.jpg"
+  }
+}

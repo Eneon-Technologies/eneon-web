@@ -1,0 +1,46 @@
+{
+  "title": "Prototype *Development*",
+  "anchor": "prototypes",
+  "order": 7,
+  "icon": "flask",
+  "index_title": "Prototype Development",
+  "description": "Have an idea but don’t know how to turn it into a working prototype? We help develop and test early-stage hardware and technology concepts, combining electronics, embedded systems and software where required.",
+  "tags": [],
+  "features": [
+    {
+      "icon": "bulb",
+      "title": "Concept to Prototype",
+      "text": "Turn your idea into a working model."
+    },
+    {
+      "icon": "cpu",
+      "title": "Hardware Development",
+      "text": "Design, build and test electronic systems."
+    },
+    {
+      "icon": "code",
+      "title": "Embedded Systems",
+      "text": "Integrate hardware and software."
+    },
+    {
+      "icon": "gear",
+      "title": "Testing & Validation",
+      "text": "Ensure reliability and performance."
+    }
+  ],
+  "signoff": "Ideas into real solutions.",
+  "banner": {
+    "image": "",
+    "alt": ""
+  },
+  "home_card": {
+    "show": true,
+    "title": "Prototype Development",
+    "text": "From concept to a working, tested prototype."
+  },
+  "footer": {
+    "column": "get_started",
+    "label": "Prototype development"
+  },
+  "form_option": "Prototype development"
+}

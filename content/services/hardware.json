@@ -1,0 +1,46 @@
+{
+  "title": "Hardware & Electronics *Development*",
+  "anchor": "hardware",
+  "order": 1,
+  "icon": "circuit",
+  "index_title": "Hardware & Electronics Development",
+  "description": "We design and develop practical electronic systems for real-world applications. From circuit design and component selection to prototyping and testing, we help turn technical ideas into working electronic solutions.",
+  "tags": [],
+  "features": [
+    {
+      "icon": "cpu",
+      "title": "Circuit Design & Analysis",
+      "text": "Circuits engineered and analysed for real-world reliability."
+    },
+    {
+      "icon": "gear",
+      "title": "Component Selection & Sourcing",
+      "text": "The right parts for performance, cost and availability."
+    },
+    {
+      "icon": "wrench",
+      "title": "Prototyping & Assembly",
+      "text": "Boards built, assembled and brought up on the bench."
+    },
+    {
+      "icon": "check-circle",
+      "title": "Testing & Validation",
+      "text": "Measured against requirements before it ships."
+    }
+  ],
+  "signoff": "Engineering ideas into reality.",
+  "banner": {
+    "image": "",
+    "alt": ""
+  },
+  "home_card": {
+    "show": true,
+    "title": "Hardware & Electronics",
+    "text": "Circuit design, component selection, assembly and testing."
+  },
+  "footer": {
+    "column": "capabilities",
+    "label": "Hardware & electronics"
+  },
+  "form_option": "Hardware & electronics"
+}

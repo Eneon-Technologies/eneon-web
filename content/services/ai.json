@@ -1,0 +1,51 @@
+{
+  "title": "AI & Machine *Learning*",
+  "anchor": "ai",
+  "order": 6,
+  "icon": "sparkle",
+  "index_title": "AI & Machine Learning",
+  "description": "We apply artificial intelligence and machine learning where they add real value — turning sensor, device and business data into predictions, detection and automation, in software platforms or directly on embedded devices.",
+  "tags": [
+    "Machine learning",
+    "Edge AI",
+    "Predictive analytics",
+    "Python"
+  ],
+  "features": [
+    {
+      "icon": "database",
+      "title": "Data & Model Development",
+      "text": "Prepare your data and train models for your problem."
+    },
+    {
+      "icon": "cpu",
+      "title": "Edge AI",
+      "text": "Intelligent features running directly on embedded devices."
+    },
+    {
+      "icon": "trend",
+      "title": "Predictive Analytics",
+      "text": "Forecast trends, detect anomalies and spot patterns."
+    },
+    {
+      "icon": "sparkle",
+      "title": "AI Integration",
+      "text": "Add intelligent features to apps, platforms and workflows."
+    }
+  ],
+  "signoff": "Smarter systems. Better decisions.",
+  "banner": {
+    "image": "",
+    "alt": ""
+  },
+  "home_card": {
+    "show": true,
+    "title": "AI & Machine Learning",
+    "text": "Models, predictions and intelligent features — in apps or on devices."
+  },
+  "footer": {
+    "column": "capabilities",
+    "label": "AI & machine learning"
+  },
+  "form_option": "AI / machine learning"
+}

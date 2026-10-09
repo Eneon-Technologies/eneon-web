@@ -1,0 +1,52 @@
+{
+  "title": "Software *Development*",
+  "anchor": "software",
+  "order": 5,
+  "icon": "code",
+  "index_title": "Software Development",
+  "description": "We develop custom software solutions for businesses and technology projects, including web applications, mobile applications, backend systems and software integrations designed around specific requirements.",
+  "tags": [
+    "React",
+    "TypeScript",
+    "Node.js",
+    "Python",
+    "MongoDB"
+  ],
+  "features": [
+    {
+      "icon": "monitor",
+      "title": "Web Applications",
+      "text": "Responsive, scalable and user-friendly web solutions."
+    },
+    {
+      "icon": "smartphone",
+      "title": "Mobile Applications",
+      "text": "iOS & Android apps tailored to your needs."
+    },
+    {
+      "icon": "server",
+      "title": "Backend Systems",
+      "text": "Secure, reliable and high-performance systems."
+    },
+    {
+      "icon": "layers",
+      "title": "Software Integrations",
+      "text": "Connect your tools and streamline your workflow."
+    }
+  ],
+  "signoff": "Custom software. Real business impact.",
+  "banner": {
+    "image": "",
+    "alt": ""
+  },
+  "home_card": {
+    "show": true,
+    "title": "Software Development",
+    "text": "Web and mobile apps, backend systems and integrations."
+  },
+  "footer": {
+    "column": "capabilities",
+    "label": "Software development"
+  },
+  "form_option": "Web or mobile app"
+}

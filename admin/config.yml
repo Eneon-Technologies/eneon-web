@@ -1,0 +1,569 @@
+# Admin (Decap CMS) for eneontechnologies.com — open /admin/ on the site.
+# Editors sign in with email via DecapBridge; every save is committed to GitHub, and the
+# "Build site" GitHub Action regenerates the pages, so the published files work on any host.
+
+backend:
+  # ── DecapBridge (email login, "classic auth") ───────────────────────────────────────────────
+  # From the DecapBridge dashboard. Keep `branch: master` — it's the branch the site builds from
+  # (DecapBridge's snippet defaults to `main`).
+  name: git-gateway
+  repo: Eneon-Technologies/eneon-web
+  branch: master
+  identity_url: https://auth.decapbridge.com/sites/3194e024-58a3-49e4-a44e-7982ae3eb4be
+  gateway_url: https://gateway.decapbridge.com
+  # ────────────────────────────────────────────────────────────────────────────────────────────
+  # Commit messages record which staff member made each change.
+  commit_messages:
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+# Lets developers edit locally without logging in: run `npx decap-server` and open
+# http://localhost:8000/admin/ (ignored on the live site).
+local_backend: true
+
+site_url: https://eneontechnologies.com
+display_url: https://eneontechnologies.com
+logo_url: /images/brand/eneon-mark.webp
+editor:
+  preview: false
+
+# Uploads go to Cloudinary through the uploader in /admin/cms.js (no Cloudinary login needed).
+media_library:
+  name: eneon-cloudinary
+  config:
+    cloud_name: sdsdnsle
+    upload_preset: eneon_cms
+    folder: eneon
+# Required by Decap but unused (nothing is uploaded into the repository).
+media_folder: images/uploads
+public_folder: /images/uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+# Reusable field definitions ───────────────────────────────────────────────────────────────────
+x-hints:
+  heading: &heading_hint 'Wrap words in \*asterisks\* to show them in cyan, e.g. Ideas deserve to \*work\*. Press Enter for a new line.'
+x-icons: &icons
+  - { label: 'Circuit board', value: circuit }
+  - { label: 'Chip / microcontroller', value: cpu }
+  - { label: 'PCB', value: board }
+  - { label: 'Wireless signal', value: signal }
+  - { label: 'Code', value: code }
+  - { label: 'AI sparkle', value: sparkle }
+  - { label: 'Database', value: database }
+  - { label: 'Flask / prototype', value: flask }
+  - { label: 'Box / product', value: box }
+  - { label: 'Layers', value: layers }
+  - { label: 'Shield', value: shield }
+  - { label: 'Gauge', value: gauge }
+  - { label: 'Gear', value: gear }
+  - { label: 'Wrench', value: wrench }
+  - { label: 'Check in circle', value: check-circle }
+  - { label: 'Link', value: link }
+  - { label: 'Cloud', value: cloud }
+  - { label: 'Trend chart', value: trend }
+  - { label: 'Monitor', value: monitor }
+  - { label: 'Smartphone', value: smartphone }
+  - { label: 'Server', value: server }
+  - { label: 'Light bulb', value: bulb }
+  - { label: 'Drafting compass', value: compass }
+  - { label: 'People', value: users }
+  - { label: 'Flame', value: flame }
+  - { label: 'Thermometer', value: thermometer }
+  - { label: 'Bell / alarm', value: bell }
+  - { label: 'Adaptive (circular arrow)', value: adapt }
+  - { label: 'Chat bubble', value: chat }
+  - { label: 'Location pin', value: pin }
+x-seo: &seo
+  label: Search & link previews
+  name: seo
+  widget: object
+  collapsed: true
+  fields:
+    - { label: 'Page title', name: title, widget: string, hint: 'Shown in Google results and browser tabs (about 50–60 characters).' }
+    - { label: 'Description', name: description, widget: text, hint: 'One or two sentences shown in Google results and link previews.' }
+x-hero: &hero
+  label: Page header
+  name: hero
+  widget: object
+  fields:
+    - { label: 'Small label above the heading', name: eyebrow, widget: string }
+    - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+    - { label: 'Introduction', name: lede, widget: text }
+x-cta: &cta
+  label: Call to action (blue box at the bottom)
+  name: cta
+  widget: object
+  fields:
+    - { label: 'Small label', name: eyebrow, widget: string }
+    - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+    - { label: 'Text', name: text, widget: text, required: false }
+    - { label: 'Button text', name: button, widget: string }
+
+collections:
+  # ── Projects ────────────────────────────────────────────────────────────────────────────────
+  - name: projects
+    label: Projects
+    label_singular: Project
+    description: 'Each project gets a card on /projects/ and its own case-study page at /projects/<name>/.'
+    folder: content/projects
+    extension: json
+    format: json
+    create: true
+    slug: '{{name}}'
+    identifier_field: name
+    summary: '{{name}} — {{client}}'
+    sortable_fields: [order, name]
+    fields:
+      - { label: 'Project name', name: name, widget: string, hint: 'Plain name, e.g. SafeGuard LPG. Used on the card, in the URL and in the browser tab.' }
+      - { label: 'Page heading', name: title, widget: string, hint: 'Usually the name with one word in cyan, e.g. SafeGuard \*LPG\*.' }
+      - { label: 'Published', name: published, widget: boolean, default: true, hint: 'Turn off to hide the project without deleting it.' }
+      - { label: 'Position', name: order, widget: number, value_type: int, default: 10, hint: 'Lower numbers appear first.' }
+      - { label: 'URL name', name: slug, widget: string, required: false, hint: 'Leave empty to make it from the project name. Changing it changes the page address.' }
+      - { label: 'Client', name: client, widget: string, required: false }
+      - label: Categories
+        name: categories
+        widget: select
+        multiple: true
+        min: 1
+        options:
+          - { label: Hardware, value: hardware }
+          - { label: PCB, value: pcb }
+          - { label: Embedded, value: embedded }
+          - { label: IoT, value: iot }
+          - { label: Software, value: software }
+          - { label: AI, value: ai }
+      - { label: 'Card summary', name: summary, widget: text, hint: 'One or two sentences for the project card and link previews.' }
+      - { label: 'Case study introduction', name: lede, widget: text, hint: 'The paragraph under the heading on the case-study page.' }
+      - { label: 'Tags', name: tags, widget: list, required: false, hint: 'Short keywords shown on the card, separated by commas.' }
+      - label: 'Project details'
+        name: details
+        widget: list
+        required: false
+        summary: '{{label}}: {{value}}'
+        hint: 'Shown under the introduction, e.g. Monitors → LPG · Smoke · Temperature.'
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: Value, name: value, widget: string }
+      - label: 'Card image'
+        name: thumbnail
+        widget: object
+        fields:
+          - { label: 'Image', name: image, widget: image, required: false, hint: 'Leave empty to use the first gallery photo. Cropped to 4:3 automatically.' }
+          - { label: 'Image description (for screen readers)', name: alt, widget: string, required: false }
+      - label: 'Gallery shape'
+        name: gallery_layout
+        widget: select
+        default: portrait
+        options:
+          - { label: 'Portrait (phone photos and videos)', value: portrait }
+          - { label: 'Landscape (camera / screen recordings)', value: landscape }
+      - label: 'Gallery'
+        name: gallery
+        widget: list
+        required: false
+        summary: '{{caption}}'
+        hint: 'Photos and videos, in the order shown. Videos are detected automatically.'
+        fields:
+          - { label: 'Photo or video', name: media, widget: file }
+          - { label: 'Caption', name: caption, widget: string }
+          - { label: 'Description (for screen readers)', name: alt, widget: string, required: false }
+      - label: 'Overview'
+        name: overview
+        widget: object
+        fields:
+          - { label: 'Small label', name: eyebrow, widget: string, default: 'The project' }
+          - { label: 'Heading', name: title, widget: string, hint: *heading_hint }
+          - { label: 'Paragraphs', name: paragraphs, widget: list, field: { label: Paragraph, name: paragraph, widget: text } }
+      - label: 'Key features'
+        name: features
+        widget: list
+        required: false
+        summary: '{{title}}'
+        fields:
+          - { label: Icon, name: icon, widget: select, options: *icons }
+          - { label: Title, name: title, widget: string }
+          - { label: Text, name: text, widget: string }
+      - label: 'How it works'
+        name: process
+        widget: object
+        required: false
+        fields:
+          - { label: 'Small label', name: eyebrow, widget: string, default: 'How it works' }
+          - { label: 'Heading', name: title, widget: string, hint: *heading_hint }
+          - label: Steps
+            name: steps
+            widget: list
+            required: false
+            summary: '{{title}}'
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Text, name: text, widget: string }
+      - label: 'Call to action (blue box at the bottom)'
+        name: cta
+        widget: object
+        fields:
+          - { label: 'Small label', name: eyebrow, widget: string, default: 'Have a similar challenge?' }
+          - { label: 'Heading', name: title, widget: string, hint: *heading_hint }
+          - { label: 'Text', name: text, widget: text, required: false }
+      - label: 'Search & link previews'
+        name: seo
+        widget: object
+        collapsed: true
+        required: false
+        fields:
+          - { label: 'Page title', name: title, widget: string, required: false, hint: 'Leave empty to use "<name> — Case Study | Eneon Technologies".' }
+          - { label: 'Description', name: description, widget: text, required: false, hint: 'Leave empty to use the card summary.' }
+          - { label: 'Link-preview image', name: image, widget: image, required: false, hint: 'Leave empty to use the card image (cropped to 1200×630 automatically).' }
+
+  # ── Services ────────────────────────────────────────────────────────────────────────────────
+  - name: services
+    label: Services
+    label_singular: Service
+    description: 'Each service is a section on /services/, a card on the home page and a footer link.'
+    folder: content/services
+    extension: json
+    format: json
+    create: true
+    slug: '{{anchor}}'
+    identifier_field: index_title
+    summary: '{{order}}. {{index_title}}'
+    sortable_fields: [order, index_title]
+    fields:
+      - { label: 'Service name', name: index_title, widget: string, hint: 'Plain name, e.g. PCB Design & Development.' }
+      - { label: 'Section heading', name: title, widget: text, hint: *heading_hint }
+      - { label: 'Position', name: order, widget: number, value_type: int, hint: 'Sets the order and the "Service 01, 02…" number.' }
+      - { label: 'Link name', name: anchor, widget: string, pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers and dashes only'], hint: 'Used in links like /services/#pcb. Avoid changing it once published.' }
+      - { label: Icon, name: icon, widget: select, options: *icons }
+      - { label: Description, name: description, widget: text }
+      - { label: 'Tags', name: tags, widget: list, required: false, hint: 'Technologies or keywords, separated by commas.' }
+      - label: 'Features (right-hand list)'
+        name: features
+        widget: list
+        summary: '{{title}}'
+        fields:
+          - { label: Icon, name: icon, widget: select, options: *icons }
+          - { label: Title, name: title, widget: string }
+          - { label: Text, name: text, widget: string }
+      - { label: 'Sign-off line', name: signoff, widget: string, hint: 'Short slogan under the features, e.g. Precision designs. Reliable solutions.' }
+      - label: 'Banner photo'
+        name: banner
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: Photo, name: image, widget: image, required: false, hint: 'Optional wide photo above the section (no text in the image).' }
+          - { label: 'Description (for screen readers)', name: alt, widget: string, required: false }
+      - label: 'Home page card'
+        name: home_card
+        widget: object
+        fields:
+          - { label: 'Show on home page', name: show, widget: boolean, default: true }
+          - { label: 'Card title', name: title, widget: string }
+          - { label: 'Card text', name: text, widget: string }
+      - label: 'Footer link'
+        name: footer
+        widget: object
+        fields:
+          - label: Column
+            name: column
+            widget: select
+            default: capabilities
+            options:
+              - { label: Capabilities, value: capabilities }
+              - { label: 'Get started', value: get_started }
+              - { label: 'Not in footer', value: none }
+          - { label: 'Link text', name: label, widget: string, required: false }
+      - { label: 'Contact form option', name: form_option, widget: string, required: false, hint: 'Shown in the "Project type" list on the contact form. Leave empty to leave it out.' }
+
+  # ── Products ────────────────────────────────────────────────────────────────────────────────
+  - name: products
+    label: Products
+    label_singular: Product
+    description: 'Products on /products/. With an image they show as product cards; without, as focus-area cards.'
+    folder: content/products
+    extension: json
+    format: json
+    create: true
+    slug: '{{name}}'
+    identifier_field: name
+    summary: '{{name}} ({{status}})'
+    sortable_fields: [order, name]
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: 'Published', name: published, widget: boolean, default: true }
+      - { label: 'Position', name: order, widget: number, value_type: int, default: 10, hint: 'Lower numbers appear first.' }
+      - label: Status
+        name: status
+        widget: select
+        default: Exploring
+        options: [Exploring, In development, Coming soon, Available]
+      - { label: 'Category', name: category, widget: string, required: false, hint: 'e.g. Connected devices' }
+      - { label: Icon, name: icon, widget: select, options: *icons, default: box, hint: 'Used when there is no image.' }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Image, name: image, widget: image, required: false }
+      - { label: 'Image description (for screen readers)', name: image_alt, widget: string, required: false }
+      - { label: 'Button text', name: link_text, widget: string, required: false, hint: 'Defaults to "Register interest".' }
+      - { label: 'Button link', name: link_url, widget: string, required: false, hint: 'Defaults to the contact page.' }
+
+  # ── Pages ───────────────────────────────────────────────────────────────────────────────────
+  - name: pages
+    label: Pages
+    description: 'Text on the home, about, services, projects, products, contact and privacy pages.'
+    files:
+      - label: Home page
+        name: home
+        file: content/pages/home.json
+        fields:
+          - *seo
+          - label: Top of the page
+            name: hero
+            widget: object
+            fields:
+              - { label: 'Small label above the heading', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - { label: 'Introduction', name: lede, widget: text }
+              - { label: 'Main button text', name: button, widget: string }
+              - { label: 'Second button text', name: secondary_button, widget: string }
+              - { label: 'Disciplines line', name: disciplines, widget: string, hint: 'e.g. Hardware · PCB · Embedded · IoT · Software · AI' }
+              - label: 'Labels around the logo'
+                name: chips
+                widget: list
+                max: 5
+                summary: '{{label}}'
+                fields:
+                  - { label: Icon, name: icon, widget: select, options: *icons }
+                  - { label: Label, name: label, widget: string }
+          - label: 'What we do (service cards come from Services)'
+            name: what_we_do
+            widget: object
+            fields:
+              - { label: 'Small label', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - { label: 'Text', name: text, widget: text }
+          - label: 'Technologies strip'
+            name: technologies
+            widget: object
+            fields:
+              - { label: 'Label', name: label, widget: string }
+              - { label: 'Technologies', name: items, widget: list, required: false, hint: 'Separated by commas. Leave empty to hide the strip.' }
+          - label: 'How we work'
+            name: process
+            widget: object
+            fields:
+              - { label: 'Small label', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - { label: 'Text', name: text, widget: text }
+              - label: Steps
+                name: steps
+                widget: list
+                summary: '{{title}}'
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: string }
+          - label: 'Selected work'
+            name: selected_work
+            widget: object
+            fields:
+              - { label: 'Small label', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - { label: 'Text', name: text, widget: text }
+              - { label: 'Button text', name: button, widget: string }
+              - label: 'Highlights'
+                name: stats
+                widget: list
+                max: 4
+                summary: '{{title}}'
+                fields:
+                  - { label: Icon, name: icon, widget: select, options: *icons }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: string }
+          - label: 'Services today, products tomorrow'
+            name: roadmap
+            widget: object
+            fields:
+              - { label: '"Now" label', name: now, widget: string }
+              - { label: '"Next" label', name: next, widget: string }
+              - { label: 'Small label', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - { label: 'Text', name: text, widget: text }
+              - { label: 'Link text', name: link, widget: string }
+          - *cta
+
+      - label: About page
+        name: about
+        file: content/pages/about.json
+        fields:
+          - *seo
+          - *hero
+          - label: 'Who we are'
+            name: who
+            widget: object
+            fields:
+              - { label: 'Small label', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - { label: Paragraphs, name: paragraphs, widget: list, field: { label: Paragraph, name: paragraph, widget: text } }
+          - label: 'What we build'
+            name: what_we_build
+            widget: object
+            fields:
+              - { label: 'Small label', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - label: Cards
+                name: cards
+                widget: list
+                required: false
+                summary: '{{title}}'
+                hint: 'Leave empty to hide this section.'
+                fields:
+                  - { label: Icon, name: icon, widget: select, options: *icons }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+          - label: 'How we work'
+            name: process
+            widget: object
+            fields:
+              - { label: 'Small label', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - { label: 'Text', name: text, widget: text }
+              - label: Steps
+                name: steps
+                widget: list
+                summary: '{{title}}'
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: string }
+          - label: 'Team / workspace photo'
+            name: photo
+            widget: object
+            required: false
+            collapsed: true
+            fields:
+              - { label: Photo, name: image, widget: image, required: false, hint: 'Optional wide photo shown above "Our vision". Cropped to 21:9 automatically.' }
+              - { label: 'Description (for screen readers)', name: alt, widget: string, required: false }
+              - { label: Caption, name: caption, widget: string, required: false }
+          - label: 'Our vision'
+            name: vision
+            widget: object
+            fields:
+              - { label: 'Small label', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - { label: 'Text', name: text, widget: text }
+          - *cta
+
+      - label: Services page
+        name: services
+        file: content/pages/services.json
+        fields:
+          - *seo
+          - *hero
+          - { label: 'Button text in each service', name: button, widget: string }
+          - *cta
+
+      - label: Projects page
+        name: projects
+        file: content/pages/projects.json
+        fields:
+          - *seo
+          - *hero
+          - { label: 'Card link text', name: card_link, widget: string, hint: 'e.g. View case study' }
+          - { label: 'Case-study button text', name: project_button, widget: string }
+          - label: 'When there are no projects'
+            name: empty
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Heading, name: title, widget: string }
+              - { label: Paragraphs, name: paragraphs, widget: list, field: { label: Paragraph, name: paragraph, widget: text } }
+              - { label: 'Button text', name: button, widget: string }
+              - { label: 'Link text', name: link, widget: string }
+
+      - label: Products page
+        name: products
+        file: content/pages/products.json
+        fields:
+          - *seo
+          - *hero
+          - label: 'Product direction'
+            name: direction
+            widget: object
+            fields:
+              - { label: 'Small label', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - { label: Paragraphs, name: paragraphs, widget: list, field: { label: Paragraph, name: paragraph, widget: text } }
+          - label: 'Product list heading'
+            name: catalogue
+            widget: object
+            fields:
+              - { label: 'Small label', name: eyebrow, widget: string }
+              - { label: 'Heading', name: title, widget: text, hint: *heading_hint }
+              - { label: 'Text', name: text, widget: text }
+          - *cta
+
+      - label: Contact page
+        name: contact
+        file: content/pages/contact.json
+        fields:
+          - *seo
+          - *hero
+          - label: 'Contact details panel'
+            name: intro
+            widget: object
+            fields:
+              - { label: Heading, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+          - label: 'What happens next'
+            name: next_steps
+            widget: object
+            fields:
+              - { label: Heading, name: title, widget: string }
+              - { label: Steps, name: steps, widget: list, field: { label: Step, name: step, widget: string } }
+          - label: 'Enquiry form'
+            name: form
+            widget: object
+            fields:
+              - { label: Heading, name: title, widget: string }
+              - { label: 'Message label', name: message_label, widget: string }
+              - { label: 'Message placeholder', name: message_placeholder, widget: string }
+              - { label: 'Timeline options', name: timelines, widget: list }
+              - { label: 'Button text', name: button, widget: string }
+
+      - label: Privacy page
+        name: privacy
+        file: content/pages/privacy.json
+        fields:
+          - *seo
+          - *hero
+          - label: Sections
+            name: sections
+            widget: list
+            summary: '{{heading}}'
+            hint: 'Keep this accurate to how the site and enquiry form actually handle information.'
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - { label: Text, name: text, widget: text, hint: 'Leave a blank line between paragraphs. Email and web addresses become links automatically.' }
+
+  # ── Settings ────────────────────────────────────────────────────────────────────────────────
+  - name: settings
+    label: Site settings
+    files:
+      - label: Contact details & settings
+        name: settings
+        file: content/settings.json
+        description: 'Used in the footer, contact page, WhatsApp button and enquiry form across the whole site.'
+        fields:
+          - { label: Email, name: email, widget: string, hint: 'Main contact email. Enquiries are sent here.' }
+          - { label: Phone, name: phone, widget: string, required: false, hint: 'As it should appear, e.g. +234 703 991 3826. Leave empty to hide.' }
+          - { label: 'WhatsApp number', name: whatsapp_number, widget: string, required: false, hint: 'Digits only with country code, e.g. 2347039913826. Leave empty to hide the WhatsApp button.' }
+          - { label: 'WhatsApp greeting', name: whatsapp_message, widget: string, required: false, hint: 'Message pre-filled when someone taps the WhatsApp button.' }
+          - { label: Location, name: location, widget: string, required: false, hint: 'e.g. Enugu, Nigeria' }
+          - { label: Country, name: country, widget: string, hint: 'Shown next to the pin on each service section.' }
+          - { label: 'Tagline', name: tagline, widget: string }
+          - { label: 'Footer description', name: footer_description, widget: text }
+          - { label: 'Form endpoint (advanced)', name: form_endpoint, widget: string, required: false, hint: 'Optional Formspree (or similar) URL. Empty = the form opens the visitor''s email app.' }

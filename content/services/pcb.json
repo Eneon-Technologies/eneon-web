@@ -1,0 +1,46 @@
+{
+  "title": "PCB Design & *Development*",
+  "anchor": "pcb",
+  "order": 2,
+  "icon": "board",
+  "index_title": "PCB Design & Development",
+  "description": "We design printed circuit boards for electronic projects, helping move designs from circuit concepts and schematics toward functional, manufacturable hardware. Suitable for prototypes and custom electronic systems.",
+  "tags": [],
+  "features": [
+    {
+      "icon": "circuit",
+      "title": "Schematic Design",
+      "text": "Create accurate and reliable circuit schematics."
+    },
+    {
+      "icon": "board",
+      "title": "PCB Layout Design",
+      "text": "Optimised for performance, size and manufacturability."
+    },
+    {
+      "icon": "gear",
+      "title": "Gerber Files & BOM",
+      "text": "Ready for production and assembly."
+    },
+    {
+      "icon": "check-circle",
+      "title": "Prototyping Support",
+      "text": "From design to testing and validation."
+    }
+  ],
+  "signoff": "Precision designs. Reliable solutions.",
+  "banner": {
+    "image": "",
+    "alt": ""
+  },
+  "home_card": {
+    "show": true,
+    "title": "PCB Design",
+    "text": "Schematics, layouts, Gerber files and BOMs ready for production."
+  },
+  "footer": {
+    "column": "capabilities",
+    "label": "PCB design"
+  },
+  "form_option": "PCB design"
+}
