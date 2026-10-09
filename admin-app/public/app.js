@@ -48,7 +48,7 @@
   // ---------------------------------------------------------------- state & routing
   const state = { me: null, schema: null, dirty: false, lastHash: location.hash };
   const view = () => $('[data-view]');
-  const setView = (...nodes) => { view().replaceChildren(...nodes); window.scrollTo(0, 0); };
+  const setView = (...nodes) => { view().replaceChildren(...nodes.filter(node => node !== null && node !== undefined && node !== false)); window.scrollTo(0, 0); };
   const loading = () => setView(h('div', { class: 'loading' }, h('div', { class: 'spinner' }), 'Loading…'));
   const errorView = error => setView(h('div', { class: 'notice notice-error', text: error.message }));
   const collectionByName = name => state.schema.collections.find(c => c.name === name);
@@ -75,11 +75,12 @@
 
   function route() {
     state.lastHash = location.hash;
-    $('[data-sidebar]').classList.remove('open');
+    setMenu(false);
     const [pathPart, query = ''] = location.hash.replace(/^#/, '').split('?');
     const parts = pathPart.split('/').filter(Boolean).map(decodeURIComponent);
     const params = new URLSearchParams(query);
     highlightNav(parts);
+    document.title = 'Eneon WebAdmin';
     if (!parts.length) return dashboard();
     if (parts[0] === 'c' && parts[1] && !parts[2]) return collectionView(parts[1]);
     if (parts[0] === 'c' && parts[2] === 'new') return editorView(parts[1], null);
@@ -220,7 +221,7 @@
         const result = await api('PUT', `/api/collections/${name}/entries/${id}`, { data, sha });
         sha = result.sha;
         state.dirty = false;
-        status.textContent = 'Saved. The website updates in a few minutes.';
+        status.textContent = result.unchanged ? 'No changes to save.' : 'Saved. The website updates in a few minutes.';
         status.className = 'status ok';
       } catch (error) {
         status.className = 'status error';
@@ -688,7 +689,21 @@
     await api('POST', '/auth/logout').catch(() => {});
     location.href = '/login';
   });
-  $('[data-menu]').addEventListener('click', () => $('[data-sidebar]').classList.toggle('open'));
+  // Phone menu: slides in over a backdrop; closes on ✕, backdrop tap, Escape or navigation.
+  function setMenu(open) {
+    const sidebar = $('[data-sidebar]');
+    if (!sidebar) return;
+    sidebar.classList.toggle('open', open);
+    $('[data-backdrop]').hidden = !open;
+    document.body.classList.toggle('menu-open', open);
+    $('[data-menu]').setAttribute('aria-expanded', String(open));
+    if (open) sidebar.querySelector('.nav-link.active, .nav-link')?.focus({ preventScroll: true });
+  }
+  $('[data-menu]').addEventListener('click', () => setMenu(true));
+  $('[data-menu-close]').addEventListener('click', () => { setMenu(false); $('[data-menu]').focus(); });
+  $('[data-backdrop]').addEventListener('click', () => setMenu(false));
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && document.body.classList.contains('menu-open')) { setMenu(false); $('[data-menu]').focus(); } });
+  $('[data-nav]').addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
 
   (async () => {
     try {

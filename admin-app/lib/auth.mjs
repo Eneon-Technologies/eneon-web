@@ -95,9 +95,9 @@ export async function sendSignInLink(email, purpose = 'sign-in') {
   const action = purpose === 'reset' ? 'reset your password' : 'sign in';
   await sendEmail({
     to: email,
-    subject: purpose === 'reset' ? 'Reset your Eneon admin password' : 'Your Eneon admin sign-in link',
-    text: `Hello${user.name ? ' ' + user.name : ''},\n\nUse this link to ${action} to the Eneon Technologies content admin:\n\n${link}\n\nThe link works once and expires in 20 minutes. If you didn't ask for it, you can ignore this email.\n`,
-    html: `<p>Hello${user.name ? ' ' + escapeHtml(user.name) : ''},</p><p>Use this button to ${action} to the Eneon Technologies content admin:</p><p><a href="${link}" style="display:inline-block;padding:12px 20px;border-radius:999px;background:#0b74e5;color:#fff;text-decoration:none;font-weight:600">${purpose === 'reset' ? 'Reset password' : 'Sign in'}</a></p><p style="color:#64748b;font-size:13px">The link works once and expires in 20 minutes. If you didn't ask for it, you can ignore this email.</p>`
+    subject: purpose === 'reset' ? 'Reset your Eneon WebAdmin password' : 'Your Eneon WebAdmin sign-in link',
+    text: `Hello${user.name ? ' ' + user.name : ''},\n\nUse this link to ${action} to Eneon WebAdmin, the Eneon Technologies web content admin:\n\n${link}\n\nThe link works once and expires in 20 minutes. If you didn't ask for it, you can ignore this email.\n`,
+    html: `<p>Hello${user.name ? ' ' + escapeHtml(user.name) : ''},</p><p>Use this button to ${action} to Eneon WebAdmin, the Eneon Technologies web content admin:</p><p><a href="${link}" style="display:inline-block;padding:12px 20px;border-radius:999px;background:#0b74e5;color:#fff;text-decoration:none;font-weight:600">${purpose === 'reset' ? 'Reset password' : 'Sign in'}</a></p><p style="color:#64748b;font-size:13px">The link works once and expires in 20 minutes. If you didn't ask for it, you can ignore this email.</p>`
   });
 }
 

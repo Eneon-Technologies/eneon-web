@@ -70,8 +70,12 @@ async function serveFile(res, file, extraHeaders = {}) {
 }
 
 const clientIp = req => String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
-const commitMessage = (action, label, user) => `${action} ${label} - ${user.author.name} <${user.email}> via Eneon Admin`;
+const commitMessage = (action, label, user) => `${action} ${label} - ${user.author.name} <${user.email}> via Eneon WebAdmin`;
 const json = data => JSON.stringify(data, null, 2) + '\n';
+// Same content, ignoring formatting and the order of keys.
+const canonical = value => Array.isArray(value) ? value.map(canonical)
+  : value && typeof value === 'object' ? Object.fromEntries(Object.keys(value).sort().map(key => [key, canonical(value[key])])) : value;
+const sameData = (a, b) => JSON.stringify(canonical(a)) === JSON.stringify(canonical(b));
 // Activity log (MongoDB). Never lets a logging problem block the action itself.
 const logActivity = (user, action, summary, extra = {}) =>
   db.activity.log({ email: user.email, name: user.name || '', action, summary, ...extra }).catch(error => console.error('Activity log failed:', error.message));
@@ -199,6 +203,9 @@ async function handle(req, res) {
       if (!data || typeof data !== 'object' || Array.isArray(data)) return send(res, 400, { error: 'Nothing to save.' });
       if (!sha) return send(res, 400, { error: 'Missing version information. Reload and try again.' });
       const file = entryPath(collection, id);
+      // Nothing actually changed (e.g. Save clicked twice)? Don't make an empty commit.
+      const current = await store.read(file);
+      if (current.sha === sha && sameData(JSON.parse(current.content), data)) return send(res, 200, { id, sha, unchanged: true });
       const result = await store.write(file, json(data), { sha, message: commitMessage('Update', `${collection.name} “${id}”`, user), author: user.author });
       await logActivity(user, 'update', 'Saved changes', { collection: collection.name, entry: id });
       return send(res, 200, { id, sha: result.sha });
