@@ -1,18 +1,14 @@
-// Collections and fields come from Decap's admin/config.yml, so both admins always offer the same
-// fields. It is read from the repository (cached briefly), so a config change applies to both
-// without redeploying this app.
+// Collections and fields come from admin-app/schema.yml (read once at startup).
+import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
 import { config } from './config.mjs';
-import { store } from './store.mjs';
 
 let cached = null;
-const CACHE_MS = 60_000;
 
 export async function loadSchema() {
-  if (cached && Date.now() - cached.loadedAt < CACHE_MS) return cached.schema;
-  const { content } = await store.read(config.decapConfigPath);
-  const decap = parse(content, { merge: true, maxAliasCount: -1 });
-  const collections = (decap.collections || []).map(collection => {
+  if (cached) return cached;
+  const raw = parse(await readFile(config.schemaFile, 'utf8'), { merge: true, maxAliasCount: -1 });
+  const collections = (raw.collections || []).map(collection => {
     const base = {
       name: collection.name,
       label: collection.label || collection.name,
@@ -39,9 +35,8 @@ export async function loadSchema() {
       files: (collection.files || []).map(file => ({ name: file.name, label: file.label || file.name, file: file.file, description: file.description || '', fields: file.fields || [] }))
     };
   });
-  const schema = { collections, siteUrl: decap.site_url || config.siteUrl };
-  cached = { schema, loadedAt: Date.now() };
-  return schema;
+  cached = { collections, siteUrl: config.siteUrl };
+  return cached;
 }
 
 export async function getCollection(name) {
@@ -64,7 +59,7 @@ export function entryPath(collection, id) {
 export const slugify = text => String(text || '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
   .replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
 
-// Decap-style templates: "{{name}}", "{{anchor}}", "{{fields.name}}".
+// Name templates from schema.yml: "{{name}}", "{{anchor}}", "{{fields.name}}".
 export function fillTemplate(template, data, transform = value => value) {
   return String(template || '').replace(/\{\{\s*(?:fields\.)?([\w.]+)\s*\}\}/g, (_, key) =>
     transform(key.split('.').reduce((value, part) => (value == null ? undefined : value[part]), data) ?? ''));

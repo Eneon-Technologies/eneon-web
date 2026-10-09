@@ -1,5 +1,5 @@
-/* Eneon admin — single-page app. Forms are generated from Decap's admin/config.yml (via /api/schema),
- * so both admins always edit the same fields of the same content/*.json files. */
+/* Eneon admin — single-page app. Forms are generated from admin-app/schema.yml (via /api/schema);
+ * saving edits the website's content/*.json files in GitHub. */
 (() => {
   'use strict';
 
@@ -85,6 +85,7 @@
     if (parts[0] === 'c' && parts[2] === 'new') return editorView(parts[1], null);
     if (parts[0] === 'c' && parts[2] === 'e' && parts[3]) return editorView(parts[1], parts[3]);
     if (parts[0] === 'team') return teamView();
+    if (parts[0] === 'activity') return activityView();
     if (parts[0] === 'account') return accountView(params);
     setView(h('div', { class: 'empty', text: 'Page not found.' }));
   }
@@ -98,6 +99,7 @@
       ...state.schema.collections.map(c => h('a', { class: 'nav-link', href: `#/c/${c.name}`, 'data-route': `c/${c.name}` }, c.label)),
       h('div', { class: 'nav-label', text: 'Admin' }),
       state.me.role === 'owner' ? h('a', { class: 'nav-link', href: '#/team', 'data-route': 'team' }, 'Team') : null,
+      state.me.role === 'owner' ? h('a', { class: 'nav-link', href: '#/activity', 'data-route': 'activity' }, 'Activity') : null,
       h('a', { class: 'nav-link', href: '#/account', 'data-route': 'account' }, 'My account'),
       h('a', { class: 'nav-link', href: state.me.siteUrl, target: '_blank', rel: 'noopener' }, 'View website ↗')
     );
@@ -223,7 +225,7 @@
       } catch (error) {
         status.className = 'status error';
         if (error.status === 409 && !isNew) {
-          status.replaceChildren('Someone else saved this item since you opened it (here or in the other admin). ',
+          status.replaceChildren('Someone else saved this item since you opened it. ',
             h('button', { class: 'link-button', type: 'button', onclick: () => { state.dirty = false; editorView(name, id); } }, 'Reload their version'),
             ' — your unsaved changes will be lost, so copy anything you need first.');
         } else {
@@ -608,10 +610,39 @@
         h('p', { text: 'People who can sign in to this admin. They can use Google (with the same email), an emailed sign-in link, or a password.' }))),
       message,
       h('div', { class: 'panel' }, h('h2', { text: 'Add someone' }), addForm,
-        h('p', { class: 'small muted', style: 'margin:12px 0 0', text: 'Editors can change all content. Owners can also manage the team. Note: people using Decap (/admin/ on the website) are managed in DecapBridge instead.' })),
+        h('p', { class: 'small muted', style: 'margin:12px 0 0', text: 'Editors can change all content. Owners can also manage the team and see the activity log.' })),
       h('div', { class: 'panel' }, h('table', { class: 'table' },
         h('thead', {}, h('tr', {}, h('th', { text: 'Person' }), h('th', { text: 'Role' }), h('th', { text: 'Password' }), h('th', {}))),
         h('tbody', {}, rows)))
+    );
+  }
+
+  // ---------------------------------------------------------------- activity (owners)
+  const ACTION_LABELS = { create: 'Created', update: 'Saved', delete: 'Deleted', 'sign-in': 'Signed in', team: 'Team', account: 'Account' };
+  async function activityView() {
+    if (state.me.role !== 'owner') return errorView(new Error('Only owners can see the activity log.'));
+    loading();
+    let activity;
+    try { activity = (await api('GET', '/api/activity')).activity; } catch (error) { return errorView(error); }
+    const when = value => new Date(value).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+    const itemCell = entry => {
+      if (!entry.collection) return h('span', { class: 'muted', text: entry.summary || '' });
+      const collection = collectionByName(entry.collection);
+      const label = `${collection ? collection.labelSingular : entry.collection} · ${entry.entry}`;
+      return entry.action === 'delete' ? h('span', { text: label }) : h('a', { href: `#/c/${entry.collection}/e/${entry.entry}`, text: label });
+    };
+    setView(
+      h('div', { class: 'page-head' }, h('div', {}, h('h1', { text: 'Activity' }),
+        h('p', { text: 'Recent saves, sign-ins and team changes (kept for a year). Every content change is also in the website’s GitHub history.' }))),
+      activity.length
+        ? h('div', { class: 'panel' }, h('table', { class: 'table' },
+            h('thead', {}, h('tr', {}, h('th', { text: 'When' }), h('th', { text: 'Who' }), h('th', { text: 'What' }), h('th', { text: 'Item' }))),
+            h('tbody', {}, activity.map(entry => h('tr', {},
+              h('td', { class: 'small muted', text: when(entry.at) }),
+              h('td', {}, h('b', { text: entry.name || entry.email }), entry.name ? h('div', { class: 'small muted', text: entry.email }) : null),
+              h('td', {}, h('span', { class: `pill ${entry.action === 'delete' ? 'pill-off' : ''}`, text: ACTION_LABELS[entry.action] || entry.action })),
+              h('td', {}, itemCell(entry)))))))
+        : h('div', { class: 'empty', text: 'No activity yet.' })
     );
   }
 

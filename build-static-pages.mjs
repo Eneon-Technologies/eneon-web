@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { compile, helpers, cloudinary, isVideo, videoFrame, Safe } from './scripts/lib/template.mjs';
 
 // Builds the static site from two inputs:
-//   content/   — everything editors change (via /admin/ or by hand): one JSON file per service,
+//   content/   — everything editors change (via the admin app or by hand): one JSON file per service,
 //                project and product, plus page texts and site settings.
 //   src/index.html — the design: shared head/navigation, every page as
 //                <div class="page" id="page-…"> … <!-- /page-… -->, then the shared footer, with

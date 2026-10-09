@@ -1,5 +1,5 @@
 # Rebuilds the static pages whenever content, design or code changes on master (including every
-# save from the /admin/ page) and commits the result, so the repository always contains a
+# save from the admin app) and commits the result, so the repository always contains a
 # ready-to-serve site. Any static host (Render, Netlify, Cloudflare Pages, cPanel, …) can deploy
 # it as-is, with no build step on the host.
 name: Build site

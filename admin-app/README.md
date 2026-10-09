@@ -1,20 +1,43 @@
 # Eneon content admin (Render app)
 
-A small Node.js web app for editing the website content. It works **alongside** Decap CMS
-(`/admin/` on the website): both edit the same `content/*.json` files in GitHub, use the same fields
-(read from `admin/config.yml`), and every save triggers the same "Build site" GitHub Action, so
-the live site updates within a few minutes either way.
+A small Node.js web app for editing the website content. Content is saved as `content/*.json`
+files in the website's GitHub repository; every save triggers the "Build site" GitHub Action, so
+the live site updates within a few minutes. The admin's own data is stored in **MongoDB Atlas**.
 
-- **Sign-in:** Google, emailed sign-in links, or email + password.
-- **Team:** owners add and remove people under **Team**. The list is stored encrypted in
-  `admin-app/data/users.enc` (no database needed).
+- **Sign-in:** Google, emailed sign-in links (via Brevo), or email + password.
+- **Team:** owners add and remove people under **Team** (stored in MongoDB).
+- **Activity:** owners see who saved, created or deleted what, and recent sign-ins (kept a year).
 - **Uploads:** photos and videos go straight to Cloudinary using **signed** uploads (the Cloudinary
   secret stays on the server).
-- **Safe with two admins:** if an item was saved elsewhere since you opened it, your save is
-  refused with a "reload" message instead of overwriting the other change.
+- **No silent overwrites:** if an item was saved by someone else since you opened it, your save is
+  refused with a "reload" message instead of overwriting their change.
 - Every save is a GitHub commit authored by the person who made it.
 - **Logins are JWTs** (HS256, via the `jose` library) in an HttpOnly cookie. Each token type —
   login, emailed link, Google sign-in check — has its own audience, so one can't be used as another.
+- The sections and fields editors see are defined in [`schema.yml`](schema.yml).
+
+### What's stored where
+
+| Data | Where |
+| --- | --- |
+| Website content (projects, services, products, pages, settings) | GitHub repository, `content/*.json` |
+| Team (emails, names, roles, password hashes) | MongoDB `users` |
+| Used emailed sign-in links (each works once) | MongoDB `login_links` (auto-deleted after expiry) |
+| Sign-in attempt limits | MongoDB `rate_limits` (auto-deleted) |
+| Activity log | MongoDB `activity` (auto-deleted after a year) |
+
+## MongoDB Atlas
+
+1. In [MongoDB Atlas](https://cloud.mongodb.com), create a cluster (the free **M0** tier is plenty)
+   in a region near Render's (e.g. *Frankfurt* if Render runs in Frankfurt).
+2. **Database Access → Add New Database User:** password authentication, a strong generated
+   password, role **Read and write to any database** (or restrict it to the `eneon_admin` database).
+3. **Network Access → Add IP Address:** Render's outgoing addresses change, so allow
+   `0.0.0.0/0` (access is still protected by the database user's password), or add your Render
+   service's outbound IP addresses if your plan has fixed ones.
+4. **Connect → Drivers → Node.js:** copy the connection string, replace `<password>` with the
+   user's password, and put it in `MONGODB_URI`. The database (default name `eneon_admin`) and its
+   collections are created automatically on first start.
 
 ## Deploy on Render
 
@@ -27,7 +50,6 @@ the live site updates within a few minutes either way.
    | Build Command   | `npm install`       |
    | Start Command   | `node server.js`    |
    | Health Check    | `/health`           |
-   Under *Build Filters*, add the ignored path `admin-app/data/**` so team changes don't redeploy the app.
 3. Add the environment variables below, deploy, then (optionally) add a custom domain such as
    `admin.eneontechnologies.com` and set `PUBLIC_URL` to it.
 
@@ -38,7 +60,9 @@ up to a minute. A paid instance stays awake.
 
 | Variable | Required | What it is |
 | --- | --- | --- |
-| `JWT_SECRET` | yes | At least 32 random characters (e.g. `openssl rand -hex 32`). Signs the login JWTs and emailed links, **and encrypts the team list — don't change it** once people are added. The older name `SESSION_SECRET` also works. |
+| `JWT_SECRET` | yes | At least 32 random characters (e.g. `openssl rand -hex 32`). Signs the login JWTs and emailed links. Changing it signs everyone out. The older name `SESSION_SECRET` also works. |
+| `MONGODB_URI` | yes | Your MongoDB Atlas connection string (see above). |
+| `MONGODB_DB` | optional | Database name, default `eneon_admin`. |
 | `PUBLIC_URL` | yes | The app's address, e.g. `https://admin.eneontechnologies.com` (no trailing slash). |
 | `GITHUB_TOKEN` | yes | GitHub *fine-grained* token for `Eneon-Technologies/eneon-web` with **Contents: Read and write**. |
 | `OWNER_EMAILS` | yes | Comma-separated emails that are always owners (e.g. yours). |
@@ -83,7 +107,8 @@ yet, with that email and `OWNER_INITIAL_PASSWORD`. Then add your staff under **T
 ```bash
 cd admin-app
 npm install
-cp .env.example .env      # then fill in .env; set CONTENT_BACKEND=local to edit local files
+cp .env.example .env      # fill it in; CONTENT_BACKEND=local edits local files, and without
+                          # MONGODB_URI an in-memory database is used (lost on restart)
 node server.js            # loads .env automatically
 ```
 

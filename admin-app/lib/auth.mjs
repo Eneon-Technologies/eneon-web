@@ -4,6 +4,7 @@
 import { randomBytes } from 'node:crypto';
 import { SignJWT, jwtVerify } from 'jose';
 import { config, features } from './config.mjs';
+import { db } from './db.mjs';
 import { sendEmail } from './mail.mjs';
 import { findUser, normaliseEmail, verifyPassword } from './users.mjs';
 
@@ -67,15 +68,8 @@ export async function currentUser(req) {
 
 // ---------------------------------------------------------------- rate limiting
 
-const attempts = new Map();
-export function rateLimit(key, limit, windowMs) {
-  const now = Date.now();
-  const recent = (attempts.get(key) || []).filter(time => now - time < windowMs);
-  recent.push(now);
-  attempts.set(key, recent);
-  if (attempts.size > 5000) for (const [k, times] of attempts) if (!times.some(t => now - t < windowMs)) attempts.delete(k);
-  return recent.length <= limit;
-}
+// Stored in MongoDB, so limits hold across restarts. Returns false once `limit` is exceeded.
+export const rateLimit = (key, limit, windowMs) => db.rateLimit(key, limit, windowMs);
 
 // ---------------------------------------------------------------- email + password
 
@@ -91,7 +85,6 @@ export async function passwordLogin(email, password) {
 
 // ---------------------------------------------------------------- email sign-in links
 
-const usedLinks = new Map(); // JWT id → expiry (ms); makes each link single-use (until a restart)
 
 export async function sendSignInLink(email, purpose = 'sign-in') {
   email = normaliseEmail(email);
@@ -111,9 +104,8 @@ export async function sendSignInLink(email, purpose = 'sign-in') {
 export async function useSignInLink(token) {
   const payload = await verifyJwt(token, AUDIENCE.link);
   if (!payload?.jti || !payload.sub) return null;
-  if (usedLinks.has(payload.jti)) return null;
-  usedLinks.set(payload.jti, payload.exp * 1000);
-  for (const [id, exp] of usedLinks) if (exp < Date.now()) usedLinks.delete(id);
+  // Recorded in MongoDB, so each link works once — even after a restart.
+  if (!(await db.useLinkOnce(payload.jti, new Date(payload.exp * 1000)))) return null;
   const user = await findUser(payload.sub);
   return user ? { user, purpose: payload.purpose } : null;
 }

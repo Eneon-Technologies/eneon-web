@@ -2,7 +2,7 @@
 //   github — production: the GitHub contents API (each save is a commit on the branch)
 //   local  — development/testing: files in this checkout
 // Every read returns a `sha` (git blob hash). Saves must send the sha they read; if the file has
-// changed since (e.g. someone saved it from Decap), the save is refused with a conflict instead of
+// changed since (e.g. another editor saved it), the save is refused with a conflict instead of
 // overwriting their work.
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
@@ -19,7 +19,7 @@ export class NotFoundError extends Error {
 const blobSha = buffer => createHash('sha1').update(`blob ${buffer.length}\0`).update(buffer).digest('hex');
 
 // Only these parts of the repository can ever be read or written by the admin.
-const ALLOWED = [/^content\/[a-z0-9_/-]+\.json$/i, /^admin\/config\.yml$/, /^admin-app\/data\/users\.enc$/];
+const ALLOWED = [/^content\/[a-z0-9_/-]+\.json$/i];
 export function assertAllowedPath(file) {
   if (typeof file !== 'string' || file.includes('..') || file.startsWith('/') || !ALLOWED.some(rule => rule.test(file))) {
     throw Object.assign(new Error(`Access to "${file}" is not allowed.`), { status: 400 });
