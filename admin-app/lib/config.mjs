@@ -43,7 +43,7 @@ export const config = {
   // The admin's own data (team, login links, rate limits, activity). See lib/db.mjs.
   mongodb: {
     uri: env.MONGODB_URI || '',
-    dbName: env.MONGODB_DB || 'eneon_admin'
+    dbName: env.MONGODB_DB || 'eneon_webadmin'
   },
   github: {
     token: env.GITHUB_TOKEN || '',

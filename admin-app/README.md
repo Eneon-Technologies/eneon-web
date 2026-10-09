@@ -31,12 +31,12 @@ the live site updates within a few minutes. The admin's own data is stored in **
 1. In [MongoDB Atlas](https://cloud.mongodb.com), create a cluster (the free **M0** tier is plenty)
    in a region near Render's (e.g. *Frankfurt* if Render runs in Frankfurt).
 2. **Database Access → Add New Database User:** password authentication, a strong generated
-   password, role **Read and write to any database** (or restrict it to the `eneon_admin` database).
+   password, role **Read and write to any database** (or restrict it to the `eneon_webadmin` database).
 3. **Network Access → Add IP Address:** Render's outgoing addresses change, so allow
    `0.0.0.0/0` (access is still protected by the database user's password), or add your Render
    service's outbound IP addresses if your plan has fixed ones.
 4. **Connect → Drivers → Node.js:** copy the connection string, replace `<password>` with the
-   user's password, and put it in `MONGODB_URI`. The database (default name `eneon_admin`) and its
+   user's password, and put it in `MONGODB_URI`. The database (default name `eneon_webadmin`) and its
    collections are created automatically on first start.
 
 ## Deploy on Render
@@ -62,7 +62,7 @@ up to a minute. A paid instance stays awake.
 | --- | --- | --- |
 | `JWT_SECRET` | yes | At least 32 random characters (e.g. `openssl rand -hex 32`). Signs the login JWTs and emailed links. Changing it signs everyone out. The older name `SESSION_SECRET` also works. |
 | `MONGODB_URI` | yes | Your MongoDB Atlas connection string (see above). |
-| `MONGODB_DB` | optional | Database name, default `eneon_admin`. |
+| `MONGODB_DB` | optional | Database name, default `eneon_webadmin`. |
 | `PUBLIC_URL` | yes | The app's address, e.g. `https://admin.eneontechnologies.com` (no trailing slash). |
 | `GITHUB_TOKEN` | yes | GitHub *fine-grained* token for `Eneon-Technologies/eneon-web` with **Contents: Read and write**. |
 | `OWNER_EMAILS` | yes | Comma-separated emails that are always owners (e.g. yours). |
