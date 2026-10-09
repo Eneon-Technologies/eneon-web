@@ -1,6 +1,6 @@
 // The team list: who may sign in, their role, and (optionally) a password hash.
 // Stored as admin-app/data/users.enc in the repository, encrypted with AES-256-GCM using a key
-// derived from SESSION_SECRET — readable only by this app, even though the repository is shared.
+// derived from JWT_SECRET — readable only by this app, even though the repository is shared.
 // Emails in OWNER_EMAILS are always owners, so the app can't lock its owner out.
 import { createCipheriv, createDecipheriv, hkdfSync, randomBytes, scrypt as scryptCb, timingSafeEqual } from 'node:crypto';
 import { promisify } from 'node:util';
@@ -8,7 +8,7 @@ import { config } from './config.mjs';
 import { NotFoundError, store } from './store.mjs';
 
 const scrypt = promisify(scryptCb);
-const KEY = Buffer.from(hkdfSync('sha256', config.sessionSecret, 'eneon-admin', 'users-file-v1', 32));
+const KEY = Buffer.from(hkdfSync('sha256', config.jwtSecret, 'eneon-admin', 'users-file-v1', 32));
 
 function encrypt(data) {
   const iv = randomBytes(12);
@@ -59,7 +59,7 @@ async function load(force = false) {
   } catch (error) {
     if (!(error instanceof NotFoundError)) {
       if (/unable to authenticate|Unsupported state/i.test(error.message)) {
-        throw new Error('The team list could not be decrypted — SESSION_SECRET has changed. Owners in OWNER_EMAILS can still sign in and re-add the team.');
+        throw new Error('The team list could not be decrypted — JWT_SECRET has changed. Owners in OWNER_EMAILS can still sign in and re-add the team.');
       }
       throw error;
     }

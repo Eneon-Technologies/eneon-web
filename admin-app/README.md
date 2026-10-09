@@ -13,6 +13,8 @@ the live site updates within a few minutes either way.
 - **Safe with two admins:** if an item was saved elsewhere since you opened it, your save is
   refused with a "reload" message instead of overwriting the other change.
 - Every save is a GitHub commit authored by the person who made it.
+- **Logins are JWTs** (HS256, via the `jose` library) in an HttpOnly cookie. Each token type —
+  login, emailed link, Google sign-in check — has its own audience, so one can't be used as another.
 
 ## Deploy on Render
 
@@ -36,7 +38,7 @@ up to a minute. A paid instance stays awake.
 
 | Variable | Required | What it is |
 | --- | --- | --- |
-| `SESSION_SECRET` | yes | Long random string (e.g. `openssl rand -hex 32`). Signs sign-ins **and encrypts the team list — don't change it** once people are added. |
+| `JWT_SECRET` | yes | At least 32 random characters (e.g. `openssl rand -hex 32`). Signs the login JWTs and emailed links, **and encrypts the team list — don't change it** once people are added. The older name `SESSION_SECRET` also works. |
 | `PUBLIC_URL` | yes | The app's address, e.g. `https://admin.eneontechnologies.com` (no trailing slash). |
 | `GITHUB_TOKEN` | yes | GitHub *fine-grained* token for `Eneon-Technologies/eneon-web` with **Contents: Read and write**. |
 | `OWNER_EMAILS` | yes | Comma-separated emails that are always owners (e.g. yours). |

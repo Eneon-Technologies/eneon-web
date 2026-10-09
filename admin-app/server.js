@@ -97,7 +97,7 @@ async function handle(req, res) {
     }
     const user = await passwordLogin(email, String(password || ''));
     if (!user) return send(res, 401, { error: 'That email and password don’t match an account.' });
-    return send(res, 200, { ok: true, mustSetPassword: !user.passwordHash }, { 'Set-Cookie': sessionCookie(user.email) });
+    return send(res, 200, { ok: true, mustSetPassword: !user.passwordHash }, { 'Set-Cookie': await sessionCookie(user.email) });
   }
 
   if (pathname === '/auth/link' && method === 'POST') {
@@ -113,11 +113,11 @@ async function handle(req, res) {
   if (pathname === '/auth/link' && method === 'GET') {
     const result = await useSignInLink(url.searchParams.get('token'));
     if (!result) return redirect(res, '/login?error=' + encodeURIComponent('That link has expired or was already used. Request a new one.'));
-    return redirect(res, result.purpose === 'reset' ? '/#/account?reset=1' : '/', { 'Set-Cookie': sessionCookie(result.user.email) });
+    return redirect(res, result.purpose === 'reset' ? '/#/account?reset=1' : '/', { 'Set-Cookie': await sessionCookie(result.user.email) });
   }
 
   if (pathname === '/auth/google' && method === 'GET') {
-    const start = googleStart();
+    const start = await googleStart();
     if (!start) return redirect(res, '/login?error=' + encodeURIComponent('Google sign-in is not set up on this server.'));
     return redirect(res, start.url, { 'Set-Cookie': start.stateCookie });
   }
@@ -126,7 +126,7 @@ async function handle(req, res) {
     try {
       const { user, email } = await googleFinish(req, Object.fromEntries(url.searchParams));
       if (!user) return redirect(res, '/login?error=' + encodeURIComponent(`${email} isn’t on the team. Ask an owner to add you.`), { 'Set-Cookie': clearStateCookie() });
-      return redirect(res, '/', { 'Set-Cookie': [sessionCookie(user.email), clearStateCookie()] });
+      return redirect(res, '/', { 'Set-Cookie': [await sessionCookie(user.email), clearStateCookie()] });
     } catch (error) {
       return redirect(res, '/login?error=' + encodeURIComponent(error.message), { 'Set-Cookie': clearStateCookie() });
     }

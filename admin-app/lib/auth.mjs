@@ -1,6 +1,8 @@
-// Sign-in: Google, email sign-in links, and email + password. Sessions are signed cookies, so
-// the server keeps no session storage and survives restarts.
-import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
+// Sign-in: Google, email sign-in links, and email + password. Logins are JWTs (HS256, signed with
+// JWT_SECRET) stored in an HttpOnly cookie, so the server keeps no session storage and survives
+// restarts.
+import { randomBytes } from 'node:crypto';
+import { SignJWT, jwtVerify } from 'jose';
 import { config, features } from './config.mjs';
 import { sendEmail } from './mail.mjs';
 import { findUser, normaliseEmail, verifyPassword } from './users.mjs';
@@ -9,22 +11,34 @@ const COOKIE = 'eneon_admin';
 const STATE_COOKIE = 'eneon_admin_oauth';
 const secure = config.publicUrl.startsWith('https://');
 
-// ---------------------------------------------------------------- signed tokens
+// ---------------------------------------------------------------- JWTs
 
-const sign = text => createHmac('sha256', config.sessionSecret).update(text).digest('base64url');
-export function seal(payload) {
-  const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
-  return `${body}.${sign(body)}`;
+// Each kind of token has its own audience, so a token made for one purpose (e.g. an emailed
+// link) can never be used as another (e.g. a login cookie).
+const ISSUER = 'eneon-admin';
+export const AUDIENCE = { session: 'eneon-admin:session', link: 'eneon-admin:sign-in-link', oauthState: 'eneon-admin:google-state' };
+const KEY = new TextEncoder().encode(config.jwtSecret);
+
+export function signJwt(claims, { audience, subject, expiresInSeconds }) {
+  const jwt = new SignJWT(claims)
+    .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
+    .setIssuer(ISSUER)
+    .setAudience(audience)
+    .setIssuedAt()
+    .setExpirationTime(Math.floor(Date.now() / 1000) + expiresInSeconds);
+  if (subject) jwt.setSubject(subject);
+  return jwt.sign(KEY);
 }
-export function unseal(token) {
-  if (typeof token !== 'string' || !token.includes('.')) return null;
-  const [body, signature] = token.split('.');
-  const expected = sign(body);
-  if (!signature || signature.length !== expected.length || !timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) return null;
+
+// Returns the claims, or null if the token is missing, forged, expired or for another purpose.
+export async function verifyJwt(token, audience) {
+  if (typeof token !== 'string' || !token) return null;
   try {
-    const payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf8'));
-    return payload.exp && payload.exp > Date.now() ? payload : null;
-  } catch { return null; }
+    const { payload } = await jwtVerify(token, KEY, { issuer: ISSUER, audience, algorithms: ['HS256'] });
+    return payload;
+  } catch {
+    return null;
+  }
 }
 
 // ---------------------------------------------------------------- cookies
@@ -35,15 +49,18 @@ export function parseCookies(header = '') {
 function cookie(name, value, maxAgeSeconds) {
   return `${name}=${encodeURIComponent(value)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAgeSeconds}${secure ? '; Secure' : ''}`;
 }
-export const sessionCookie = email => cookie(COOKIE, seal({ email, exp: Date.now() + config.sessionDays * 86400_000, v: 1 }), config.sessionDays * 86400);
+export async function sessionCookie(email) {
+  const seconds = config.sessionDays * 86400;
+  return cookie(COOKIE, await signJwt({}, { audience: AUDIENCE.session, subject: email, expiresInSeconds: seconds }), seconds);
+}
 export const clearSessionCookie = () => cookie(COOKIE, '', 0);
 
 // The signed-in user for a request (re-checked against the team list, so removing someone
 // signs them out within a minute).
 export async function currentUser(req) {
-  const session = unseal(parseCookies(req.headers.cookie)[COOKIE]);
-  if (!session) return null;
-  const user = await findUser(session.email);
+  const session = await verifyJwt(parseCookies(req.headers.cookie)[COOKIE], AUDIENCE.session);
+  if (!session?.sub) return null;
+  const user = await findUser(session.sub);
   if (!user) return null;
   return { ...user, author: { name: user.name || user.email, email: user.email } };
 }
@@ -74,13 +91,13 @@ export async function passwordLogin(email, password) {
 
 // ---------------------------------------------------------------- email sign-in links
 
-const usedLinks = new Map(); // nonce → expiry; makes each link single-use (until a restart)
+const usedLinks = new Map(); // JWT id → expiry (ms); makes each link single-use (until a restart)
 
 export async function sendSignInLink(email, purpose = 'sign-in') {
   email = normaliseEmail(email);
   const user = await findUser(email);
   if (!user) return; // say nothing: don't reveal who is on the team
-  const token = seal({ email, nonce: randomBytes(9).toString('base64url'), purpose, exp: Date.now() + 20 * 60_000 });
+  const token = await signJwt({ purpose, jti: randomBytes(12).toString('base64url') }, { audience: AUDIENCE.link, subject: email, expiresInSeconds: 20 * 60 });
   const link = `${config.publicUrl}/auth/link?token=${encodeURIComponent(token)}`;
   const action = purpose === 'reset' ? 'reset your password' : 'sign in';
   await sendEmail({
@@ -92,18 +109,18 @@ export async function sendSignInLink(email, purpose = 'sign-in') {
 }
 
 export async function useSignInLink(token) {
-  const payload = unseal(token);
-  if (!payload || !payload.nonce) return null;
-  if (usedLinks.has(payload.nonce)) return null;
-  usedLinks.set(payload.nonce, payload.exp);
-  for (const [nonce, exp] of usedLinks) if (exp < Date.now()) usedLinks.delete(nonce);
-  const user = await findUser(payload.email);
+  const payload = await verifyJwt(token, AUDIENCE.link);
+  if (!payload?.jti || !payload.sub) return null;
+  if (usedLinks.has(payload.jti)) return null;
+  usedLinks.set(payload.jti, payload.exp * 1000);
+  for (const [id, exp] of usedLinks) if (exp < Date.now()) usedLinks.delete(id);
+  const user = await findUser(payload.sub);
   return user ? { user, purpose: payload.purpose } : null;
 }
 
 // ---------------------------------------------------------------- Google
 
-export function googleStart() {
+export async function googleStart() {
   if (!features.google) return null;
   const state = randomBytes(16).toString('base64url');
   const params = new URLSearchParams({
@@ -114,11 +131,12 @@ export function googleStart() {
     state,
     prompt: 'select_account'
   });
-  return { url: `https://accounts.google.com/o/oauth2/v2/auth?${params}`, stateCookie: cookie(STATE_COOKIE, seal({ state, exp: Date.now() + 10 * 60_000 }), 600) };
+  const stateToken = await signJwt({ state }, { audience: AUDIENCE.oauthState, expiresInSeconds: 600 });
+  return { url: `https://accounts.google.com/o/oauth2/v2/auth?${params}`, stateCookie: cookie(STATE_COOKIE, stateToken, 600) };
 }
 
 export async function googleFinish(req, query) {
-  const saved = unseal(parseCookies(req.headers.cookie)[STATE_COOKIE]);
+  const saved = await verifyJwt(parseCookies(req.headers.cookie)[STATE_COOKIE], AUDIENCE.oauthState);
   if (!saved || !query.state || saved.state !== query.state) throw Object.assign(new Error('Your sign-in expired. Please try again.'), { status: 400 });
   if (query.error || !query.code) throw Object.assign(new Error('Google sign-in was cancelled.'), { status: 400 });
   const response = await fetch('https://oauth2.googleapis.com/token', {

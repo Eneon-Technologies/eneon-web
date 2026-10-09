@@ -13,6 +13,7 @@
     "dev": "node --watch server.js"
   },
   "dependencies": {
+    "jose": "^6.2.12",
     "yaml": "^2.9.1"
   }
 }

@@ -17,16 +17,25 @@ const env = process.env;
 const list = value => String(value || '').split(',').map(item => item.trim().toLowerCase()).filter(Boolean);
 
 const localMode = (env.CONTENT_BACKEND || 'github') === 'local';
-if (!env.SESSION_SECRET && !localMode) {
-  throw new Error('SESSION_SECRET is required (a long random string). See admin-app/README.md.');
+// JWT_SECRET signs every JWT (logins, emailed links) and encrypts the team list.
+// SESSION_SECRET is accepted as the older name for the same setting.
+const jwtSecret = env.JWT_SECRET || env.SESSION_SECRET || '';
+if (!localMode && !jwtSecret) {
+  throw new Error('JWT_SECRET is required (a long random string, e.g. `openssl rand -hex 32`). See admin-app/README.md.');
+}
+if (!localMode && jwtSecret.length < 32) {
+  // A new JWT_SECRET must be strong; an existing short SESSION_SECRET only warns, so a running
+  // deployment keeps working (its team list is encrypted with it).
+  if (env.JWT_SECRET) throw new Error('JWT_SECRET is too short — use at least 32 random characters (e.g. `openssl rand -hex 32`).');
+  console.warn('Warning: SESSION_SECRET is shorter than 32 characters. For stronger security, set a longer JWT_SECRET before adding your team (changing it later makes the team list unreadable).');
 }
 
 export const config = {
   port: Number(env.PORT || 3000),
   publicUrl: (env.PUBLIC_URL || `http://localhost:${env.PORT || 3000}`).replace(/\/+$/, ''),
   siteUrl: (env.SITE_URL || 'https://eneontechnologies.com').replace(/\/+$/, ''),
-  // Signs session cookies and encrypts the team list. Keep it secret and don't change it once set.
-  sessionSecret: env.SESSION_SECRET || randomBytes(32).toString('hex'),
+  // Signs the JWTs and encrypts the team list. Keep it secret and don't change it once set.
+  jwtSecret: jwtSecret || randomBytes(32).toString('hex'),
   sessionDays: Number(env.SESSION_DAYS || 14),
   ownerEmails: list(env.OWNER_EMAILS),
   ownerInitialPassword: env.OWNER_INITIAL_PASSWORD || '',
