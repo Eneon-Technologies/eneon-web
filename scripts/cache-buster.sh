@@ -13,7 +13,7 @@ SOURCE_HTML="src/index.html"
 [[ -f "$SOURCE_HTML" ]] || { echo "Error: '$SOURCE_HTML' not found." >&2; exit 1; }
 
 # Every HTML document: the source, index.html, 404.html and each route folder's index.html.
-mapfile -t html_files < <(find . -path ./.git -prune -o -path ./node_modules -prune -o -name "*.html" -type f -print)
+mapfile -t html_files < <(find . -path ./.git -prune -o -name node_modules -prune -o -path ./admin-app -prune -o -name "*.html" -type f -print)
 
 file_hash() {
   if command -v md5sum >/dev/null 2>&1; then md5sum "$1" | awk '{print $1}'

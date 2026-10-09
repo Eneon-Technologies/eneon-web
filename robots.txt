@@ -4,5 +4,6 @@ Allow: /
 Disallow: /src/
 # Content admin — not a public page.
 Disallow: /admin/
+Disallow: /admin-app/
 
 Sitemap: https://eneontechnologies.com/sitemap.xml

@@ -37,6 +37,13 @@ Open `https://eneontechnologies.com/admin/` and sign in with your email.
 
 Only publish client names, project details and media with appropriate approval.
 
+### Second admin (Render app)
+
+`admin-app/` is a separate Node.js admin you can host on Render (e.g. at
+`admin.eneontechnologies.com`) with Google, emailed-link or password sign-in, its own team list and
+signed Cloudinary uploads. It edits the same files with the same fields, so staff can use either
+admin. Setup: [admin-app/README.md](admin-app/README.md).
+
 ## One-time admin setup
 
 1. **Cloudinary upload preset** — in Cloudinary: *Settings → Upload → Upload presets → Add
