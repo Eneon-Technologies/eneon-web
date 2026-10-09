@@ -1,14 +1,20 @@
-// Settings come from environment variables (set them in the Render dashboard).
-// See admin-app/README.md for what each one does.
+// Settings come from environment variables (on Render: the Environment tab). For local use, an
+// admin-app/.env file is loaded automatically if present — like dotenv.config(), but built into
+// Node. Variables already set in the environment always win over the file.
+// See .env.example for what each one does.
 import { randomBytes } from 'node:crypto';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const env = process.env;
-const list = value => String(value || '').split(',').map(item => item.trim().toLowerCase()).filter(Boolean);
-
 export const APP_DIR = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 export const REPO_DIR = path.dirname(APP_DIR);
+
+const ENV_FILE = path.join(APP_DIR, '.env');
+if (existsSync(ENV_FILE)) process.loadEnvFile(ENV_FILE);
+
+const env = process.env;
+const list = value => String(value || '').split(',').map(item => item.trim().toLowerCase()).filter(Boolean);
 
 const localMode = (env.CONTENT_BACKEND || 'github') === 'local';
 if (!env.SESSION_SECRET && !localMode) {

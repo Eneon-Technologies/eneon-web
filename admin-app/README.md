@@ -82,13 +82,15 @@ yet, with that email and `OWNER_INITIAL_PASSWORD`. Then add your staff under **T
 cd admin-app
 npm install
 cp .env.example .env      # then fill in .env; set CONTENT_BACKEND=local to edit local files
-node --env-file=.env server.js
+node server.js            # loads .env automatically
 ```
 
 Open http://localhost:3000. In local mode changes are written to the files in this checkout
 (not GitHub) and emailed links are printed in the terminal. `.env.example` lists and explains every
-setting; `.env` is git-ignored, so secrets never get committed. (On Render, enter the same settings
-in the Environment tab instead of using a file.)
+setting. The app loads `admin-app/.env` automatically when it exists (like `dotenv.config()`, but
+built into Node), and real environment variables take priority over it. `.env` is git-ignored, so
+secrets never get committed. On Render, enter the settings in the Environment tab (its
+"Add from .env" option accepts this file's contents).
 
 ## Running elsewhere
 
