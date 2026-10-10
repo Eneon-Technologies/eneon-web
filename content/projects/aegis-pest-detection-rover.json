@@ -1,0 +1,121 @@
+{
+  "name": "Aegis Pest Detection Rover",
+  "title": "Aegis *Rover*",
+  "published": true,
+  "order": 2,
+  "slug": "aegis-pest-detection-rover",
+  "client": "Agrova LTD",
+  "categories": [
+    "hardware",
+    "embedded",
+    "iot",
+    "software",
+    "ai"
+  ],
+  "summary": "An autonomous rover that patrols a farm plot and uses computer vision to detect soil and crop pests. Each time a pest is identified, it sends an instant alert to the owner's phone via Telegram, enabling timely, targeted intervention and reducing crop losses.",
+  "lede": "An autonomous rover that patrols a farm plot and uses computer vision to detect soil and crop pests. Each time a pest is identified, it sends an instant alert to the owner's phone via Telegram, enabling timely, targeted intervention and reducing crop losses.",
+  "tags": [
+    "Robot",
+    "Rover",
+    "Computer Vision",
+    "Telegram Alerts",
+    "Telegram Bot",
+    "Web Dashboard"
+  ],
+  "details": [
+    {
+      "label": "Disciplines",
+      "value": "Robotics . Embedded Systems . Computer Vision "
+    },
+    {
+      "label": "Detects",
+      "value": "Soil Pests . Crop Pests"
+    },
+    {
+      "label": "Interface",
+      "value": "Telegram Bot . Web Dashboard"
+    },
+    {
+      "label": "Core Components ",
+      "value": "Wheels . Robotic Arm . GPS Module . IR Proximity Sensors . Raspberry Pi 5"
+    }
+  ],
+  "thumbnail": {
+    "image": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791652310/eneon-web/seghazufbon4gadiy0pe.png",
+    "alt": ""
+  },
+  "gallery_layout": "portrait",
+  "gallery": [],
+  "overview": {
+    "eyebrow": "The project",
+    "title": "Crop protection that never sleeps",
+    "paragraphs": [
+      "Aegis autonomously scans a farm plot, using a computer vision algorithm to identify soil and crop pests as it moves. Each detection sends a notification straight to the owner's phone on Telegram, so action can be taken before the damage spreads.",
+      "Pests are often spotted too late, after the harvest is already at risk. Aegis patrols the plot consistently, replacing occasional manual inspection with regular, reliable coverage."
+    ]
+  },
+  "features": [
+    {
+      "icon": "sparkle",
+      "title": "Autonomous patrol",
+      "text": "Covers the farm plot without manual control."
+    },
+    {
+      "icon": "compass",
+      "title": "Soil pest detection",
+      "text": "Identifies pests in and around the soil."
+    },
+    {
+      "icon": "compass",
+      "title": "Crop pest detection",
+      "text": "Spots pests on plants and foliage."
+    },
+    {
+      "icon": "check-circle",
+      "title": "Computer vision",
+      "text": "Recognises pests from live camera imagery. "
+    },
+    {
+      "icon": "chat",
+      "title": "Instant Telegram alerts",
+      "text": "A notification to the owner's phone each time a pest is found. "
+    },
+    {
+      "icon": "bulb",
+      "title": "Targeted intervention",
+      "text": "Know when and where to act, and cut crop losses."
+    }
+  ],
+  "process": {
+    "eyebrow": "How it works",
+    "title": "Patrol. Detect. Alert. Act.",
+    "steps": [
+      {
+        "title": "Patrol",
+        "text": "The rover travels the plot on its own."
+      },
+      {
+        "title": " Detect",
+        "text": "The vision algorithm analyses what the camera sees for signs of pests."
+      },
+      {
+        "title": "Alert",
+        "text": "A confirmed detection triggers a Telegram message to the owner."
+      },
+      {
+        "title": "Act",
+        "text": "The farmer responds early and treats only what needs it."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Have a similar challenge?",
+    "title": "Let's build a smart farming system for you.",
+    "text": "From sensors and firmware to vision and mobile alerts, we engineer agricultural monitoring systems end to end."
+  },
+  "seo": {
+    "title": "",
+    "description": "",
+    "image": ""
+  }
+}
