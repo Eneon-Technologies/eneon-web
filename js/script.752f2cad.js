@@ -152,6 +152,138 @@
     }
   });
 
+  /* ---------- Visit statistics (anonymous, no cookies) ---------- */
+  // Sent to the Eneon admin when its address is set (Admin → Analytics → Connect the website):
+  // page views, time on page, scroll depth and key actions (WhatsApp, calls, emails, enquiries,
+  // gallery views, product and service interest). Nothing personal is sent. Open any page with
+  // ?analytics=off to stop counting your own visits in this browser (?analytics=on to undo).
+  const track = (() => {
+    const endpoint = (document.querySelector('meta[name="eneon-analytics"]')?.content || "").replace(/\/+$/, "");
+    const storage = (area, key, value) => {
+      try {
+        if (value === undefined) return window[area].getItem(key);
+        if (value === null) window[area].removeItem(key); else window[area].setItem(key, value);
+      } catch (error) { return undefined; }
+      return value;
+    };
+    const setting = new URLSearchParams(location.search).get("analytics");
+    if (setting === "off") storage("localStorage", "eneon-analytics-off", "1");
+    if (setting === "on") storage("localStorage", "eneon-analytics-off", null);
+    if (!endpoint || storage("localStorage", "eneon-analytics-off") === "1" || navigator.webdriver) return () => {};
+
+    const newId = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    const send = (data) => {
+      const body = JSON.stringify(data);
+      try { if (navigator.sendBeacon && navigator.sendBeacon(`${endpoint}/e`, new Blob([body], { type: "text/plain" }))) return; } catch (error) { /* use fetch */ }
+      fetch(`${endpoint}/e`, { method: "POST", body, keepalive: true, credentials: "omit", headers: { "Content-Type": "text/plain" } }).catch(() => {});
+    };
+
+    // A visit ends after 30 minutes without activity.
+    let visit = null;
+    try { visit = JSON.parse(storage("localStorage", "eneon-visit") || "null"); } catch (error) { visit = null; }
+    const firstPage = !visit || !visit.id || Date.now() - visit.last > 30 * 60 * 1000;
+    if (firstPage) visit = { id: newId(), last: Date.now() };
+    const keepVisit = () => { visit.last = Date.now(); storage("localStorage", "eneon-visit", JSON.stringify(visit)); };
+    keepVisit();
+    const seenBefore = storage("localStorage", "eneon-seen");
+    storage("localStorage", "eneon-seen", "1");
+
+    const view = newId();
+    const query = new URLSearchParams(location.search);
+    send({
+      t: "v", id: view, s: visit.id, en: firstPage ? 1 : 0,
+      n: seenBefore === "1" ? 0 : seenBefore === null ? 1 : -1,
+      p: location.pathname, ti: document.title, r: document.referrer,
+      u: { source: query.get("utm_source") || "", medium: query.get("utm_medium") || "", campaign: query.get("utm_campaign") || "" },
+      w: window.screen?.width || 0, tc: navigator.maxTouchPoints > 0 ? 1 : 0, l: navigator.language || "",
+      z: (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (error) { return ""; } })(),
+      nf: document.getElementById("page-404") ? 1 : 0
+    });
+
+    // Time actually spent looking at the page, and how far down it was read.
+    let visibleSince = document.visibilityState === "visible" ? Date.now() : 0;
+    let visibleMs = 0;
+    let deepest = 0;
+    let lastSent = "";
+    const seconds = () => Math.round((visibleMs + (visibleSince ? Date.now() - visibleSince : 0)) / 1000);
+    const measureScroll = () => {
+      const room = document.documentElement.scrollHeight - window.innerHeight;
+      deepest = Math.max(deepest, room > 0 ? Math.min(100, Math.round((window.scrollY / room) * 100)) : 100);
+    };
+    window.addEventListener("scroll", measureScroll, { passive: true });
+    measureScroll();
+    const report = () => {
+      const state = `${seconds()}:${deepest}`;
+      if (state === lastSent) return;
+      lastSent = state;
+      send({ t: "p", id: view, d: seconds(), sc: deepest });
+      keepVisit();
+    };
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        if (visibleSince) visibleMs += Date.now() - visibleSince;
+        visibleSince = 0;
+        report();
+      } else visibleSince = Date.now();
+    });
+    window.addEventListener("pagehide", report);
+    const heartbeat = setInterval(() => {
+      if (document.visibilityState === "visible") report();
+      if (seconds() > 1800) clearInterval(heartbeat);
+    }, 45000);
+
+    const action = (name, label = "", target = "") => send({ t: "e", id: view, n: name, l: String(label).trim().slice(0, 120), x: String(target).slice(0, 200) });
+    const area = (element) => element.closest(".site-footer") ? "Footer" : element.closest(".site-header") ? "Header" : element.closest(".wa-float") ? "Floating button" : "Page";
+    const label = (element) => (element.getAttribute("aria-label") || element.textContent || "").replace(/\s+/g, " ").trim();
+
+    document.addEventListener("click", (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (!target) return;
+      const link = target.closest("a[href]");
+      if (link) {
+        const product = link.closest("[data-product]");
+        if (product) action("product_click", product.dataset.product, label(link));
+        let url;
+        try { url = new URL(link.href, location.href); } catch (error) { return; }
+        if (/(^|\.)wa\.me$|whatsapp\.com$/.test(url.hostname)) action("whatsapp", area(link));
+        else if (url.protocol === "tel:") action("call", area(link));
+        else if (url.protocol === "mailto:") action("email", area(link));
+        else if (/^https?:$/.test(url.protocol) && url.origin !== location.origin) action("outbound", url.hostname.replace(/^www\./, ""), url.href);
+        else if (url.origin === location.origin && url.pathname.replace(/\/?$/, "/") === "/contact/" && location.pathname !== "/contact/") action("contact_click", label(link));
+        return;
+      }
+      const media = target.closest("[data-lightbox-media]");
+      if (media) action("media_open", media.dataset.lightboxTitle || media.querySelector("img")?.alt || "", media.dataset.lightboxType);
+      const filter = target.closest("[data-filter]");
+      if (filter) action("project_filter", filter.textContent);
+    }, true);
+
+    const played = new WeakSet();
+    document.addEventListener("play", (event) => {
+      if (!(event.target instanceof HTMLVideoElement) || played.has(event.target)) return;
+      played.add(event.target);
+      action("video_play", document.querySelector("[data-lightbox-caption]")?.textContent || "");
+    }, true);
+
+    // Products and services count as "seen" after a second at least half in view.
+    if ("IntersectionObserver" in window) {
+      const timers = new Map();
+      const watcher = new IntersectionObserver((entries) => entries.forEach((entry) => {
+        const element = entry.target;
+        const inView = entry.intersectionRatio >= 0.5 || entry.intersectionRect.height >= window.innerHeight * 0.5;
+        clearTimeout(timers.get(element));
+        if (!inView) return;
+        timers.set(element, setTimeout(() => {
+          watcher.unobserve(element);
+          if (element.dataset.product) action("product_view", element.dataset.product);
+          else action("service_view", element.dataset.service);
+        }, 1000));
+      }), { threshold: [0, 0.25, 0.5, 0.75, 1] });
+      document.querySelectorAll("[data-product], [data-service]").forEach((element) => watcher.observe(element));
+    }
+    return action;
+  })();
+
   /* ---------- Enquiry form ---------- */
   // With data-endpoint set (e.g. a Formspree URL) the form posts there; otherwise it opens
   // the visitor's email app with the enquiry pre-filled and addressed to data-mailto.
@@ -173,6 +305,7 @@
     }
     const data = new FormData(form);
     if (data.get("_gotcha")) return;
+    track("enquiry", data.get("project-type") || "Not specified");
     const endpoint = form.dataset.endpoint?.trim();
     const submitButton = form.querySelector("[type=submit]");
 

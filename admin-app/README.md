@@ -25,6 +25,7 @@ the live site updates within a few minutes. The admin's own data is stored in **
 | Used emailed sign-in links (each works once) | MongoDB `login_links` (auto-deleted after expiry) |
 | Sign-in attempt limits | MongoDB `rate_limits` (auto-deleted) |
 | Activity log | MongoDB `activity` (auto-deleted after a year) |
+| Website analytics (anonymous visits and actions) | MongoDB `analytics_views`, `analytics_events`, `analytics_salts` (auto-deleted after `ANALYTICS_RETENTION_DAYS`, default 2 years) |
 
 ## MongoDB Atlas
 
@@ -73,6 +74,9 @@ up to a minute. A paid instance stays awake.
 | `BREVO_API_KEY`, `MAIL_FROM` | for emailed links & password resets | See below. |
 | `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` | for uploads | Cloudinary → Settings → API Keys. |
 | `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_FOLDER` | optional | Default `sdsdnsle` / `eneon`. |
+| `ANALYTICS_TIMEZONE` | optional | Time zone for days and hours in Analytics. Default `Africa/Lagos`. |
+| `ANALYTICS_RETENTION_DAYS` | optional | How long visit data is kept. Default `730` (two years). |
+| `ANALYTICS_ORIGINS` | optional | Extra website addresses allowed to send visits (comma-separated), besides `SITE_URL`. |
 
 Sign-in methods appear automatically when their variables are set; password sign-in is always on.
 
@@ -96,6 +100,27 @@ account shows "isn't on the team".
 3. Set `MAIL_FROM` to that sender, e.g. `Eneon Admin <admin@eneontechnologies.com>`.
 
 Links work once and expire after 20 minutes.
+
+## Website analytics
+
+Owners see **Analytics** in the menu: visitors, visits, page views, time on page, how far people
+scroll, where they came from (search, social, AI assistants, other sites, campaign links), countries,
+devices and browsers, every page, project, product and service, and the actions that matter —
+WhatsApp, phone and email taps, enquiry forms, gallery photos and videos opened. A CSV export is
+included.
+
+To switch it on, open **Analytics → Connect the website** once. That saves this admin's address
+(`PUBLIC_URL`) as `analytics_url` in `content/settings.json`; the site rebuilds and its script starts
+sending visits to `<PUBLIC_URL>/e`. Visits are anonymous: no cookies, no IP addresses stored; a
+visitor is counted with a hash that changes daily. Visits are accepted only from `SITE_URL` (and
+its `www.` twin), so set `SITE_URL` correctly. Country comes from Cloudflare's `CF-IPCountry` header if the admin is
+behind Cloudflare, otherwise from the visitor's time zone.
+
+On Render's free plan the service sleeps when idle; the first visit after a sleep wakes it, so a
+visit or two can be missed while it starts. A paid instance (or any always-on host) avoids that.
+
+To stop counting your own visits, open the website once per browser with `?analytics=off`
+(`?analytics=on` to undo).
 
 ## First sign-in
 

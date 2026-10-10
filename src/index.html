@@ -40,6 +40,9 @@
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@600;700;800&display=swap">
   <script>try{var eneonTheme=localStorage.getItem("eneon-theme");document.documentElement.dataset.theme=eneonTheme||"dark"}catch(e){}</script>
+  {{#if site.analytics_url}}
+  <meta name="eneon-analytics" content="{{ site.analytics_url }}">
+  {{/if}}
   <link rel="stylesheet" href="/css/style.19139812.css">
 </head>
 <body>
@@ -341,7 +344,7 @@
       </section>
 
       {{#each services}}
-      <section id="{{ anchor }}" class="section service-band{{#if @even}} section-alt{{/if}}">
+      <section id="{{ anchor }}" class="section service-band{{#if @even}} section-alt{{/if}}" data-service="{{ index_title }}">
         <div class="container">
           {{#if banner.image}}
           <figure class="band-media reveal"><img src="{{ cld banner.image "c_fill,g_auto,ar_21:8,w_1600" }}" width="1600" height="610" loading="lazy" alt="{{ banner.alt }}"></figure>
@@ -559,7 +562,7 @@
           {{#if productsWithImage}}
           <div class="product-grid">
             {{#each productsWithImage}}
-            <article class="product-card reveal">
+            <article class="product-card reveal" data-product="{{ name }}">
               <div class="product-visual">
                 <img src="{{ cld image "c_pad,b_auto,ar_4:3,w_900" }}"
                      width="900" height="675" loading="lazy" alt="{{ image_alt }}">
@@ -583,7 +586,7 @@
           {{#if productsWithoutImage}}
           <div class="card-grid card-grid-3">
             {{#each productsWithoutImage}}
-            <article class="feature-card reveal"{{ delay 100 3 }}><span class="icon-tile">{{ icon icon }}</span><h3>{{ name }}</h3><p>{{ summary }}</p>{{#if status}}<span class="badge badge-inline">{{ status }}</span>{{/if}}</article>
+            <article class="feature-card reveal" data-product="{{ name }}"{{ delay 100 3 }}><span class="icon-tile">{{ icon icon }}</span><h3>{{ name }}</h3><p>{{ summary }}</p>{{#if status}}<span class="badge badge-inline">{{ status }}</span>{{/if}}</article>
             {{/each}}
           </div>
           {{/if}}
@@ -741,6 +744,6 @@
     <span class="wa-label" aria-hidden="true">Chat with us</span>
   </a>
   {{/if}}
-  <script src="/js/script.50b3eb3c.js" defer></script>
+  <script src="/js/script.752f2cad.js" defer></script>
 </body>
 </html>

@@ -527,3 +527,4 @@ collections:
           - { label: 'Tagline', name: tagline, widget: string }
           - { label: 'Footer description', name: footer_description, widget: text }
           - { label: 'Form endpoint (advanced)', name: form_endpoint, widget: string, required: false, hint: 'Optional Formspree (or similar) URL. Empty = the form opens the visitor''s email app.' }
+          - { label: 'Analytics address (advanced)', name: analytics_url, widget: string, required: false, hint: 'Where the website sends visit statistics: this admin''s address. Set automatically by Analytics → Connect the website. Empty = no analytics.' }

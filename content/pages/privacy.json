@@ -11,7 +11,7 @@
   "sections": [
     {
       "heading": "Website information",
-      "text": "This website does not use analytics, advertising trackers or user accounts. Images and video are delivered through Cloudinary, a media delivery network, which receives standard technical request information (such as IP address and browser type) in order to serve those files. Your light or dark theme choice is stored only in your own browser."
+      "text": "This website does not use advertising trackers, cookies or user accounts. To understand how the site is used, we keep anonymous visit statistics on our own systems: the pages viewed, time spent on them, how the site was reached (for example a search engine or a shared link), the general type of device and browser, the approximate country, and actions such as opening a project photo or tapping the WhatsApp button. We do not store IP addresses or anything that identifies you; visits are counted with a code that changes every day, and your browser keeps only a short note of the current visit and whether you have been here before. These statistics are not shared with or sold to anyone.\n\nImages and video are delivered through Cloudinary, a media delivery network, which receives standard technical request information (such as IP address and browser type) in order to serve those files. Your light or dark theme choice is stored only in your own browser."
     },
     {
       "heading": "Project enquiries",
