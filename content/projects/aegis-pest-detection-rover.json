@@ -44,8 +44,49 @@
     "image": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791652310/eneon-web/seghazufbon4gadiy0pe.png",
     "alt": ""
   },
-  "gallery_layout": "portrait",
-  "gallery": [],
+  "gallery_layout": "landscape",
+  "gallery": [
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791652694/eneon-web/acz2u5mhlajm51i1lop9.jpg",
+      "caption": "Assembly",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791652779/eneon-web/rgy5rmvi3fiwj5cb9bee.jpg",
+      "caption": "Assembly",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791652835/eneon-web/itqdfspkidq4deg4dh4f.jpg",
+      "caption": "Assembly",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791652903/eneon-web/rtiajzutd6am1a4kywr6.jpg",
+      "caption": "Assembly",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791652959/eneon-web/xpibgei3j8s1zhmbhjwr.jpg",
+      "caption": "Testing GPS fix",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/video/upload/v1791653098/eneon-web/fdlvw8mo3jilqjgpkjpz.mp4",
+      "caption": "Setting Up Rover",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791653172/eneon-web/vs1y5awjzbn6banfqfrz.jpg",
+      "caption": "Software Development",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/video/upload/v1791653276/eneon-web/n2ks36kdleddhucsvvot.mp4",
+      "caption": "Testing Rover (Farm Scan)",
+      "alt": ""
+    }
+  ],
   "overview": {
     "eyebrow": "The project",
     "title": "Crop protection that never sleeps",
