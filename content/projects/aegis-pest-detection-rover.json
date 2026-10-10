@@ -90,6 +90,41 @@
       "media": "https://res.cloudinary.com/sdsdnsle/video/upload/v1791653919/eneon-web/dlrq1i9vi1u34vkusszd.mp4",
       "caption": "Software Testing",
       "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/video/upload/v1791654014/eneon-web/dufjsqdesac4fuayzhps.mp4",
+      "caption": "More Rover Test",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791654100/eneon-web/tyrrvkwpbdugfm1ldwi6.jpg",
+      "caption": "Testing Telegram Bot",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791654159/eneon-web/rdw6b3rllhvrxi1tkyme.jpg",
+      "caption": "Detection Alerts",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791654203/eneon-web/o6toedridkayqtuefjni.jpg",
+      "caption": "Detection History",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791654247/eneon-web/tongxoi0wwwkp9nit5zt.jpg",
+      "caption": "Manual Control on Web Dashboard",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791654323/eneon-web/qlx4l1toz62imszogwjt.jpg",
+      "caption": "Arm Control",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1791654388/eneon-web/ejtxowjhpj7myxnznoyk.jpg",
+      "caption": "Telegram Bot Debug",
+      "alt": ""
     }
   ],
   "overview": {
