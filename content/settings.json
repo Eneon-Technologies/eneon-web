@@ -7,5 +7,6 @@
   "country": "Nigeria",
   "tagline": "Engineering ideas into reality.",
   "footer_description": "Hardware, PCB, embedded, IoT and software engineering — turning ambitious ideas into dependable technology.",
-  "form_endpoint": ""
+  "form_endpoint": "",
+  "analytics_url": "https://eneon-webadmin.onrender.com"
 }
