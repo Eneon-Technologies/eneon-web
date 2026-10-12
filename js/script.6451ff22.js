@@ -188,12 +188,17 @@
     const seenBefore = storage("localStorage", "eneon-seen");
     storage("localStorage", "eneon-seen", "1");
 
+    // The page's route ("/about/") comes from the page itself, so the same pages report correctly
+    // from any host — including a sub-folder such as GitHub Pages' /eneon-web/ (sent as the base).
+    const route = document.querySelector('meta[name="eneon-analytics"]')?.dataset.path || "";
+    const here = location.pathname.replace(/\/index\.html$/, "/").replace(/([^/])$/, "$1/");
+    const base = route && here.endsWith(route) ? here.slice(0, here.length - route.length) : "";
     const view = newId();
     const query = new URLSearchParams(location.search);
     send({
       t: "v", id: view, s: visit.id, en: firstPage ? 1 : 0,
       n: seenBefore === "1" ? 0 : seenBefore === null ? 1 : -1,
-      p: location.pathname, ti: document.title, r: document.referrer,
+      p: route || location.pathname, b: base, ti: document.title, r: document.referrer,
       u: { source: query.get("utm_source") || "", medium: query.get("utm_medium") || "", campaign: query.get("utm_campaign") || "" },
       w: window.screen?.width || 0, tc: navigator.maxTouchPoints > 0 ? 1 : 0, l: navigator.language || "",
       z: (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (error) { return ""; } })(),
@@ -249,7 +254,7 @@
         else if (url.protocol === "tel:") action("call", area(link));
         else if (url.protocol === "mailto:") action("email", area(link));
         else if (/^https?:$/.test(url.protocol) && url.origin !== location.origin) action("outbound", url.hostname.replace(/^www\./, ""), url.href);
-        else if (url.origin === location.origin && url.pathname.replace(/\/?$/, "/") === "/contact/" && location.pathname !== "/contact/") action("contact_click", label(link));
+        else if (url.origin === location.origin && url.pathname.replace(/\/?$/, "/") === `${base}/contact/` && route !== "/contact/") action("contact_click", label(link));
         return;
       }
       const media = target.closest("[data-lightbox-media]");

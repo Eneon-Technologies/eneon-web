@@ -161,6 +161,15 @@ const optimiseCloudinary = html => html.replace(CLOUDINARY, (_, base, transforms
   /(?:^|[,/])[fq]_/.test(transforms) ? base + transforms : `${base}${transforms}f_auto,q_auto/`);
 // Editor notes in <!-- --> comments stay in the source but are left out of published pages.
 const stripComments = html => html.replace(/[ \t]*<!--[\s\S]*?-->[ \t]*\n?/g, '');
+// Links and files as paths relative to each page ("/about/" → "../about/" from /projects/), so the
+// same pages work at a domain's root (Render, a custom domain) and in a sub-folder (GitHub Pages:
+// …github.io/eneon-web/). The 404 page is served at any address, so it keeps root paths.
+const relativise = (html, file) => {
+  if (file === '404.html') return html;
+  const depth = file.split('/').length - 1;
+  const up = depth ? '../'.repeat(depth) : './';
+  return html.replace(/(\s(?:href|src|action|poster)=")\/(?!\/)/g, `$1${up}`);
+};
 // The source carries a noindex tag (in case src/ is uploaded); published pages must not.
 const stripSourceOnly = html => html.replace(/[ \t]*<meta [^>]*data-source-only[^>]*>\n?/g, '');
 
@@ -178,8 +187,8 @@ for (const route of routes) {
     socialImageAlt: route.seo.image ? route.seo.imageAlt : DEFAULT_SOCIAL_ALT
   });
   if (route.id) html = html.replace(`id="page-${route.page}"`, `id="page-${route.id}"`);
-  html = optimiseCloudinary(stripSourceOnly(html));
   const file = route.file || `${route.directory}/index.html`;
+  html = relativise(optimiseCloudinary(stripSourceOnly(html)), file);
   if (route.directory) await mkdir(route.directory, { recursive: true });
   await writeFile(file, html);
 }

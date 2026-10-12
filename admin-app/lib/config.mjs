@@ -70,8 +70,12 @@ export const config = {
   analytics: {
     timezone: env.ANALYTICS_TIMEZONE || 'Africa/Lagos',
     retentionDays: Math.max(30, Number(env.ANALYTICS_RETENTION_DAYS) || 730),
-    // Sites allowed to send visits, besides SITE_URL (and its www./bare twin).
-    extraOrigins: String(env.ANALYTICS_ORIGINS || '').split(',').map(item => item.trim().replace(/\/+$/, '')).filter(Boolean)
+    // Which websites may send visits is chosen on the Analytics page. Until an owner saves that,
+    // this is the starting point: empty = any website; a comma-separated list (e.g.
+    // eneon.ng, *.github.io) = only those. SITE_URL is always allowed.
+    allowOrigins: String(env.ANALYTICS_ORIGINS || '').split(',').map(item => item.trim().toLowerCase().replace(/\/+$/, '')).filter(Boolean),
+    // Visits from localhost / your own network (testing) are ignored unless this is "true".
+    includeLocal: /^(1|true|yes)$/i.test(env.ANALYTICS_INCLUDE_LOCAL || '')
   },
 
   // The content sections and fields editors see.
