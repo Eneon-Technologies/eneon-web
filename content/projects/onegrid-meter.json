@@ -51,11 +51,6 @@
   "gallery_layout": "portrait",
   "gallery": [
     {
-      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793964956/eneon-web/ug5mmuxcjiwr5ldwbgdy.webp",
-      "caption": "Onegrid Meter Video",
-      "alt": "Showcasing the built product"
-    },
-    {
       "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793965461/eneon-web/dryj5xz2neowe6rdgxb9.jpg",
       "caption": "Setting menu",
       "alt": ""
@@ -68,6 +63,21 @@
     {
       "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793965603/eneon-web/d3qzxcnuosxcaf5kuyfc.jpg",
       "caption": "Home screen Active",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793966033/eneon-web/jldlukeeompafegjnqmq.jpg",
+      "caption": "Client logo",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793966103/eneon-web/dr5j6ieusvvmyxbhuzzp.jpg",
+      "caption": "Eneon Splash",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/video/upload/v1793966418/eneon-web/s2kt70xzwxbukhtw7tls.mp4",
+      "caption": "Onegrid Meter Video",
       "alt": ""
     }
   ],
