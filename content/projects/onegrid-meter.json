@@ -3,7 +3,7 @@
   "title": "Onegrid Meter",
   "published": true,
   "order": 3,
-  "slug": "",
+  "slug": "onegrid meter",
   "client": "Onegrid Energies",
   "categories": [
     "hardware",
@@ -52,8 +52,23 @@
   "gallery": [
     {
       "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793964956/eneon-web/ug5mmuxcjiwr5ldwbgdy.webp",
-      "caption": "Onegrid Meter",
+      "caption": "Onegrid Meter Video",
       "alt": "Showcasing the built product"
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793965461/eneon-web/dryj5xz2neowe6rdgxb9.jpg",
+      "caption": "Setting menu",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793965531/eneon-web/ayrpafxef6yoefjlxn5q.jpg",
+      "caption": "Synchronization",
+      "alt": ""
+    },
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793965603/eneon-web/d3qzxcnuosxcaf5kuyfc.jpg",
+      "caption": "Home screen Active",
+      "alt": ""
     }
   ],
   "overview": {
