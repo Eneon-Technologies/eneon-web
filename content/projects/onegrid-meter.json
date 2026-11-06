@@ -1,0 +1,100 @@
+{
+  "name": "Onegrid Meter",
+  "title": "Onegrid Meter",
+  "published": true,
+  "order": 3,
+  "slug": "",
+  "client": "Onegrid Energies",
+  "categories": [
+    "hardware",
+    "pcb",
+    "embedded",
+    "iot",
+    "software",
+    "ai"
+  ],
+  "summary": "A connected energy meter built for One Grid Energies, with live voltage and current readings, a weekly usage view and Wi-Fi sync.",
+  "lede": "Eneon Technologies built a connected energy meter for One Grid Energies. It shows live voltage and current, keeps a weekly record of usage and syncs its readings over Wi-Fi.",
+  "tags": [
+    "Energy monitoring",
+    "IoT",
+    "Touchscreen",
+    "Wi-Fi",
+    "Embedded systems"
+  ],
+  "details": [
+    {
+      "label": "Built for",
+      "value": "One Grid Energies"
+    },
+    {
+      "label": "Measures",
+      "value": " Voltage · Current · Energy"
+    },
+    {
+      "label": " Display",
+      "value": " Touchscreen interface"
+    },
+    {
+      "label": " Connectivity ",
+      "value": "Wi-Fi · Synchronisation"
+    },
+    {
+      "label": "Our role ",
+      "value": " Hardware · Embedded software · Interface"
+    }
+  ],
+  "thumbnail": {
+    "image": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793965108/eneon-web/sfze47ly0myd3lrzzqgi.jpg",
+    "alt": "An energy meter built by Eneon with a touchscreen showing live voltage and current readings and Weekly and Menu buttons."
+  },
+  "gallery_layout": "portrait",
+  "gallery": [
+    {
+      "media": "https://res.cloudinary.com/sdsdnsle/image/upload/v1793964956/eneon-web/ug5mmuxcjiwr5ldwbgdy.webp",
+      "caption": "Onegrid Meter",
+      "alt": "Showcasing the built product"
+    }
+  ],
+  "overview": {
+    "eyebrow": "The project",
+    "title": "A connected meter that makes usage visible",
+    "paragraphs": [
+      "Knowing how much power your devices use is the first step to managing it. This meter puts those numbers in front of you, on the device itself.",
+      "It displays live voltage and current, shows a weekly view of past usage, and connects over Wi-Fi to keep its readings in sync."
+    ]
+  },
+  "features": [],
+  "process": {
+    "eyebrow": "How it works",
+    "title": "From measurement to your screen",
+    "steps": [
+      {
+        "title": "Measure",
+        "text": " The meter measures voltage, current and energy use."
+      },
+      {
+        "title": "Display",
+        "text": "Live readings appear on the touchscreen, with a weekly view of past use."
+      },
+      {
+        "title": "Connect",
+        "text": "The meter joins Wi-Fi and syncs its readings."
+      },
+      {
+        "title": "Review",
+        "text": "Owners can see how much power their devices use over time."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Work with us",
+    "title": "Have a product that needs engineering?",
+    "text": "Tell us what you want to build or monitor. We’ll help you work out the way forward."
+  },
+  "seo": {
+    "title": "",
+    "description": "",
+    "image": ""
+  }
+}
