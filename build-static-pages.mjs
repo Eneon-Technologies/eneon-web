@@ -36,11 +36,31 @@ const plain = text => String(text || '').replace(/\*/g, '').replace(/\s*\n\s*/g,
 const site = await readJSON('content/settings.json');
 const pages = Object.fromEntries(await Promise.all(['home', 'about', 'services', 'projects', 'products', 'contact', 'privacy'].map(async name => [name, await readJSON(`content/pages/${name}.json`)])));
 const services = await readCollection('content/services');
-const products = (await readCollection('content/products')).map(product => ({
-  ...product,
-  linkUrl: product.link_url || '/contact/',
-  linkText: product.link_text || 'Register interest'
-}));
+const isExternal = url => /^https?:\/\//i.test(String(url || ''));
+const products = (await readCollection('content/products')).map(product => {
+  const linkUrl = product.link_url || '/contact/';
+  // Featured products get a full-width spotlight with a screenshot gallery (see page-products).
+  const galleryItems = (product.gallery || []).filter(item => item && item.media).map(item => {
+    const video = isVideo(item.media);
+    return {
+      type: video ? 'video' : 'image',
+      isVideo: video,
+      full: video ? cloudinary(item.media, 'c_limit,h_1280') : cloudinary(item.media, 'c_limit,h_1600'),
+      thumb: video ? videoFrame(item.media, 'so_1,c_limit,w_1400') : cloudinary(item.media, 'c_limit,w_1400'),
+      caption: item.caption || '',
+      alt: item.alt || item.caption || ''
+    };
+  });
+  return {
+    ...product,
+    slug: slugify(product._file || product.name),
+    linkUrl,
+    linkText: product.link_text || 'Register interest',
+    linkExternal: isExternal(linkUrl),
+    signupExternal: isExternal(product.signup_url),
+    galleryItems
+  };
+});
 
 const projects = (await readCollection('content/projects')).map(project => {
   const slug = slugify(project.slug || project.name || project._file);
@@ -96,8 +116,9 @@ const globals = {
   footerGetStarted: services.filter(service => service.footer?.column === 'get_started'),
   projects,
   projectCategories: Object.entries(CATEGORIES).filter(([key]) => usedCategories.has(key)).map(([key, label]) => ({ key, label })),
-  productsWithImage: products.filter(product => product.image),
-  productsWithoutImage: products.filter(product => !product.image)
+  productsFeatured: products.filter(product => product.featured),
+  productsWithImage: products.filter(product => !product.featured && product.image),
+  productsWithoutImage: products.filter(product => !product.featured && !product.image)
 };
 
 // ---------------------------------------------------------------- routes
@@ -168,7 +189,7 @@ const relativise = (html, file) => {
   if (file === '404.html') return html;
   const depth = file.split('/').length - 1;
   const up = depth ? '../'.repeat(depth) : './';
-  return html.replace(/(\s(?:href|src|action|poster)=")\/(?!\/)/g, `$1${up}`);
+  return html.replace(/(\s(?:href|src|action|poster|data-lightbox-media)=")\/(?!\/)/g, `$1${up}`);
 };
 // The source carries a noindex tag (in case src/ is uploaded); published pages must not.
 const stripSourceOnly = html => html.replace(/[ \t]*<meta [^>]*data-source-only[^>]*>\n?/g, '');

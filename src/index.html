@@ -43,7 +43,7 @@
   {{#if site.analytics_url}}
   <meta name="eneon-analytics" content="{{ site.analytics_url }}" data-path="{{ route.path }}">
   {{/if}}
-  <link rel="stylesheet" href="/css/style.19139812.css">
+  <link rel="stylesheet" href="/css/style.6a5f1954.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -552,6 +552,62 @@
         </div>
       </section>
 
+      {{#if productsFeatured}}
+      <!-- Featured products (Admin → Products → "Featured"): a spotlight with screenshots. -->
+      <section class="section section-tight pt-0" aria-label="Featured products">
+        <div class="container spotlights">
+          {{#each productsFeatured}}
+          <article class="spotlight" id="{{ slug }}" data-product="{{ name }}">
+            <div class="spotlight-main">
+              <div class="spotlight-copy reveal">
+                <p class="spotlight-meta">{{#if status}}<span class="status-pill">{{ status }}</span>{{/if}}{{#if category}}<span>{{ category }}</span>{{/if}}</p>
+                <h2>{{ name }}</h2>
+                {{#if tagline}}
+                <p class="spotlight-tagline">{{ md tagline }}</p>
+                {{/if}}
+                {{#if description}}
+                {{ paras description }}
+                {{else}}
+                <p>{{ summary }}</p>
+                {{/if}}
+                {{#if tags}}
+                <ul class="tag-list">{{#each tags}}<li>{{ . }}</li>{{/each}}</ul>
+                {{/if}}
+                <div class="button-row">
+                  <a class="button" href="{{ linkUrl }}"{{#if linkExternal}} target="_blank" rel="noopener"{{/if}}>{{ linkText }} {{ icon "arrow-up-right" }}</a>
+                  {{#if signup_url}}
+                  <a class="button button-ghost" href="{{ signup_url }}"{{#if signupExternal}} target="_blank" rel="noopener"{{/if}}>{{ signup_text }}</a>
+                  {{/if}}
+                </div>
+              </div>
+              {{#if galleryItems}}
+              <div class="spotlight-gallery reveal" data-delay="120">
+                {{#each galleryItems}}
+                <button class="spotlight-shot{{#if @first}} is-main{{/if}}" type="button" data-lightbox-group="product-{{ slug }}" data-lightbox-type="{{ type }}"
+                        data-lightbox-media="{{ full }}"
+                        data-lightbox-title="{{ caption }}">
+                  <img src="{{ thumb }}" loading="lazy" alt="{{ alt }}">
+                  {{#if isVideo}}
+                  <span class="play-badge">{{ icon "play" }}</span>
+                  {{/if}}
+                </button>
+                {{/each}}
+              </div>
+              {{/if}}
+            </div>
+            {{#if features}}
+            <ul class="spotlight-features">
+              {{#each features}}
+              <li class="reveal"{{ delay 70 3 }}><span class="icon-tile">{{ icon icon }}</span><div><h3>{{ title }}</h3><p>{{ text }}</p></div></li>
+              {{/each}}
+            </ul>
+            {{/if}}
+          </article>
+          {{/each}}
+        </div>
+      </section>
+
+      {{/if}}
       <section class="section section-alt">
         <div class="container">
           <div class="section-heading split reveal">

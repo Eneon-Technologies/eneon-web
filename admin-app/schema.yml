@@ -246,7 +246,7 @@ collections:
   - name: products
     label: Products
     label_singular: Product
-    description: 'Products on /products/. With an image they show as product cards; without, as focus-area cards.'
+    description: 'Products on /products/. Featured products get a full-width spotlight with screenshots; others show as product cards (with an image) or focus-area cards.'
     folder: content/products
     extension: json
     format: json
@@ -270,7 +270,35 @@ collections:
       - { label: Image, name: image, widget: image, required: false }
       - { label: 'Image description (for screen readers)', name: image_alt, widget: string, required: false }
       - { label: 'Button text', name: link_text, widget: string, required: false, hint: 'Defaults to "Register interest".' }
-      - { label: 'Button link', name: link_url, widget: string, required: false, hint: 'Defaults to the contact page.' }
+      - { label: 'Button link', name: link_url, widget: string, required: false, hint: 'Defaults to the contact page. A full https:// address opens in a new tab.' }
+      - { label: 'Featured', name: featured, widget: boolean, default: false, hint: 'Show as a full-width spotlight at the top of the products page, with the details and screenshots below.' }
+      - { label: 'Headline', name: tagline, widget: string, required: false, hint: 'Featured only. Short line under the name; *word* is highlighted.' }
+      - { label: 'Description', name: description, widget: text, required: false, hint: 'Featured only. Leave a blank line between paragraphs. Empty = the summary.' }
+      - { label: 'Works with', name: tags, widget: list, required: false, hint: 'Featured only. Short labels, e.g. Raspberry Pi, Linux.' }
+      - label: 'Key features'
+        name: features
+        widget: list
+        required: false
+        summary: '{{title}}'
+        label_singular: feature
+        hint: 'Featured only. Three or six work best.'
+        fields:
+          - { label: Icon, name: icon, widget: select, options: *icons, default: check }
+          - { label: Title, name: title, widget: string }
+          - { label: Text, name: text, widget: text }
+      - label: 'Screenshots'
+        name: gallery
+        widget: list
+        required: false
+        summary: '{{caption}}'
+        label_singular: screenshot
+        hint: 'Featured only. The first is shown large in a window frame; all open full size when clicked.'
+        fields:
+          - { label: 'Photo or video', name: media, widget: file }
+          - { label: Caption, name: caption, widget: string, required: false }
+          - { label: 'Description (for screen readers)', name: alt, widget: string, required: false }
+      - { label: 'Second button text', name: signup_text, widget: string, required: false, hint: 'Featured only, e.g. "Create a free account".' }
+      - { label: 'Second button link', name: signup_url, widget: string, required: false }
 
   # ── Pages ───────────────────────────────────────────────────────────────────────────────────
   - name: pages

@@ -1,0 +1,76 @@
+{
+  "name": "Eneon Tunnels",
+  "order": 0,
+  "published": true,
+  "status": "Available",
+  "category": "Remote access for IoT & edge devices",
+  "icon": "link",
+  "summary": "Reach your gateways, Raspberry Pis and computers from anywhere: open their web apps, use a terminal in the browser and share access with a link — without port forwarding, a public IP address or a VPN.",
+  "featured": true,
+  "tagline": "Reach every device.\n*From anywhere.*",
+  "description": "Eneon Tunnels is our remote-access platform for devices in the field. A small agent on each device keeps one outgoing, encrypted connection to Eneon Tunnels, so it works behind any router or mobile network and nothing on the device is exposed to the internet.\n\nCreate a free account, add a device and run one command on it. It is online in under a minute and appears in your dashboard — on a laptop or a phone.",
+  "tags": [
+    "LoRaWAN gateways",
+    "Raspberry Pi",
+    "Linux",
+    "Windows",
+    "macOS",
+    "ChirpStack",
+    "Node-RED"
+  ],
+  "features": [
+    {
+      "icon": "monitor",
+      "title": "Web apps from anywhere",
+      "text": "Open ChirpStack, Node-RED, a router page or any app on a device in your browser, as if you were on its network."
+    },
+    {
+      "icon": "code",
+      "title": "SSH in the browser",
+      "text": "A full terminal on your devices from a laptop or a phone, with a key bar for Esc, Tab, Ctrl and the arrows."
+    },
+    {
+      "icon": "cpu",
+      "title": "Serial console",
+      "text": "Talk to an Arduino, ESP32 or modem wired to the device: change the speed, reset the board and save the log."
+    },
+    {
+      "icon": "users",
+      "title": "Share access, not passwords",
+      "text": "Give one web app to anyone with a link, password and expiry, or share a device with your team by email."
+    },
+    {
+      "icon": "server",
+      "title": "Any TCP port",
+      "text": "Use your own SSH client, database tools or MQTT from your computer with one command: eneon connect."
+    },
+    {
+      "icon": "shield",
+      "title": "Secure by design",
+      "text": "Devices only connect out, each account reaches only its own devices, and agents install only signed updates."
+    }
+  ],
+  "gallery": [
+    {
+      "media": "/images/products/eneon-tunnels/dashboard.webp",
+      "caption": "The dashboard: every device, its status and its web apps in one place",
+      "alt": "The Eneon Tunnels dashboard listing three devices: a LoRaWAN gateway online, a Raspberry Pi and a NAS"
+    },
+    {
+      "media": "/images/products/eneon-tunnels/terminal.webp",
+      "caption": "A terminal to a gateway, straight from a phone",
+      "alt": "An SSH terminal session to a gateway on a phone, with a key bar for Esc, Tab, Ctrl and the arrows"
+    },
+    {
+      "media": "/images/products/eneon-tunnels/share.webp",
+      "caption": "Share one web app with a link, an optional password and an expiry",
+      "alt": "The share dialog with two share links, one protected by a password"
+    }
+  ],
+  "image": "/images/products/eneon-tunnels/dashboard.webp",
+  "image_alt": "The Eneon Tunnels dashboard listing three devices",
+  "link_text": "Visit Eneon Tunnels",
+  "link_url": "https://tunnels.eneontechnologies.com",
+  "signup_url": "https://tunnels.eneontechnologies.com/_eneon/#/signup",
+  "signup_text": "Create a free account"
+}

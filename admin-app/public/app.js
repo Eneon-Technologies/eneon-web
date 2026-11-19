@@ -515,7 +515,8 @@
     input.value = obj[key] ?? '';
     const preview = h('div', { class: 'media-preview' });
     const drawPreview = () => {
-      const url = input.value.trim();
+      // Site paths ("/images/…") are files in the website itself: preview them from there.
+      const url = input.value.trim().replace(/^\/(?!\/)/, `${state.me.siteUrl}/`);
       if (!url) return preview.replaceChildren();
       const video = isVideoUrl(url);
       preview.replaceChildren(h('img', { src: cloudinaryThumb(url), alt: '', loading: 'lazy' }), h('span', { class: 'tag', text: video ? 'Video' : 'Photo' }));

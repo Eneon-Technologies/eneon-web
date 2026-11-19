@@ -1,25 +1,25 @@
 {
   "seo": {
     "title": "Products — Eneon Technologies",
-    "description": "Eneon Technologies is building the engineering foundation for future proprietary hardware, software and connected products."
+    "description": "Products by Eneon Technologies, including Eneon Tunnels — remote access for IoT and edge devices — and the areas our engineering is building toward."
   },
   "hero": {
     "eyebrow": "Products",
     "title": "From engineering solutions to *products.*",
-    "lede": "Eneon is building the technical capability and product discipline to create technology that stands on its own."
+    "lede": "Technology we build, run and stand behind — starting with Eneon Tunnels, remote access for IoT and edge devices."
   },
   "direction": {
     "eyebrow": "Product direction",
     "title": "A deliberate path, *not an empty promise.*",
     "paragraphs": [
-      "Our current focus is engineering solutions and prototypes for clients. Each engagement builds the practical knowledge needed for future proprietary hardware, software and connected products.",
-      "When a product is ready, it will be presented here with clear features, specifications, documentation, support information and an honest availability status."
+      "Our engineering work for clients builds the practical knowledge behind our own hardware, software and connected products.",
+      "Eneon Tunnels is the first of them: built for reaching gateways and devices in the field, and now available to everyone. Each product is presented here with its features, screenshots and an honest availability status."
     ]
   },
   "catalogue": {
     "eyebrow": "Focus areas",
     "title": "Where our products are *heading.*",
-    "text": "No commercial Eneon products have been announced yet. These are the areas our engineering work is building toward."
+    "text": "Beyond Eneon Tunnels, these are the areas our engineering work is building toward."
   },
   "cta": {
     "eyebrow": "Stay close",
